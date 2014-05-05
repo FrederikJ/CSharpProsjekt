@@ -1,0 +1,2 @@
+C:\Users\Frederik\Documents\Visual Studio 2013\Projects\E Test 14.03.2014\tempNavn\tempNavn\bin\Debug\tempNavn.exe.config
+C:\Users\Frederik\Documents\GitHub\CSharpProsjekt\tempNavn\tempNavn\bin\Debug\tempNavn.exe.config
