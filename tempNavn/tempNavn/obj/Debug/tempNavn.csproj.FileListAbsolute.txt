@@ -1,2 +1,10 @@
 C:\Users\Frederik\Documents\Visual Studio 2013\Projects\E Test 14.03.2014\tempNavn\tempNavn\bin\Debug\tempNavn.exe.config
 C:\Users\Frederik\Documents\GitHub\CSharpProsjekt\tempNavn\tempNavn\bin\Debug\tempNavn.exe.config
+C:\Users\Frederik\Documents\GitHub\CSharpProsjekt\tempNavn\tempNavn\bin\Debug\tempNavn.exe
+C:\Users\Frederik\Documents\GitHub\CSharpProsjekt\tempNavn\tempNavn\bin\Debug\tempNavn.pdb
+C:\Users\Frederik\Documents\GitHub\CSharpProsjekt\tempNavn\tempNavn\obj\Debug\tempNavn.csprojResolveAssemblyReference.cache
+C:\Users\Frederik\Documents\GitHub\CSharpProsjekt\tempNavn\tempNavn\obj\Debug\tempNavn.Login.resources
+C:\Users\Frederik\Documents\GitHub\CSharpProsjekt\tempNavn\tempNavn\obj\Debug\tempNavn.Properties.Resources.resources
+C:\Users\Frederik\Documents\GitHub\CSharpProsjekt\tempNavn\tempNavn\obj\Debug\tempNavn.csproj.GenerateResource.Cache
+C:\Users\Frederik\Documents\GitHub\CSharpProsjekt\tempNavn\tempNavn\obj\Debug\tempNavn.exe
+C:\Users\Frederik\Documents\GitHub\CSharpProsjekt\tempNavn\tempNavn\obj\Debug\tempNavn.pdb
