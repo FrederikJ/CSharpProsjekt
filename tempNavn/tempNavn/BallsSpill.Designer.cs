@@ -1,4 +1,4 @@
-﻿namespace tempNavn
+namespace tempNavn
 {
     partial class BallSpill
     {

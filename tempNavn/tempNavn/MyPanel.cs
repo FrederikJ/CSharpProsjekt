@@ -7,7 +7,6 @@ using System.Text;
 using System.Windows.Forms;
 using System.Threading;
 using System.Diagnostics;
-using tempNavn;
 using tempNavn.SpillKlasser;
 
 /*

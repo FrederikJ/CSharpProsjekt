@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -66,6 +66,6 @@ namespace tempNavn
             thread.IsBackground = true;
             thread.Start();
         }
-        //kjører metoden stopBalls i MyPanel
+        //kj�rer metoden stopBalls i MyPanel
     }
 }
