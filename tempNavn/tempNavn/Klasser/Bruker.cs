@@ -13,13 +13,13 @@ namespace tempNavn.Klasser
         public static int TopScore { get; set; }
         public static string Epost { get; set; }
 
-        public static void Bruker(int brukerID, string navn,string epost)
+        public static void AddBruker(int brukerID, string navn,string epost)
         {
             BrukerID = brukerID;
             Navn = navn;
             Epost = epost;
         }
-        public static void Bruker(int topScore)
+        public static void AddTopscore(int topScore)
         {
             TopScore = topScore;
         }

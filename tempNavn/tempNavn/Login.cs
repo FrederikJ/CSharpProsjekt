@@ -41,7 +41,7 @@ namespace tempNavn
                     string brukerNavn = Convert.ToString(dt.Rows[0]["Navn"]);
                     string epost = Convert.ToString(dt.Rows[0]["Epost"]);
 
-                    Bruker.Bruker(brukerID, brukerNavn, epost);
+                    Bruker.AddBruker(brukerID, brukerNavn, epost);
                 }
             }
             else

@@ -7,7 +7,7 @@ using System.Data;
 
 namespace tempNavn.Klasser
 {
-    static class DbConnect
+    class DbConnect
     {
         private static MySqlConnection connection;
         private static MySqlDataAdapter adapter;
@@ -17,7 +17,7 @@ namespace tempNavn.Klasser
         private static string uid;
         private static string password;
 
-        public static DbConnect()
+        public DbConnect()
         {
             Initialize();
         }

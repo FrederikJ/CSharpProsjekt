@@ -8,3 +8,16 @@ C:\Users\Frederik\Documents\GitHub\CSharpProsjekt\tempNavn\tempNavn\obj\Debug\te
 C:\Users\Frederik\Documents\GitHub\CSharpProsjekt\tempNavn\tempNavn\obj\Debug\tempNavn.csproj.GenerateResource.Cache
 C:\Users\Frederik\Documents\GitHub\CSharpProsjekt\tempNavn\tempNavn\obj\Debug\tempNavn.exe
 C:\Users\Frederik\Documents\GitHub\CSharpProsjekt\tempNavn\tempNavn\obj\Debug\tempNavn.pdb
+C:\Users\Tommy\Source\Repos\CSharpProsjekt\tempNavn\tempNavn\bin\Debug\tempNavn.exe.config
+C:\Users\Tommy\Source\Repos\CSharpProsjekt\tempNavn\tempNavn\obj\Debug\tempNavn.exe
+C:\Users\Tommy\Source\Repos\CSharpProsjekt\tempNavn\tempNavn\obj\Debug\tempNavn.pdb
+C:\Users\Tommy\Source\Repos\CSharpProsjekt\tempNavn\tempNavn\obj\Debug\tempNavn.Login.resources
+C:\Users\Tommy\Source\Repos\CSharpProsjekt\tempNavn\tempNavn\obj\Debug\tempNavn.MistetPassord.resources
+C:\Users\Tommy\Source\Repos\CSharpProsjekt\tempNavn\tempNavn\obj\Debug\tempNavn.OpprettKonto.resources
+C:\Users\Tommy\Source\Repos\CSharpProsjekt\tempNavn\tempNavn\obj\Debug\tempNavn.Properties.Resources.resources
+C:\Users\Tommy\Source\Repos\CSharpProsjekt\tempNavn\tempNavn\obj\Debug\tempNavn.csproj.GenerateResource.Cache
+C:\Users\Tommy\Source\Repos\CSharpProsjekt\tempNavn\tempNavn\obj\Debug\tempNavn.BallSpill.resources
+C:\Users\Tommy\Source\Repos\CSharpProsjekt\tempNavn\tempNavn\obj\Debug\tempNavn.MyPanel.resources
+C:\Users\Tommy\Source\Repos\CSharpProsjekt\tempNavn\tempNavn\bin\Debug\tempNavn.exe
+C:\Users\Tommy\Source\Repos\CSharpProsjekt\tempNavn\tempNavn\bin\Debug\tempNavn.pdb
+C:\Users\Tommy\Source\Repos\CSharpProsjekt\tempNavn\tempNavn\bin\Debug\MySql.Data.dll
