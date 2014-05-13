@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,9 +8,10 @@ using System.Windows.Forms;
 using System.Threading;
 using System.Diagnostics;
 using tempNavn;
+using tempNavn.SpillKlasser;
 
 /*
- * HiN - Vårsemester 2014
+ * HiN - VÃ¥rsemester 2014
  * Programmering 3
  * Obligatorisk Innlevering 4
  * 
@@ -27,28 +28,28 @@ namespace tempNavn
 
         public MyPanel()
         {
-            //sørger for at grafikken går smooth
+            //sÃ¸rger for at grafikken gÃ¥r smooth
             this.SetStyle(ControlStyles.DoubleBuffer |
               ControlStyles.UserPaint |
               ControlStyles.AllPaintingInWmPaint,
               true);
             this.UpdateStyles();
 
-            
+
         }
 
         public void StopBalls()
-        {    
+        {
             Spiller.going = false;
         }
 
         void timer_Tick(object sender, EventArgs e)
         {
 
-           var left = KeyboardInfo.GetKeyState(Keys.Left);
-           var right = KeyboardInfo.GetKeyState(Keys.Right);
-           var up = KeyboardInfo.GetKeyState(Keys.Up);
-           var down = KeyboardInfo.GetKeyState(Keys.Down);
+            var left = KeyboardInfo.GetKeyState(Keys.Left);
+            var right = KeyboardInfo.GetKeyState(Keys.Right);
+            var up = KeyboardInfo.GetKeyState(Keys.Up);
+            var down = KeyboardInfo.GetKeyState(Keys.Down);
 
             if (left.IsPressed)
             {
@@ -92,12 +93,14 @@ namespace tempNavn
             if (timer.Enabled == true)
             {
                 timer.Enabled = false;
+                Spiller.going = false;
                 return false;
             }
 
             else
             {
                 timer.Enabled = true;
+                Spiller.going = true;
                 return true;
             }
 

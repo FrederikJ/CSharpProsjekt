@@ -8,7 +8,7 @@ using System.Text;
 using MySql;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using tempNavn.Klasser;
+using tempNavn.LoginKlasser;
 
 namespace tempNavn
 {

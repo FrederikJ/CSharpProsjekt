@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using tempNavn.Klasser;
+using tempNavn.LoginKlasser;
 
 namespace tempNavn
 {
@@ -40,10 +40,12 @@ namespace tempNavn
                     passord = Convert.ToString(dt.Rows[0]["Passord"]);
                     navn = Convert.ToString(dt.Rows[0]["Navn"]);
 
-                    string beskjed = string.Format("Hei {0}, ditt passord er {1}. Håpe du like spille, å ha en hyggelig dag videre", navn, passord);
+                    tbPassord.Text = passord;
+
+                    /*string beskjed = string.Format("Hei {0}, ditt passord er {1}. Håpe du like spille, å ha en hyggelig dag videre", navn, passord);
                     string emne = "Mistet passord";
 
-                    SendEmail.sendEpost(email, beskjed, emne);
+                    SendEmail.sendEpost(email, beskjed, emne);*/
                 }
             }
             else

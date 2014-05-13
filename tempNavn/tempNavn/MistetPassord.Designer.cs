@@ -33,6 +33,8 @@
             this.tbEmail = new System.Windows.Forms.TextBox();
             this.btnEmail = new System.Windows.Forms.Button();
             this.lblFeil = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.tbPassord = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -63,7 +65,7 @@
             // 
             // btnEmail
             // 
-            this.btnEmail.Location = new System.Drawing.Point(18, 128);
+            this.btnEmail.Location = new System.Drawing.Point(18, 114);
             this.btnEmail.Name = "btnEmail";
             this.btnEmail.Size = new System.Drawing.Size(207, 39);
             this.btnEmail.TabIndex = 3;
@@ -75,18 +77,36 @@
             // 
             this.lblFeil.AutoSize = true;
             this.lblFeil.ForeColor = System.Drawing.Color.Crimson;
-            this.lblFeil.Location = new System.Drawing.Point(18, 174);
+            this.lblFeil.Location = new System.Drawing.Point(15, 202);
             this.lblFeil.Name = "lblFeil";
             this.lblFeil.Size = new System.Drawing.Size(136, 17);
             this.lblFeil.TabIndex = 4;
             this.lblFeil.Text = "E-posten finnes ikke";
             this.lblFeil.Visible = false;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(15, 156);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(116, 17);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "Passordet ditt er:";
+            // 
+            // tbPassord
+            // 
+            this.tbPassord.Location = new System.Drawing.Point(18, 177);
+            this.tbPassord.Name = "tbPassord";
+            this.tbPassord.Size = new System.Drawing.Size(207, 22);
+            this.tbPassord.TabIndex = 6;
+            // 
             // MistetPassord
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(237, 204);
+            this.ClientSize = new System.Drawing.Size(237, 226);
+            this.Controls.Add(this.tbPassord);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.lblFeil);
             this.Controls.Add(this.btnEmail);
             this.Controls.Add(this.tbEmail);
@@ -106,5 +126,7 @@
         private System.Windows.Forms.TextBox tbEmail;
         private System.Windows.Forms.Button btnEmail;
         private System.Windows.Forms.Label lblFeil;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox tbPassord;
     }
 }

@@ -48,17 +48,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Spiller.cs" />
-    <Compile Include="BallSpill.cs">
+    <Compile Include="BallsSpill.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BallSpill.Designer.cs" />
-    <Compile Include="KeyboardInfo.cs" />
-    <Compile Include="Klasser\Bruker.cs" />
-    <Compile Include="Klasser\DbConnect.cs" />
-    <Compile Include="Klasser\LageTilfeldigString.cs" />
-    <Compile Include="Klasser\SendEmail.cs" />
-    <Compile Include="Klasser\Spørringer.cs" />
+    <Compile Include="BallsSpill.Designer.cs">
+      <DependentUpon>BallsSpill.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MyPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MyPanel.Designer.cs">
+      <DependentUpon>MyPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SpillKlasser\Spiller.cs" />
+    <Compile Include="SpillKlasser\KeyboardInfo.cs" />
+    <Compile Include="LoginKlasser\Bruker.cs" />
+    <Compile Include="LoginKlasser\DbConnect.cs" />
+    <Compile Include="LoginKlasser\LageTilfeldigString.cs" />
+    <Compile Include="LoginKlasser\SendEmail.cs" />
+    <Compile Include="LoginKlasser\Spørringer.cs" />
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -71,10 +79,6 @@
     <Compile Include="MistetPassord.Designer.cs">
       <DependentUpon>MistetPassord.cs</DependentUpon>
     </Compile>
-    <Compile Include="MyPanel.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="MyPanel.Designer.cs" />
     <Compile Include="OpprettKonto.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -83,14 +87,15 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="BallSpill.resx" />
+    <EmbeddedResource Include="BallsSpill.resx">
+      <DependentUpon>BallsSpill.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MistetPassord.resx">
       <DependentUpon>MistetPassord.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MyPanel.resx" />
     <EmbeddedResource Include="OpprettKonto.resx">
       <DependentUpon>OpprettKonto.cs</DependentUpon>
     </EmbeddedResource>

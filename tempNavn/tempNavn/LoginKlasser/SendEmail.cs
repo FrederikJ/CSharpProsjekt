@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace tempNavn.Klasser
+namespace tempNavn.LoginKlasser
 {
     static class SendEmail
     {

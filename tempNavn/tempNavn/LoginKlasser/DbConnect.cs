@@ -5,7 +5,7 @@ using System.Web;
 using MySql.Data.MySqlClient;
 using System.Data;
 
-namespace tempNavn.Klasser
+namespace tempNavn.LoginKlasser
 {
     class DbConnect
     {

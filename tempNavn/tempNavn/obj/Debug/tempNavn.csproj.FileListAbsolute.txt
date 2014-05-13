@@ -22,3 +22,7 @@ C:\Users\Tommy\Source\Repos\CSharpProsjekt\tempNavn\tempNavn\bin\Debug\tempNavn.
 C:\Users\Tommy\Source\Repos\CSharpProsjekt\tempNavn\tempNavn\bin\Debug\tempNavn.pdb
 C:\Users\Tommy\Source\Repos\CSharpProsjekt\tempNavn\tempNavn\bin\Debug\MySql.Data.dll
 C:\Users\Tommy\Source\Repos\CSharpProsjekt\tempNavn\tempNavn\obj\Debug\tempNavn.csprojResolveAssemblyReference.cache
+C:\Users\Frederik\Documents\GitHub\CSharpProsjekt\tempNavn\tempNavn\obj\Debug\tempNavn.MistetPassord.resources
+C:\Users\Frederik\Documents\GitHub\CSharpProsjekt\tempNavn\tempNavn\obj\Debug\tempNavn.OpprettKonto.resources
+C:\Users\Frederik\Documents\GitHub\CSharpProsjekt\tempNavn\tempNavn\bin\Debug\MySql.Data.dll
+C:\Users\Frederik\Documents\GitHub\CSharpProsjekt\tempNavn\tempNavn\obj\Debug\tempNavn.BallSpill.resources
