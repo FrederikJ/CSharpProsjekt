@@ -92,12 +92,14 @@ namespace tempNavn
             if (timer.Enabled == true)
             {
                 timer.Enabled = false;
+                Spiller.going = false;
                 return false;
             }
 
             else
             {
                 timer.Enabled = true;
+                Spiller.going = true;
                 return true;
             }
 

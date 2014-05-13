@@ -56,12 +56,22 @@ namespace tempNavn
         {
             while (going)
             {
-                move();
+                Tyngdekraft();
                 Thread.Sleep(10);
             }
         }
+        public void Pause()
+        {
+            if (going == true)
+                going = false;
+            else
+            {
+                going = true;
+            }
+                
+        }
 
-        public void move()
+        public void Tyngdekraft()
         {
             y += dy;
             Size panelSize = parentPanel.ClientRectangle.Size;

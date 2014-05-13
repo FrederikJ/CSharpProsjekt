@@ -47,6 +47,13 @@ namespace tempNavn
                 panelDraw.Invalidate();
             }
         }
+        private void buttonPause_Click(object sender, EventArgs e)
+        {
+            if (panelDraw.pauseSpiller() == true)
+                btn_pause.Text = "Pause";
+            else
+                btn_pause.Text = "Fortsett";
+        }
         private void startBall()
         {
             ThreadStart ts = new ThreadStart(Run);

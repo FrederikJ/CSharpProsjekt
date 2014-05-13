@@ -114,6 +114,7 @@ namespace tempNavn
             this.btn_pause.TabIndex = 4;
             this.btn_pause.Text = "Pause";
             this.btn_pause.UseVisualStyleBackColor = true;
+            this.btn_pause.Click += new System.EventHandler(this.buttonPause_Click);
             // 
             // panelDraw
             // 
