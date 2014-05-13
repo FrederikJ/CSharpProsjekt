@@ -18,6 +18,8 @@ namespace tempNavn
         private string navn;
         private DataTable dt;
 
+        DbConnect db = new DbConnect();
+
         public Login()
         {
             InitializeComponent();
@@ -29,8 +31,8 @@ namespace tempNavn
             passord = tbPassord.Text;
             navn = tbNavn.Text;
 
-            string query = String.Format("SELECT * FROM User WHERE username = '{0}'", navn);
-            dt = DbConnect.GetAll(query);
+            string query = String.Format("SELECT * FROM Konto WHERE Navn = '{0}'", navn);
+            dt = db.GetAll(query);
 
             if (dt != null && dt.Rows.Count > 0)
             {
@@ -42,6 +44,11 @@ namespace tempNavn
                     string epost = Convert.ToString(dt.Rows[0]["Epost"]);
 
                     Bruker.AddBruker(brukerID, brukerNavn, epost);
+
+                    BallSpill ballspill = new BallSpill();
+
+                    ballspill.Show();
+                    this.Hide();
                 }
             }
             else

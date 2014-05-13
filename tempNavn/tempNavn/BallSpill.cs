@@ -16,7 +16,7 @@ using System.Threading;
  * Tommy Langhelle
  */
 
-namespace BasicBouncingBall
+namespace tempNavn
 {
     public partial class BallSpill : Form
     {

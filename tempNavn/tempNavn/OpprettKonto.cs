@@ -18,6 +18,8 @@ namespace tempNavn
         private string bekreftPassord;
         private string epost;
         private string bekreftelsesKode;
+
+        DbConnect db = new DbConnect();
         
         public OpprettKonto()
         {
@@ -34,13 +36,14 @@ namespace tempNavn
 
             if (passord == bekreftPassord)
             {
-                string query = string.Format("Insert into Konto(Navn, Passord, Epost, BekreftelsesKode) values({0}, {1}, {2}, {3}", navn, passord, epost, bekreftelsesKode);
-                DbConnect.InsertAll(query);
+                string query = string.Format("Insert into Konto(Navn, Passord, Epost) values('{0}', '{1}', '{2}')", navn, passord, epost);
+                db.InsertAll(query);
 
-                string beskjed = "Grattis, du har nu blitt registrert her hos oss SimpleGame.com";
+                /*string beskjed = "Grattis, du har nu blitt registrert her hos oss SimpleGame.com";
                 string emne = "Registrert";
 
-                SendEmail.sendEpost(epost, beskjed, emne);
+                SendEmail.sendEpost(epost, beskjed, emne);*/
+                this.Hide();
             }
             else
                 lblFeil.Visible = true;

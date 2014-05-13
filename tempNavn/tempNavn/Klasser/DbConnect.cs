@@ -9,23 +9,23 @@ namespace tempNavn.Klasser
 {
     class DbConnect
     {
-        private static MySqlConnection connection;
-        private static MySqlDataAdapter adapter;
-        private static DataTable dataTable;
-        private static string server;
-        private static string database;
-        private static string uid;
-        private static string password;
+        private MySqlConnection connection;
+        private MySqlDataAdapter adapter;
+        private DataTable dataTable;
+        private string server;
+        private string database;
+        private string uid;
+        private string password;
 
         public DbConnect()
         {
-            Initialize();
+            this.Initialize();
         }
 
-        private static void Initialize()
+        private void Initialize()
         {
             server = "kark.hin.no";
-            database = "gruppe51";
+            database = "gruppe5";
             uid = "gruppe5";
             password = "storasveien";
             string connectionString;
@@ -35,19 +35,19 @@ namespace tempNavn.Klasser
             connection = new MySqlConnection(connectionString);
         }
 
-        private static bool OpenConnection()
+        private bool OpenConnection()
         {
             connection.Open();
             return true;
         }
 
-        private static bool CloseConnection()
+        private bool CloseConnection()
         {
             connection.Close();
             return true;
         }
 
-        public static DataTable GetAll(string query)
+        public DataTable GetAll(string query)
         {
             if (OpenConnection() == true)
             {
@@ -58,7 +58,7 @@ namespace tempNavn.Klasser
             }
             return dataTable;
         }
-        public static void InsertAll(string query)
+        public void InsertAll(string query)
         {
             if(OpenConnection() == true)
             {

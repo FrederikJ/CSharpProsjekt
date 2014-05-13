@@ -1,4 +1,4 @@
-namespace BasicBouncingBall
+namespace tempNavn
 {
     partial class BallSpill
     {
@@ -35,7 +35,7 @@ namespace BasicBouncingBall
             this.label_poeng = new System.Windows.Forms.Label();
             this.label_level = new System.Windows.Forms.Label();
             this.btn_pause = new System.Windows.Forms.Button();
-            this.panelDraw = new BasicBouncingBall.MyPanel();
+            this.panelDraw = new tempNavn.MyPanel();
             this.tableLayoutPanel1.SuspendLayout();
             this.panelButton.SuspendLayout();
             this.SuspendLayout();

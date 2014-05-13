@@ -18,6 +18,8 @@ namespace tempNavn
         private string passord;
         private DataTable dt;
 
+        DbConnect db = new DbConnect();
+
         public MistetPassord()
         {
             InitializeComponent();
@@ -29,7 +31,7 @@ namespace tempNavn
             email = tbEmail.Text;
 
             string query = string.Format("Select * from Konto where Epost = '{0}'", email);
-            dt = DbConnect.GetAll(query);
+            dt = db.GetAll(query);
 
             if (dt != null && dt.Rows.Count > 0)
             {

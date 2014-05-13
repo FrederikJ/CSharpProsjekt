@@ -13,7 +13,7 @@ using System.Threading;
  * Tommy Langhelle
  */
 
-namespace BasicBouncingBall
+namespace tempNavn
 {
     class Ball
     {

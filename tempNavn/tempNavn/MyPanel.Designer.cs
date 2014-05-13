@@ -1,4 +1,4 @@
-namespace BasicBouncingBall
+namespace tempNavn
 {
     partial class MyPanel
     {

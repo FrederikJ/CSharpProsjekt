@@ -7,7 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Threading;
 using System.Diagnostics;
-using projectcsharp;
+using tempNavn;
 
 /*
  * HiN - Vårsemester 2014
@@ -18,7 +18,7 @@ using projectcsharp;
  * Tommy Langhelle
  */
 
-namespace BasicBouncingBall
+namespace tempNavn
 {
     public partial class MyPanel : Panel
     {
