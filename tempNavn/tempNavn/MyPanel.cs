@@ -22,7 +22,7 @@ namespace tempNavn
 {
     public partial class MyPanel : Panel
     {
-        private Ball ball;
+        private Spiller Spiller;
         private System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
 
         public MyPanel()
@@ -34,14 +34,12 @@ namespace tempNavn
               true);
             this.UpdateStyles();
 
-            timer.Interval = 20;
-            timer.Tick += new EventHandler(timer_Tick);
-            timer.Start();
+            
         }
 
         public void StopBalls()
         {    
-            ball.going = false;
+            Spiller.going = false;
         }
 
         void timer_Tick(object sender, EventArgs e)
@@ -54,40 +52,63 @@ namespace tempNavn
 
             if (left.IsPressed)
             {
-                ball.MoveLeft();
+                Spiller.MoveLeft();
                 this.Invalidate();
             }
 
             if (right.IsPressed)
             {
-                ball.MoveRight();
+                Spiller.MoveRight();
                 this.Invalidate();
             }
 
             if (up.IsPressed)
             {
-                ball.MoveUp();
+                Spiller.MoveUp();
                 this.Invalidate();
             }
 
             if (down.IsPressed)
             {
-                ball.MoveDown();
+                Spiller.MoveDown();
                 this.Invalidate();
             }
         }
 
-        public void AddBall()
+        public void AddSpiller()
         {
-            ball = new Ball(this);
+            timer.Interval = 20;
+            timer.Tick += new EventHandler(timer_Tick);
+            timer.Start();
+            Spiller = new Spiller(this);
+        }
+        public void StopSpiller()
+        {
+            Spiller.going = false;
+            timer.Stop();
+        }
+        public Boolean pauseSpiller()
+        {
+            if (timer.Enabled == true)
+            {
+                timer.Enabled = false;
+                return false;
+            }
+
+            else
+            {
+                timer.Enabled = true;
+                return true;
+            }
+
         }
 
         protected override void OnPaint(PaintEventArgs e)
         {
             e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-            
-            if(this.ball != null)
-                ball.draw(e.Graphics);
+
+            if (this.Spiller != null)
+                Spiller.draw(e.Graphics);
         }
     }
 }

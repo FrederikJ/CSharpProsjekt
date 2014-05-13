@@ -15,7 +15,7 @@ using System.Threading;
 
 namespace tempNavn
 {
-    class Ball
+    class Spiller
     {
         //Størrelse:
         private float diameter = 20.0f;       
@@ -35,13 +35,16 @@ namespace tempNavn
 
         private MyPanel parentPanel;
 
-        public Ball(MyPanel _parentPanel)
+        private ThreadStart ts;
+        private Thread thread;
+
+        public Spiller(MyPanel _parentPanel)
         {
             parentPanel = _parentPanel;
 
             //ligger metoden "run" inn i en thread.
-            ThreadStart ts = new ThreadStart(Run);
-            Thread thread = new Thread(ts);
+            ts = new ThreadStart(Run);
+            thread = new Thread(ts);
 
             going = true;
             thread.IsBackground = true;

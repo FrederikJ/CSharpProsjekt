@@ -25,7 +25,6 @@ namespace tempNavn
         public BallSpill()
         {
             InitializeComponent();
-            panelDraw.AddBall();
         }
 
         public void Run()
@@ -44,7 +43,7 @@ namespace tempNavn
             { 
                 startBall();  
                 keepGoing = true;
-                panelDraw.AddBall();
+                panelDraw.AddSpiller();
                 panelDraw.Invalidate();
             }
         }
