@@ -7,7 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Threading;
 using System.Diagnostics;
-using tempNavn.SpillKlasser;
+using CSharpProsjekt.SpillKlasser;
 
 /*
  * HiN - Vårsemester 2014
@@ -18,7 +18,7 @@ using tempNavn.SpillKlasser;
  * Tommy Langhelle
  */
 
-namespace tempNavn
+namespace CSharpProsjekt
 {
     public partial class MyPanel : Panel
     {

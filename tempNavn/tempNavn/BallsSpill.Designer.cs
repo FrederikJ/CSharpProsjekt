@@ -1,4 +1,4 @@
-namespace tempNavn
+namespace CSharpProsjekt
 {
     partial class BallSpill
     {
@@ -29,7 +29,7 @@ namespace tempNavn
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.panelDraw = new tempNavn.MyPanel();
+            this.panelDraw = new CSharpProsjekt.MyPanel();
             this.panelButton = new System.Windows.Forms.Panel();
             this.btn_pause = new System.Windows.Forms.Button();
             this.label_level = new System.Windows.Forms.Label();

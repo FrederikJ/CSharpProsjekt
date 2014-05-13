@@ -4,7 +4,7 @@ using System.Text;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace tempNavn.SpillKlasser
+namespace CSharpProsjekt.SpillKlasser
 {
     /// <summary>
     /// Klasse for når du trykker på piltatastene

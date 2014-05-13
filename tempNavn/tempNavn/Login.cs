@@ -8,9 +8,9 @@ using System.Text;
 using MySql;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using tempNavn.LoginKlasser;
+using CSharpProsjekt.LoginKlasser;
 
-namespace tempNavn
+namespace CSharpProsjekt
 {
     public partial class Login : Form
     {

@@ -13,7 +13,7 @@ using System.Threading;
  * Tommy Langhelle
  */
 
-namespace tempNavn.SpillKlasser
+namespace CSharpProsjekt.SpillKlasser
 {
     class Spiller
     {

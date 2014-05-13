@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace tempNavn
+namespace CSharpProsjekt
 {
     static class Program
     {

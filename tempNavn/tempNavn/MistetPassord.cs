@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using tempNavn.LoginKlasser;
+using CSharpProsjekt.LoginKlasser;
 
-namespace tempNavn
+namespace CSharpProsjekt
 {
     public partial class MistetPassord : Form
     {

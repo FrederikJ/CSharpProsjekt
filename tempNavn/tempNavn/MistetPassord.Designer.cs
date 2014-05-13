@@ -1,4 +1,4 @@
-﻿namespace tempNavn
+﻿namespace CSharpProsjekt
 {
     partial class MistetPassord
     {
