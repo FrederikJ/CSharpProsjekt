@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Threading;
+using System.Drawing.Drawing2D;
 
 /*
  * HiN - Vårsemester 2014
@@ -30,6 +31,7 @@ namespace CSharpProsjekt.SpillKlasser
         private float AdyUP = 2.0f;
 
         public bool going { get; set; }
+
         private Brush Brush = new SolidBrush(Color.Red);
         Random rnd = new Random();
 
@@ -71,6 +73,18 @@ namespace CSharpProsjekt.SpillKlasser
             }
 
         }
+        public GraphicsPath PlayerPath()
+        {
+           GraphicsPath playerPath = new GraphicsPath();
+            
+           playerPath.StartFigure();
+           playerPath.AddEllipse(x, y, diameter, diameter);
+           playerPath.CloseFigure();
+
+           return playerPath;
+
+        }
+
         #region Tyngdekraft
         public void Tyngdekraft()
         {
@@ -89,7 +103,6 @@ namespace CSharpProsjekt.SpillKlasser
             if (y + diameter >= panelSize.Height)
             {
                 y = panelSize.Height - diameter;
-                //game over
             }
         }
         #endregion

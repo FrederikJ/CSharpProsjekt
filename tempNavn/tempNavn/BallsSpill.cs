@@ -34,6 +34,7 @@ namespace CSharpProsjekt
             {
                 panelDraw.Invalidate();
                 Thread.Sleep(10);
+                
             }
         }
 
