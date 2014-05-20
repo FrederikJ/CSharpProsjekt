@@ -66,6 +66,7 @@
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
     <Compile Include="SpillKlasser\Obstacle.cs" />
+    <Compile Include="SpillKlasser\Smiley.cs" />
     <Compile Include="SpillKlasser\Spiller.cs" />
     <Compile Include="SpillKlasser\KeyboardInfo.cs" />
     <Compile Include="LoginKlasser\Bruker.cs" />

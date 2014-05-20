@@ -26,12 +26,14 @@ namespace CSharpProsjekt.SpillKlasser
         //Gravitasjon ( y-retning):
         private float dy = 0.7f;
         //retningsendring(piltaster)
-        private float Adx = 1.5f;
-        private float Ady = 1.5f;
-        private float AdyUP = 4.0f;
+        private float Adx = 1.0f;
+        private float Ady = 1.0f;
+        private float AdyUP = 2.5f;
         //private Boolean stopGravity = false;
 
         public bool going { get; set; }
+
+        private Object mySync = new Object();
 
         private Brush Brush = new SolidBrush(Color.Red);
         Random rnd = new Random();
@@ -85,19 +87,6 @@ namespace CSharpProsjekt.SpillKlasser
            return playerPath;
         }
 
-        public void StopGravity()
-        {
-            //stopGravity = true;
-            dy = 0;
-            //return stopGravity;
-        }
-        public void StartGravity()
-        {
-            //stopGravity = false;
-            dy = 0.7f;
-            //return stopGravity;
-        }
-
         public void collosionPlatform()
         {
             float newX = x;
@@ -109,27 +98,31 @@ namespace CSharpProsjekt.SpillKlasser
         #region Tyngdekraft
         public void Tyngdekraft()
         {
-            while (y == 0.0f && x == 0.0f)
+            lock (mySync)
             {
-                y = 0.0f;
-                x = 0.0f;
-            }
 
-            y += dy;
-            Size panelSize = parentPanel.ClientRectangle.Size;
+                while (y == 0.0f && x == 0.0f)
+                {
+                    y = 0.0f;
+                    x = 0.0f;
+                }
 
-            if (x < 0)
-                x = 0;
+                y += dy;
+                Size panelSize = parentPanel.ClientRectangle.Size;
 
-            if (x + diameter >= panelSize.Width)
-                x = panelSize.Width - diameter;
+                if (x < 0)
+                    x = 0;
 
-            if (y < 0)
-                y = 0;
+                if (x + diameter >= panelSize.Width)
+                    x = panelSize.Width - diameter;
 
-            if (y + diameter >= panelSize.Height)
-            {
-                y = panelSize.Height - diameter;
+                if (y < 0)
+                    y = 0;
+
+                if (y + diameter >= panelSize.Height)
+                {
+                    y = panelSize.Height - diameter;
+                }
             }
             
         }

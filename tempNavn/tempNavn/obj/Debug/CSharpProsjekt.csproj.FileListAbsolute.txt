@@ -23,3 +23,4 @@ C:\Users\Tommy\Source\Repos\CSharpProsjekt\tempNavn\tempNavn\obj\Debug\CSharpPro
 C:\Users\Tommy\Source\Repos\CSharpProsjekt\tempNavn\tempNavn\obj\Debug\CSharpProsjekt.OpprettKonto.resources
 C:\Users\Tommy\Source\Repos\CSharpProsjekt\tempNavn\tempNavn\obj\Debug\tempNavn.Properties.Resources.resources
 C:\Users\Tommy\Source\Repos\CSharpProsjekt\tempNavn\tempNavn\obj\Debug\CSharpProsjekt.csproj.GenerateResource.Cache
+C:\Users\Tommy\Source\Repos\CSharpProsjekt\tempNavn\tempNavn\obj\Debug\tempNavn.Resource.resources

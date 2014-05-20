@@ -122,7 +122,7 @@ namespace CSharpProsjekt
             this.panelDraw.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelDraw.Location = new System.Drawing.Point(3, 3);
             this.panelDraw.Name = "panelDraw";
-            this.panelDraw.Size = new System.Drawing.Size(728, 404);
+            //this.panelDraw.Size = new System.Drawing.Size(728, 404);
             this.panelDraw.TabIndex = 2;
             // 
             // BallSpill
