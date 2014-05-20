@@ -23,12 +23,27 @@ namespace CSharpProsjekt
 {
     public partial class MyPanel : Panel
     {
+        private Obstacle obstacle;
         private Spiller Spiller;
+        private List<Obstacle> listOfObstacles = new List<Obstacle>();
+
+        static GraphicsPath startPlatform = new GraphicsPath();
+        static GraphicsPath obstaclePath = new GraphicsPath();
+        static GraphicsPath playerPath = new GraphicsPath();
+        static Region platformRegion;
+        static Region obstacleRegion;
+        static Region playerRegion;
+
+        private Pen redPen = new Pen(Color.Red, 1);
+        private SolidBrush purpleBrush = new SolidBrush(Color.Purple);
+        private SolidBrush WarningBrush = new SolidBrush(Color.Red);
+
+        private Boolean runnedOnce = false;
+
         private System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
 
         public MyPanel()
         {
-
             //sørger for at grafikken går smooth
             this.SetStyle(ControlStyles.DoubleBuffer |
               ControlStyles.UserPaint |
@@ -36,7 +51,14 @@ namespace CSharpProsjekt
               true);
             this.UpdateStyles();
 
-            drawFigures();
+            Rectangle start = new Rectangle(0, 25, 30, 5);
+            startPlatform.AddRectangle(start);
+            startPlatform.CloseFigure();
+
+            listOfObstacles.Add(new Obstacle(500,180,200,70, 50, 180));
+            listOfObstacles.Add(new Obstacle(70, 180, 150, 100, 300, -180));
+            listOfObstacles.Add(new Obstacle(400, 70));
+            listOfObstacles.Add(new Obstacle(620, 70, 30, 130));
         }
 
         public void StopBalls()
@@ -105,77 +127,48 @@ namespace CSharpProsjekt
                 return true;
             }
 
-        }
-
-        public void drawFigures()
-        {
-            int firstPointX;
-            int firstPointY;
-
-            firstPointX = 530;
-            firstPointY = 25;
-
-            Point[] randomShape = {
-            new Point (firstPointX, firstPointY),
-            new Point (firstPointX, firstPointY + 70),
-            new Point (firstPointX + 100, firstPointY + 70),
-            new Point (firstPointX + 100, firstPointY),
-            };
-
-            obstacle.StartFigure();
-            obstacle.AddCurve(randomShape, 3);
-            obstacle.CloseFigure();
-
-            firstPointX = 550;
-            firstPointY = 220;
-
-            Rectangle rectangle = new Rectangle(firstPointX, firstPointY, 200, 70);
-            obstacle.StartFigure();
-
-            obstacle.AddArc(rectangle, 50, 180);
-            obstacle.AddLine(firstPointX + 50, firstPointY + 66, firstPointX + 100, firstPointY + 150);
-            obstacle.CloseFigure();
-
-            obstacle.StartFigure();
-            obstacle.AddLine(350, 250, 500, 120);
-            obstacle.AddLine(450, 220, 350, 190);
-            obstacle.CloseFigure();
-
-            obstacle.StartFigure(); 
-            obstacle.AddArc(460, 350, 50, 50, 0, -180);
-            obstacle.AddLine(450, 250, 520, 250);
-            obstacle.CloseFigure();
-
-        }
-
-        static GraphicsPath obstacle = new GraphicsPath();
-        static GraphicsPath playerPath = new GraphicsPath();
-        static Region obstacleRegion;
-        static Region playerRegion;
-
-        Pen redPen = new Pen(Color.Red, 1);
-        SolidBrush purpleBrush = new SolidBrush(Color.Purple);
-                    
+        }                    
         protected override void OnPaint(PaintEventArgs e)
         {
-            obstacleRegion = new Region(obstacle);
+            if (runnedOnce == false)
+            {
+                for (int i = 0; i < listOfObstacles.Count; i++)
+                {
+                    obstaclePath.AddPath(listOfObstacles[i].obstacle, true);
+                }
+                runnedOnce = true;
+            }
+
+            platformRegion = new Region(startPlatform);
+            obstacleRegion = new Region(obstaclePath);
             playerRegion = new Region(playerPath);
 
             e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-            
+
             e.Graphics.FillRegion(purpleBrush, obstacleRegion);
-            e.Graphics.DrawPath(redPen, obstacle);
+            e.Graphics.DrawPath(redPen, obstaclePath);
+
+            e.Graphics.FillRegion(purpleBrush, platformRegion);
+            e.Graphics.DrawPath(redPen, startPlatform);
              
             if (this.Spiller != null)
             {
                 Spiller.draw(e.Graphics);
                 playerPath = Spiller.PlayerPath();
 
+                platformRegion.Intersect(playerRegion);
+
+                if(!platformRegion.IsEmpty(e.Graphics))
+                {
+                    Spiller.collosionPlatform();
+                }
+           
                 obstacleRegion.Intersect(playerRegion);
 
                 if (!obstacleRegion.IsEmpty(e.Graphics))
                 {
                     MessageBox.Show("game over");
+                    //e.Graphics.FillRegion(WarningBrush, obstacleRegion);
                 } 
             }
                 
