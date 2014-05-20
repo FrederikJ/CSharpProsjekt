@@ -27,20 +27,20 @@ namespace CSharpProsjekt.SpillKlasser
             smiley.CloseFigure();
         }
 
-        public SolidBrush getColor()
+        public SolidBrush GetColor()
         {
             return color;
         }
-        public Region getRegion()
+        public Region GetRegion()
         {
             return smileyRegion;
         }
        
-        public GraphicsPath smileyPath()
+        public GraphicsPath Path()
         {
             return smiley;
         }
-        public void draw(Graphics g)
+        public void Draw(Graphics g)
         {
             g.FillEllipse(color, x, y, diameter, diameter);
         }

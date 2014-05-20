@@ -65,6 +65,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
+    <Compile Include="SpillKlasser\Canon.cs" />
     <Compile Include="SpillKlasser\Obstacle.cs" />
     <Compile Include="SpillKlasser\Smiley.cs" />
     <Compile Include="SpillKlasser\Spiller.cs" />

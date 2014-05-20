@@ -87,14 +87,6 @@ namespace CSharpProsjekt.SpillKlasser
            return playerPath;
         }
 
-        public void collosionPlatform()
-        {
-            float newX = x;
-            float newY = y;
-            x = newX;
-            y = newY;
-        }
-
         #region Tyngdekraft
         public void Tyngdekraft()
         {

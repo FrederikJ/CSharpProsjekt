@@ -28,15 +28,21 @@ namespace CSharpProsjekt
 
         private List<Obstacle> listOfObstacles = new List<Obstacle>();
         private List<Smiley> listOfSmileys = new List<Smiley>();
+        private List<Canon> listOfCanons = new List<Canon>();
 
         static GraphicsPath startPlatform = new GraphicsPath();
         static GraphicsPath obstaclePath = new GraphicsPath();
         static GraphicsPath playerPath = new GraphicsPath();
         static GraphicsPath smileyPath = new GraphicsPath();
+        static GraphicsPath canonPath = new GraphicsPath();
+        static GraphicsPath bulletPath = new GraphicsPath();
+
         static Region platformRegion;
         static Region obstacleRegion;
         static Region playerRegion;
         static Region smileyRegion;
+        static Region canonRegion;
+        static Region bulletRegion;
 
         private Pen redPen = new Pen(Color.Red, 1);
         private SolidBrush purpleBrush = new SolidBrush(Color.Purple);
@@ -58,10 +64,6 @@ namespace CSharpProsjekt
             //Må sittes her for at .heigth og .width skal returnere riktig verdi.
             this.Size = new System.Drawing.Size(728, 404);
 
-            Thread thread = new Thread(DrawLoop);
-            thread.IsBackground = true;
-            thread.Start();
-
             Rectangle start = new Rectangle(0, 25, 30, 5);
             startPlatform.AddRectangle(start);
             startPlatform.CloseFigure();
@@ -76,7 +78,6 @@ namespace CSharpProsjekt
             listOfObstacles.Add(new Obstacle(290, 5, 20, 150));
             listOfObstacles.Add(new Obstacle(5, 110, 220, 20));
 
-
             listOfSmileys.Add(new Smiley(110, 280));
             listOfSmileys.Add(new Smiley(450, 250));
             listOfSmileys.Add(new Smiley(560, 213));
@@ -85,6 +86,11 @@ namespace CSharpProsjekt
             listOfSmileys.Add(new Smiley(660, 145));
             listOfSmileys.Add(new Smiley(360, 65));
             listOfSmileys.Add(new Smiley(130, 140));
+
+            listOfCanons.Add(new Canon(190, this.Height, "up"));
+            listOfCanons.Add(new Canon(440, 0, "down"));
+            listOfCanons.Add(new Canon(530, this.Height, "up"));
+            listOfCanons.Add(new Canon(620, 110, "left"));
         }
 
         public void StopBalls()
@@ -137,11 +143,6 @@ namespace CSharpProsjekt
             Spiller = new Spiller(this);
         }
 
-         void DrawLoop()
-        {
-            this.Invalidate();
-            Thread.Sleep(17);
-        }
         public void StopSpiller()
         {
             Spiller.going = false;
@@ -176,10 +177,10 @@ namespace CSharpProsjekt
                     {
                         obstaclePath.AddPath(listOfObstacles[i].obstacle, true);
                     }
-                   /* for (int i = 0; i < listOfSmileys.Count; i++)
+                    for (int i = 0; i < listOfCanons.Count; i++)
                     {
-                        //smileyPath.AddPath(listOfObstacles[i].obstacle, true);
-                    }*/
+                        canonPath.AddPath(listOfCanons[i].GetPath(), true);
+                    }
                     runnedOnce = true;
                 }
 
@@ -187,6 +188,8 @@ namespace CSharpProsjekt
                 obstacleRegion = new Region(obstaclePath);
                 playerRegion = new Region(playerPath);
                 smileyRegion = new Region(smileyPath);
+                canonRegion = new Region(canonPath);
+                bulletRegion = new Region(bulletPath);
 
                 e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
 
@@ -196,25 +199,33 @@ namespace CSharpProsjekt
                 e.Graphics.FillRegion(purpleBrush, platformRegion);
                 e.Graphics.DrawPath(redPen, startPlatform);
 
+                //Canon.Draw(e.Graphics);
+                e.Graphics.FillRegion(purpleBrush, canonRegion);
+                e.Graphics.DrawPath(redPen, canonPath);
+
                 for (int i = 0; i < listOfSmileys.Count; i++)
                 {
                     Smiley smiley = listOfSmileys[i];
-                    smiley.draw(e.Graphics);
+                    smiley.Draw(e.Graphics);
                     //smileyPath = smiley.smileyPath();
-                    smileyRegion = smiley.getRegion();
+                    smileyRegion = smiley.GetRegion();
 
-                    if (checkCollision(smileyRegion, playerRegion, e))
+                    /*if (checkCollision(smileyRegion, playerRegion, e))
                     {
                         listOfSmileys.RemoveAt(i);
-                    } 
+                    }*/
                 }
+
              
                 if (this.Spiller != null)
                 {
                     Spiller.draw(e.Graphics);
                     playerPath = Spiller.PlayerPath();
 
-                    if(checkCollision(obstacleRegion, playerRegion, e))
+                    Canon.Draw(e.Graphics);
+                    bulletPath = Canon.GetBulletPath();
+
+                    if (checkCollision(obstacleRegion, playerRegion, e) /*|| checkCollision(bulletRegion, playerRegion, e)*/)
                     {
                         MessageBox.Show("game over");
                     }
