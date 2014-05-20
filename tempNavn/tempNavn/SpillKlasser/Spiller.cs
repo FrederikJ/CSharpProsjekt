@@ -144,8 +144,6 @@ namespace CSharpProsjekt.SpillKlasser
 
         public void draw(Graphics g)
         {
-            //previousX = x;
-            //previousY = y;
             g.FillEllipse(Brush, x, y, diameter, diameter);
         }
         public void Collision()
@@ -153,5 +151,6 @@ namespace CSharpProsjekt.SpillKlasser
             x = 1;
             y = 1;
         }
+
     }
 }
