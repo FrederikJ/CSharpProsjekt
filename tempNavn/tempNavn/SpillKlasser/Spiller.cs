@@ -23,8 +23,6 @@ namespace CSharpProsjekt.SpillKlasser
         //Posisjon:
         private float x = 0.0f;
         private float y = 0.0f;
-        private float previousX;
-        private float previousY;
         //Gravitasjon ( y-retning):
         private float dy = 0.7f;
         //retningsendring(piltaster)
@@ -150,18 +148,10 @@ namespace CSharpProsjekt.SpillKlasser
             //previousY = y;
             g.FillEllipse(Brush, x, y, diameter, diameter);
         }
-        public void Collision(float _previousX, float _previousY)
+        public void Collision()
         {
-            x = _previousX;
-            y = _previousY;
-        }
-        public float GetX()
-        {
-            return x;
-        }
-        public float GetY()
-        {
-            return y;
+            x = 1;
+            y = 1;
         }
     }
 }
