@@ -227,18 +227,7 @@ namespace CSharpProsjekt
 
                     if(CheckCollision(obstacleRegion, playerRegion, e))
                     {
-                        float previousX = 0;
-                        float previousY = 0;
-                        Boolean collision = false;
-
-                        while (collision == false)
-                        {
-                            previousX = Spiller.GetX();
-                            previousY = Spiller.GetY();
-                            collision = true;
-                        }
-                        Spiller.Collision(previousX, previousY);
-                        //MessageBox.Show("Game over");
+                        Spiller.Collision();
                     }
                 }   
             }
