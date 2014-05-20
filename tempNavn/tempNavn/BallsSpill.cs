@@ -33,7 +33,7 @@ namespace CSharpProsjekt
             while (keepGoing)
             {
                 panelDraw.Invalidate();
-                Thread.Sleep(10);
+                Thread.Sleep(17);
                 
             }
         }
@@ -52,7 +52,7 @@ namespace CSharpProsjekt
 
         private void btn_pause_Click(object sender, EventArgs e)
         {
-            if (panelDraw.pauseSpiller() == true)
+            if (panelDraw.PauseSpiller() == true)
                 btn_pause.Text = "Pause";
             else
             {

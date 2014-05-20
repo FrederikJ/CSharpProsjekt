@@ -98,7 +98,7 @@ namespace CSharpProsjekt
             Spiller.going = false;
         }
 
-        void timer_Tick(object sender, EventArgs e)
+        void Timer_Tick(object sender, EventArgs e)
         {
             lock(mySync)
             {
@@ -130,15 +130,13 @@ namespace CSharpProsjekt
                     Spiller.MoveDown();
                     this.Invalidate();
                 }
-            }
-
-            
+            }  
         }
 
         public void AddSpiller()
         {
             timer.Interval = 10;
-            timer.Tick += new EventHandler(timer_Tick);
+            timer.Tick += new EventHandler(Timer_Tick);
             timer.Start();
             Spiller = new Spiller(this);
         }
@@ -148,7 +146,7 @@ namespace CSharpProsjekt
             Spiller.going = false;
             timer.Stop();
         }
-        public Boolean pauseSpiller()
+        public Boolean PauseSpiller()
         {
             if (timer.Enabled == true)
             {
@@ -177,6 +175,7 @@ namespace CSharpProsjekt
                     {
                         obstaclePath.AddPath(listOfObstacles[i].obstacle, true);
                     }
+
                     for (int i = 0; i < listOfCanons.Count; i++)
                     {
                         canonPath.AddPath(listOfCanons[i].GetPath(), true);
@@ -207,6 +206,7 @@ namespace CSharpProsjekt
                 {
                     Smiley smiley = listOfSmileys[i];
                     smiley.Draw(e.Graphics);
+
                     //smileyPath = smiley.smileyPath();
                     smileyRegion = smiley.GetRegion();
 
@@ -225,15 +225,25 @@ namespace CSharpProsjekt
                     Canon.Draw(e.Graphics);
                     bulletPath = Canon.GetBulletPath();
 
-                    if (checkCollision(obstacleRegion, playerRegion, e) /*|| checkCollision(bulletRegion, playerRegion, e)*/)
+                    if(CheckCollision(obstacleRegion, playerRegion, e))
                     {
-                        MessageBox.Show("game over");
+                        float previousX = 0;
+                        float previousY = 0;
+                        Boolean collision = false;
+
+                        while (collision == false)
+                        {
+                            previousX = Spiller.GetX();
+                            previousY = Spiller.GetY();
+                            collision = true;
+                        }
+                        Spiller.Collision(previousX, previousY);
+                        //MessageBox.Show("Game over");
                     }
                 }   
             }
-            
         }
-        private Boolean checkCollision(Region _region1, Region _region2, PaintEventArgs e)
+        private Boolean CheckCollision(Region _region1, Region _region2, PaintEventArgs e)
         {
             _region1.Intersect(_region2);
 

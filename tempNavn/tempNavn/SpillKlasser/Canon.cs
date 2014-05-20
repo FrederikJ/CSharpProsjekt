@@ -162,7 +162,9 @@ namespace CSharpProsjekt.SpillKlasser
                     }
                 }
                 catch(ThreadStartException ex)
-                { }
+                {
+                    ex.ToString();
+                }
             }
         }
 
