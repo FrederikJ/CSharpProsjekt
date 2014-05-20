@@ -11,7 +11,7 @@ namespace CSharpProsjekt.SpillKlasser
     class Smiley
     {
        public static GraphicsPath smiley = new GraphicsPath();
-       static Region smileyRegion = new Region(smiley);
+       public static Region smileyRegion = new Region(smiley);
        SolidBrush color = new SolidBrush(Color.Yellow);
 
         public int x;
@@ -27,20 +27,20 @@ namespace CSharpProsjekt.SpillKlasser
             smiley.CloseFigure();
         }
 
-        public SolidBrush getColor()
+        public SolidBrush GetColor()
         {
             return color;
         }
-        public Region getRegion()
+        public Region GetRegion()
         {
             return smileyRegion;
         }
        
-        public GraphicsPath smileyPath()
+        public GraphicsPath GetPath()
         {
             return smiley;
         }
-        public void draw(Graphics g)
+        public void Draw(Graphics g)
         {
             g.FillEllipse(color, x, y, diameter, diameter);
         }

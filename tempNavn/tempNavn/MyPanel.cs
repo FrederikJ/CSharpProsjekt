@@ -58,9 +58,10 @@ namespace CSharpProsjekt
             //Må sittes her for at .heigth og .width skal returnere riktig verdi.
             this.Size = new System.Drawing.Size(728, 404);
 
-            Thread thread = new Thread(DrawLoop);
+           /* ThreadStart ts = new ThreadStart();
+            Thread thread = new Thread(ts);
             thread.IsBackground = true;
-            thread.Start();
+            thread.Start(); */
 
             Rectangle start = new Rectangle(0, 25, 30, 5);
             startPlatform.AddRectangle(start);
@@ -92,7 +93,7 @@ namespace CSharpProsjekt
             Spiller.going = false;
         }
 
-        void timer_Tick(object sender, EventArgs e)
+        void Timer_Tick(object sender, EventArgs e)
         {
             lock(mySync)
             {
@@ -124,30 +125,22 @@ namespace CSharpProsjekt
                     Spiller.MoveDown();
                     this.Invalidate();
                 }
-            }
-
-            
+            }  
         }
 
         public void AddSpiller()
         {
             timer.Interval = 10;
-            timer.Tick += new EventHandler(timer_Tick);
+            timer.Tick += new EventHandler(Timer_Tick);
             timer.Start();
             Spiller = new Spiller(this);
-        }
-
-         void DrawLoop()
-        {
-            this.Invalidate();
-            Thread.Sleep(17);
         }
         public void StopSpiller()
         {
             Spiller.going = false;
             timer.Stop();
         }
-        public Boolean pauseSpiller()
+        public Boolean PauseSpiller()
         {
             if (timer.Enabled == true)
             {
@@ -176,10 +169,6 @@ namespace CSharpProsjekt
                     {
                         obstaclePath.AddPath(listOfObstacles[i].obstacle, true);
                     }
-                   /* for (int i = 0; i < listOfSmileys.Count; i++)
-                    {
-                        //smileyPath.AddPath(listOfObstacles[i].obstacle, true);
-                    }*/
                     runnedOnce = true;
                 }
 
@@ -199,14 +188,14 @@ namespace CSharpProsjekt
                 for (int i = 0; i < listOfSmileys.Count; i++)
                 {
                     Smiley smiley = listOfSmileys[i];
-                    smiley.draw(e.Graphics);
-                    //smileyPath = smiley.smileyPath();
-                    smileyRegion = smiley.getRegion();
+                    smiley.Draw(e.Graphics);
 
-                    if (checkCollision(smileyRegion, playerRegion, e))
+                    //smileyRegion = smiley.GetRegion();
+
+                    /*if (CheckCollision(smileyRegion, playerRegion, e))
                     {
                         listOfSmileys.RemoveAt(i);
-                    } 
+                    }*/
                 }
              
                 if (this.Spiller != null)
@@ -214,15 +203,25 @@ namespace CSharpProsjekt
                     Spiller.draw(e.Graphics);
                     playerPath = Spiller.PlayerPath();
 
-                    if(checkCollision(obstacleRegion, playerRegion, e))
+                    if(CheckCollision(obstacleRegion, playerRegion, e))
                     {
-                        MessageBox.Show("game over");
+                        float previousX = 0;
+                        float previousY = 0;
+                        Boolean collision = false;
+
+                        while (collision == false)
+                        {
+                            previousX = Spiller.GetX();
+                            previousY = Spiller.GetY();
+                            collision = true;
+                        }
+                        Spiller.Collision(previousX, previousY);
+                        //MessageBox.Show("Game over");
                     }
                 }   
             }
-            
         }
-        private Boolean checkCollision(Region _region1, Region _region2, PaintEventArgs e)
+        private Boolean CheckCollision(Region _region1, Region _region2, PaintEventArgs e)
         {
             _region1.Intersect(_region2);
 
