@@ -29,6 +29,7 @@ namespace CSharpProsjekt
         private List<Obstacle> listOfObstacles = new List<Obstacle>();
         private List<Smiley> listOfSmileys = new List<Smiley>();
         private List<Canon> listOfCanons = new List<Canon>();
+        private List<Bullet> listOfBulletsPoint = new List<Bullet>();
 
         static GraphicsPath startPlatform = new GraphicsPath();
         static GraphicsPath obstaclePath = new GraphicsPath();
@@ -47,6 +48,8 @@ namespace CSharpProsjekt
         private Pen redPen = new Pen(Color.Red, 1);
         private SolidBrush purpleBrush = new SolidBrush(Color.Purple);
         private SolidBrush WarningBrush = new SolidBrush(Color.Red);
+        private SolidBrush canonBrush = new SolidBrush(Color.Orange);
+        private SolidBrush bulletColor = new SolidBrush(Color.Black);
 
         private Boolean runnedOnce = false;
 
@@ -91,6 +94,11 @@ namespace CSharpProsjekt
             listOfCanons.Add(new Canon(440, 0, "down"));
             listOfCanons.Add(new Canon(530, this.Height, "up"));
             listOfCanons.Add(new Canon(620, 110, "left"));
+
+            listOfBulletsPoint.Add(new Bullet(200, this.Height - 30, "up"));
+            listOfBulletsPoint.Add(new Bullet(450, 30, "down"));
+            listOfBulletsPoint.Add(new Bullet(540, this.Height - 30, "up"));
+            listOfBulletsPoint.Add(new Bullet(590, 120, "left"));
         }
 
         public void StopBalls()
@@ -178,7 +186,13 @@ namespace CSharpProsjekt
 
                     for (int i = 0; i < listOfCanons.Count; i++)
                     {
-                        canonPath.AddPath(listOfCanons[i].GetPath(), true);
+                        canonPath.AddPath(listOfCanons[i].canonPath, true);
+                    }
+
+                    foreach (Bullet b in listOfBulletsPoint)
+                    {
+                        bulletPath.AddPath(b.bulletPath, true);
+
                     }
                     runnedOnce = true;
                 }
@@ -198,9 +212,10 @@ namespace CSharpProsjekt
                 e.Graphics.FillRegion(purpleBrush, platformRegion);
                 e.Graphics.DrawPath(redPen, startPlatform);
 
-                //Canon.Draw(e.Graphics);
-                e.Graphics.FillRegion(purpleBrush, canonRegion);
+                e.Graphics.FillRegion(canonBrush, canonRegion);
                 e.Graphics.DrawPath(redPen, canonPath);
+
+                e.Graphics.FillRegion(bulletColor, bulletRegion);
 
                 for (int i = 0; i < listOfSmileys.Count; i++)
                 {
@@ -216,16 +231,12 @@ namespace CSharpProsjekt
                     }*/
                 }
 
-             
                 if (this.Spiller != null)
                 {
                     Spiller.draw(e.Graphics);
                     playerPath = Spiller.PlayerPath();
 
-                    Canon.Draw(e.Graphics);
-                    bulletPath = Canon.GetBulletPath();
-
-                    if(CheckCollision(obstacleRegion, playerRegion, e))
+                    if (CheckCollision(obstacleRegion, playerRegion, e) || CheckCollision(canonRegion, playerRegion, e))
                     {
                         Spiller.Collision();
                     }
