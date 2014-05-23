@@ -26,6 +26,8 @@ namespace CSharpProsjekt
         public BallSpill()
         {
             InitializeComponent();
+            panelDraw.TimeEndret += new TimeEndringEvent(update_label_tid);
+            panelDraw.PointsEndret += new PointEndringEvent(update_label_points);
         }
 
         public void Run()
@@ -43,7 +45,7 @@ namespace CSharpProsjekt
         {
             if (keepGoing == false)
             {
-                startBall();
+                startPlayer();
                 keepGoing = true;
                 panelDraw.AddSpiller();
                 panelDraw.Invalidate();
@@ -60,13 +62,22 @@ namespace CSharpProsjekt
             }
         }
 
-        private void startBall()
+        private void startPlayer()
         {
             ThreadStart ts = new ThreadStart(Run);
             Thread thread = new Thread(ts);
             thread.IsBackground = true;
             thread.Start();
         }
-        //kjører metoden stopBalls i MyPanel
+
+        public void update_label_tid(object sender, TimeEventArgs e)
+        {
+            label_tid.Text = Convert.ToString("Gjenstående tid: " + e.timeLeft + " sekunder");
+        }
+        public void update_label_points(object sender, PointEventArgs e)
+        {
+            label_poeng.Text = Convert.ToString("Poeng: " + e.points);
+        }
+        
     }
 }

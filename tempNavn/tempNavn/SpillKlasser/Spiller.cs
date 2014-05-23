@@ -76,7 +76,7 @@ namespace CSharpProsjekt.SpillKlasser
             }
 
         }
-        public GraphicsPath PlayerPath()
+        public GraphicsPath GetPath()
         {
            GraphicsPath playerPath = new GraphicsPath();
             
@@ -92,12 +92,11 @@ namespace CSharpProsjekt.SpillKlasser
         {
             lock (mySync)
             {
-
-                /*while (y == 0.0f && x == 0.0f)
+                while (y == 0.0f && x == 0.0f)
                 {
                     y = 0.0f;
                     x = 0.0f;
-                }*/
+                }
 
                 y += dy;
                 Size panelSize = parentPanel.ClientRectangle.Size;

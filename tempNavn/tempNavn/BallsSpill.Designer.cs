@@ -93,18 +93,18 @@ namespace CSharpProsjekt
             this.label_poeng.AutoSize = true;
             this.label_poeng.Location = new System.Drawing.Point(419, 9);
             this.label_poeng.Name = "label_poeng";
-            this.label_poeng.Size = new System.Drawing.Size(62, 13);
+            this.label_poeng.Size = new System.Drawing.Size(50, 13);
             this.label_poeng.TabIndex = 2;
-            this.label_poeng.Text = "Poeng: 734";
+            this.label_poeng.Text = "Poeng: 0";
             // 
             // label_tid
             // 
             this.label_tid.AutoSize = true;
             this.label_tid.Location = new System.Drawing.Point(226, 9);
             this.label_tid.Name = "label_tid";
-            this.label_tid.Size = new System.Drawing.Size(129, 13);
+            this.label_tid.Size = new System.Drawing.Size(146, 13);
             this.label_tid.TabIndex = 1;
-            this.label_tid.Text = "Gjenstående tid: 00:01:45";
+            this.label_tid.Text = "Gjenstående tid: 60 sekunder";
             // 
             // buttonStart
             // 
@@ -122,7 +122,7 @@ namespace CSharpProsjekt
             this.panelDraw.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelDraw.Location = new System.Drawing.Point(3, 3);
             this.panelDraw.Name = "panelDraw";
-            //this.panelDraw.Size = new System.Drawing.Size(728, 404);
+            this.panelDraw.Size = new System.Drawing.Size(728, 404);
             this.panelDraw.TabIndex = 2;
             // 
             // BallSpill

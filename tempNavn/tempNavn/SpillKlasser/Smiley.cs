@@ -10,35 +10,48 @@ namespace CSharpProsjekt.SpillKlasser
 {
     class Smiley
     {
-       public static GraphicsPath smiley = new GraphicsPath();
-       public static Region smileyRegion = new Region(smiley);
-       SolidBrush color = new SolidBrush(Color.Yellow);
+       private GraphicsPath smileyPath = new GraphicsPath();
+       SolidBrush color;
 
         public int x;
         public int y;
         public int diameter = 30;
-        
-        public Smiley(int _x, int _y)
+        public int value;
+
+        public Smiley(int _x, int _y, int _value)
         {
             x = _x;
             y = _y;
-            smiley.StartFigure();
-            smiley.AddEllipse(x, y, diameter, diameter);
-            smiley.CloseFigure();
+            smileyPath.StartFigure();
+            smileyPath.AddEllipse(x, y, diameter, diameter);
+            smileyPath.CloseFigure();
+
+            switch (_value)
+            {
+                case 1: 
+                    color = new SolidBrush(Color.Yellow);
+                    value = 50;
+                    break;
+                case 2: 
+                    color = new SolidBrush(Color.BlueViolet);
+                    value = 100;
+                    break;
+
+            }
         }
 
         public SolidBrush GetColor()
         {
             return color;
         }
-        public Region GetRegion()
+        public int GetValue()
         {
-            return smileyRegion;
+            return value;
         }
 
         public GraphicsPath GetPath()
         {
-            return smiley;
+            return smileyPath;
         }
         public void Draw(Graphics g)
         {

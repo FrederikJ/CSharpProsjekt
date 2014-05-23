@@ -68,6 +68,7 @@
     <Compile Include="SpillKlasser\Bullet.cs" />
     <Compile Include="SpillKlasser\Canon.cs" />
     <Compile Include="SpillKlasser\Obstacle.cs" />
+    <Compile Include="SpillKlasser\PointEventArgs.cs" />
     <Compile Include="SpillKlasser\Smiley.cs" />
     <Compile Include="SpillKlasser\Spiller.cs" />
     <Compile Include="SpillKlasser\KeyboardInfo.cs" />
@@ -96,6 +97,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SpillKlasser\TimeEventArgs.cs" />
     <EmbeddedResource Include="BallsSpill.resx">
       <DependentUpon>BallsSpill.cs</DependentUpon>
     </EmbeddedResource>

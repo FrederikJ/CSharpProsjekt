@@ -11,9 +11,8 @@ namespace CSharpProsjekt.SpillKlasser
 {
     class Canon
     {
-        private static GraphicsPath canonPath = new GraphicsPath();
+        public GraphicsPath canonPath = new GraphicsPath();
         private static GraphicsPath bulletPath = new GraphicsPath();
-        private static Region canonRegion = new Region(canonPath);
         private static Region bulletRegion = new Region(bulletPath);
         private static SolidBrush canonColor = new SolidBrush(Color.Orange);
         private static SolidBrush bulletColor = new SolidBrush(Color.Black);
