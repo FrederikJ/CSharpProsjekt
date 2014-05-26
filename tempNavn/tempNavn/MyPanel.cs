@@ -35,6 +35,7 @@ namespace CSharpProsjekt
         private List<Obstacle> listOfObstacles = new List<Obstacle>();
         private List<Smiley> listOfSmileys = new List<Smiley>();
         private List<Canon> listOfCanons = new List<Canon>();
+        private List<Bullet> listOfBullets = new List<Bullet>();
 
         static GraphicsPath startPlatform = new GraphicsPath();
         static GraphicsPath obstaclePath = new GraphicsPath();
@@ -46,9 +47,11 @@ namespace CSharpProsjekt
         static Region platformRegion;
         static Region obstacleRegion;
         static Region canonRegion;
+        static Region bulletRegion;
 
         private Pen redPen = new Pen(Color.Red, 1);
         private SolidBrush purpleBrush = new SolidBrush(Color.Purple);
+        private SolidBrush bulletBrush = new SolidBrush(Color.Black);
 
         private Boolean runnedOnce = false;
         private int smileysRemaining;
@@ -194,6 +197,7 @@ namespace CSharpProsjekt
                 platformRegion = new Region(startPlatform);
                 obstacleRegion = new Region(obstaclePath);
                 canonRegion = new Region(canonPath);
+                bulletRegion = new Region(bulletPath);
 
                 runnedOnce = true;
             }
@@ -208,6 +212,8 @@ namespace CSharpProsjekt
 
             g.FillRegion(Canon.GetColor(), canonRegion);
 
+            g.FillRegion(bulletBrush, bulletRegion);
+
             if (this.Spiller != null)
             {
                 if (smileysRemaining == 0)
@@ -221,24 +227,29 @@ namespace CSharpProsjekt
 
                 Spiller.draw(g);
 
-                for (int i = 0; i < listOfSmileys.Count; i++)
+                for (int i = 0; i < listOfBullets.Count; i++)
                 {
-                    Smiley smiley = listOfSmileys[i];
-
-                       
-                    smiley.Draw(g);
-
-                    if (CheckCollision(smiley.GetPath(), Spiller.GetPath(), e))
-                    {
-                        listOfSmileys.RemoveAt(i);
-                        points += smiley.GetValue();
-
-                        if(smiley.GetValue() == 50)
-                            smileysRemaining--;
-
-                        UpdatePoints();
-                    }
+                    listOfBullets[i].Draw(g);
                 }
+
+                    for (int i = 0; i < listOfSmileys.Count; i++)
+                    {
+                        Smiley smiley = listOfSmileys[i];
+
+
+                        smiley.Draw(g);
+
+                        if (CheckCollision(smiley.GetPath(), Spiller.GetPath(), e))
+                        {
+                            listOfSmileys.RemoveAt(i);
+                            points += smiley.GetValue();
+
+                            if (smiley.GetValue() == 50)
+                                smileysRemaining--;
+
+                            UpdatePoints();
+                        }
+                    }
                 if (CheckCollision(obstaclePath, Spiller.GetPath(), e) || CheckCollision(canonPath, Spiller.GetPath(), e))
                 {
                     Spiller.Collision();
@@ -289,7 +300,7 @@ namespace CSharpProsjekt
             listOfObstacles.Add(new Obstacle(5, 110, 220, 20));
 
             listOfSmileys.Add(new Smiley(110, 280, 1));
-           /* listOfSmileys.Add(new Smiley(450, 250, 1));
+            /*listOfSmileys.Add(new Smiley(450, 250, 1));
             listOfSmileys.Add(new Smiley(560, 213, 2));
             listOfSmileys.Add(new Smiley(510, 65, 1));
             listOfSmileys.Add(new Smiley(660, 75, 1));
@@ -302,6 +313,11 @@ namespace CSharpProsjekt
             listOfCanons.Add(new Canon(440, 0, "down"));
             listOfCanons.Add(new Canon(530, this.Height, "up"));
             listOfCanons.Add(new Canon(620, 110, "left"));
+
+            listOfBullets.Add(new Bullet(200, this.Height - 30, "up"));
+            listOfBullets.Add(new Bullet(450, 30, "down"));
+            listOfBullets.Add(new Bullet(540, this.Height - 30, "up"));
+            listOfBullets.Add(new Bullet(590, 120, "left"));
         }
         private void StartPlatform()
         {
@@ -309,6 +325,5 @@ namespace CSharpProsjekt
             startPlatform.AddRectangle(start);
             startPlatform.CloseFigure();
         }
-    }
-    
+    } 
 }
