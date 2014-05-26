@@ -4,29 +4,30 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace CSharpProsjekt.SpillKlasser
 {
     class Bullet
      {
         //Størrelse:
-        public float diameter;
-        public float x;
-        public float y;
-        private float dx;
-        private float dy;
+        public float diameter { get; set; }
+        public int x { get; set; }
+        public int y { get; set; }
+        private int originalX;
+        private int originalY;
+        private int dx;
+        private int dy;
         private string direction;
+
         public bool keepGoing { get; set; }
-        public GraphicsPath bulletPath = new GraphicsPath();
-        //private static Region bulletRegion = new Region(bulletPath);
         private static SolidBrush bulletColor = new SolidBrush(Color.Black);
-        
-     
-        public Bullet(float x, float y, string direction)
+
+        public Bullet(int x, int y, string direction)
         {
             diameter = 5;
+            originalX = x;
+            originalY = y;
             this.x = x;
             this.y = y;
             dx = 1;
@@ -34,10 +35,11 @@ namespace CSharpProsjekt.SpillKlasser
             keepGoing = true;
             this.direction = direction;
             direction.ToLower();
-
-            bulletPath.StartFigure();
-            bulletPath.AddEllipse(x, y, diameter, diameter);
-            bulletPath.CloseFigure();
+        }
+        public void ResetPosition()
+        {
+            x = originalX;
+            y = originalY;
         }
 
         public void Draw(Graphics g)
@@ -45,16 +47,16 @@ namespace CSharpProsjekt.SpillKlasser
             switch (direction)
             {
                 case "up":
-                    y = -dy;
+                    y += -dy;
                     break;
                 case "down":
-                    y = dy;
+                    y += dy;
                     break;
                 case "left":
-                    x = -dx;
+                    x += -dx;
                     break;
                 case "right":
-                    x = dx;
+                    x += dx;
                     break;
                 default:
                     break;

@@ -48,6 +48,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutBox.Designer.cs">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="BallsSpill.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -67,6 +73,7 @@
     </Compile>
     <Compile Include="SpillKlasser\Bullet.cs" />
     <Compile Include="SpillKlasser\Canon.cs" />
+    <Compile Include="SpillKlasser\Level.cs" />
     <Compile Include="SpillKlasser\Obstacle.cs" />
     <Compile Include="SpillKlasser\PointEventArgs.cs" />
     <Compile Include="SpillKlasser\Smiley.cs" />
