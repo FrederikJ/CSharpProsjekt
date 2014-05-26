@@ -73,10 +73,32 @@ namespace CSharpProsjekt
         public void update_label_tid(object sender, TimeEventArgs e)
         {
             label_tid.Text = Convert.ToString("Gjenstående tid: " + e.timeLeft + " sekunder");
+            
         }
         public void update_label_points(object sender, PointEventArgs e)
         {
             label_poeng.Text = Convert.ToString("Poeng: " + e.points);
+            label_level.Text = Convert.ToString("Level: " + e.level);
+
+            if (e.levelComplete == true)
+            {
+                tb_finish.Text = "Gratulerer, du har fullført dette nivået!";
+                tb_finish.Visible = true;
+                btn_finish.Visible = true;
+            }
+                        }
+
+        private void btn_finish_Click(object sender, EventArgs e)
+        {
+            panelDraw.LoadLevel();
+            tb_finish.Visible = false;
+            btn_finish.Visible = false;
+        }
+
+        private void reglerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AboutBox box = new AboutBox();
+            box.Show();
         }
         
     }

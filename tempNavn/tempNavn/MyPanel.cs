@@ -30,7 +30,9 @@ namespace CSharpProsjekt
         public event PointEndringEvent PointsEndret;
 
         private Object mySync = new Object();
+        private Level loadLevel;
         private Spiller Spiller;
+
 
         private List<Obstacle> listOfObstacles = new List<Obstacle>();
         private List<Smiley> listOfSmileys = new List<Smiley>();
@@ -51,9 +53,10 @@ namespace CSharpProsjekt
         private SolidBrush purpleBrush = new SolidBrush(Color.Purple);
 
         private Boolean runnedOnce = false;
+        private Boolean levelFinished = false;
         private int smileysRemaining;
-
-        private int timeLeft = 60;
+        private int timeLeft = 30;
+        private int level = 1;
         private int points;
 
         private System.Windows.Forms.Timer keyboardTimer = new System.Windows.Forms.Timer();
@@ -72,7 +75,7 @@ namespace CSharpProsjekt
             this.UpdateStyles();
 
             StartPlatform();
-            LevelOne();
+            LoadLevel();
 
             foreach(Smiley s in listOfSmileys)
                 if (s.value == 50)
@@ -133,6 +136,7 @@ namespace CSharpProsjekt
             }
             else
             {
+                countdownTimer.Stop();
                 MessageBox.Show("Game over!");
             }
         }
@@ -150,13 +154,13 @@ namespace CSharpProsjekt
             Spiller = new Spiller(this);
         }
 
-        public void StopSpillet()
+       /* public void StopSpillet()
         {
             Spiller.going = false;
             keyboardTimer.Stop();
             countdownTimer.Stop();
             
-        }
+        }*/
 
         public Boolean PauseSpiller()
         {
@@ -210,13 +214,19 @@ namespace CSharpProsjekt
 
             if (this.Spiller != null)
             {
-                if (smileysRemaining == 0)
+                if (smileysRemaining == 0 && timeLeft > 0 && levelFinished == false)
                 {
-                    points += timeLeft * 2;
-                    //MessageBox.Show("You won!");
-                    UpdatePoints();
-                    StopSpillet();
+                    level++;
+                    countdownTimer.Stop();
+                    points = 0;
+                    timeLeft = 60;
+                    levelFinished = true;
 
+                    points += timeLeft * 2;
+
+                    UpdatePoints();
+                    Spiller.ResetPosition();
+                    ClearLevel();
                 }
 
                 Spiller.draw(g);
@@ -241,7 +251,7 @@ namespace CSharpProsjekt
                 }
                 if (CheckCollision(obstaclePath, Spiller.GetPath(), e) || CheckCollision(canonPath, Spiller.GetPath(), e))
                 {
-                    Spiller.Collision();
+                    Spiller.ResetPosition();
                     points -= 50;
 
                     UpdatePoints();
@@ -264,44 +274,42 @@ namespace CSharpProsjekt
                 return false;
             }          
         }
+
+        public void LoadLevel()
+        {
+            loadLevel = new Level(level);
+
+            listOfObstacles = loadLevel.GetObstacles();
+            listOfCanons = loadLevel.GetCanons();
+            listOfSmileys = loadLevel.GetSmileys();
+
+            countdownTimer.Start();
+        }
+        private void ClearLevel()
+        {
+            listOfObstacles.Clear();
+            listOfCanons.Clear();
+            listOfSmileys.Clear();
+
+            obstaclePath.Reset();
+            canonPath.Reset();
+            smileyPath.Reset();
+
+            obstacleRegion.MakeEmpty();
+            canonRegion.MakeEmpty();         
+            
+        }
         private void UpdatePoints()
         {
             try
             {
-                PointEventArgs te = new PointEventArgs(points);
+                PointEventArgs te = new PointEventArgs(points, level, levelFinished);
                 PointsEndret(this, te);
             }
             catch (System.NullReferenceException exp)
             {
                 MessageBox.Show(string.Format("error: {0}", exp.ToString()));
             }
-        }
-        private void LevelOne()
-        {
-            listOfObstacles.Add(new Obstacle(500, 180, 200, 70, 50, 180));
-            listOfObstacles.Add(new Obstacle(70, 180, 150, 100, 300, -180));
-            listOfObstacles.Add(new Obstacle(400, 70));
-            listOfObstacles.Add(new Obstacle(620, 70, 30, 130));
-            listOfObstacles.Add(new Obstacle(220, 200, 200, 70, 50, -150));
-            listOfObstacles.Add(new Obstacle(400, 310, 100, 30));
-            listOfObstacles.Add(new Obstacle(655, 110, 60, 30));
-            listOfObstacles.Add(new Obstacle(290, 5, 20, 150));
-            listOfObstacles.Add(new Obstacle(5, 110, 220, 20));
-
-            listOfSmileys.Add(new Smiley(110, 280, 1));
-           /* listOfSmileys.Add(new Smiley(450, 250, 1));
-            listOfSmileys.Add(new Smiley(560, 213, 2));
-            listOfSmileys.Add(new Smiley(510, 65, 1));
-            listOfSmileys.Add(new Smiley(660, 75, 1));
-            listOfSmileys.Add(new Smiley(660, 145, 2));
-            listOfSmileys.Add(new Smiley(360, 65, 2));
-            listOfSmileys.Add(new Smiley(130, 140, 1));*/
-            listOfSmileys.Add(new Smiley(5, 40, 2));
-
-            listOfCanons.Add(new Canon(190, this.Height, "up"));
-            listOfCanons.Add(new Canon(440, 0, "down"));
-            listOfCanons.Add(new Canon(530, this.Height, "up"));
-            listOfCanons.Add(new Canon(620, 110, "left"));
         }
         private void StartPlatform()
         {

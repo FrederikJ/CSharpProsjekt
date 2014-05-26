@@ -22,7 +22,7 @@ namespace CSharpProsjekt.SpillKlasser
         private float diameter = 20.0f;
         //Posisjon:
         private float x = 0.0f;
-        private float y = 0.0f;
+        private float y = 2.5f;
         //Gravitasjon ( y-retning):
         private float dy = 0.7f;
         //retningsendring(piltaster)
@@ -92,30 +92,27 @@ namespace CSharpProsjekt.SpillKlasser
         {
             lock (mySync)
             {
-                while (y == 0.0f && x == 0.0f)
+
+                if (!(y < 6 && y > 4 && x < 20 && x >= 0))
                 {
-                    y = 0.0f;
-                    x = 0.0f;
+                    y += dy;
+                    Size panelSize = parentPanel.ClientRectangle.Size;
+
+                    if (x < 0)
+                        x = 0;
+
+                    if (x + diameter >= panelSize.Width)
+                        x = panelSize.Width - diameter;
+
+                    if (y < 0)
+                        y = 0;
+
+                    if (y + diameter >= panelSize.Height)
+                    {
+                        y = panelSize.Height - diameter;
+                    }
                 }
-
-                y += dy;
-                Size panelSize = parentPanel.ClientRectangle.Size;
-
-                if (x < 0)
-                    x = 0;
-
-                if (x + diameter >= panelSize.Width)
-                    x = panelSize.Width - diameter;
-
-                if (y < 0)
-                    y = 0;
-
-                if (y + diameter >= panelSize.Height)
-                {
-                    y = panelSize.Height - diameter;
-                }
-            }
-            
+            } 
         }
         #endregion
 
@@ -127,7 +124,8 @@ namespace CSharpProsjekt.SpillKlasser
 
         public void MoveLeft()
         {
-            this.x -= this.Adx;
+            if(!(y < 5 && x < 2))
+                this.x -= this.Adx;
         }
 
         public void MoveUp()
@@ -137,7 +135,8 @@ namespace CSharpProsjekt.SpillKlasser
 
         public void MoveDown()
         {
-            this.y += this.Ady;
+            if (!(y < 5 && x < 20))
+                this.y += this.Ady;
         }
         #endregion
 
@@ -145,10 +144,10 @@ namespace CSharpProsjekt.SpillKlasser
         {
             g.FillEllipse(Brush, x, y, diameter, diameter);
         }
-        public void Collision()
+        public void ResetPosition()
         {
-            x = 1;
-            y = 1;
+            x = 0;
+            y = 2.5f;
         }
 
     }
