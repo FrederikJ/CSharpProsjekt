@@ -51,6 +51,7 @@ namespace CSharpProsjekt
         private SolidBrush purpleBrush = new SolidBrush(Color.Purple);
         private SolidBrush bulletBrush = new SolidBrush(Color.Black);
 
+        private Random rnd = new Random();
         private Boolean runnedOnce = false;
         private Boolean levelFinished = false;
         private int smileysRemaining;
@@ -61,8 +62,7 @@ namespace CSharpProsjekt
         private System.Windows.Forms.Timer keyboardTimer = new System.Windows.Forms.Timer();
         private System.Windows.Forms.Timer countdownTimer = new System.Windows.Forms.Timer();
         private System.Windows.Forms.Timer bulletTimer = new System.Windows.Forms.Timer();
-        private Random intervalBullet = new Random();
-        private Random intervalBulletDirection = new Random();
+        
 
         public MyPanel()
         {
@@ -147,7 +147,7 @@ namespace CSharpProsjekt
 
         void Interval_Tick(object sender, EventArgs e)
         {
-            int i = intervalBulletDirection.Next(0, 4);
+            int i = rnd.Next(0, 4);
             switch(i)
             {
                 case 0:
@@ -178,7 +178,7 @@ namespace CSharpProsjekt
             countdownTimer.Tick += new EventHandler(Countdown_Tick);
             countdownTimer.Start();
 
-            bulletTimer.Interval = intervalBullet.Next(500, 1000);
+            bulletTimer.Interval = rnd.Next(500, 1000);
             bulletTimer.Tick += new EventHandler(Interval_Tick);
             bulletTimer.Start();
 
@@ -191,7 +191,6 @@ namespace CSharpProsjekt
             keyboardTimer.Stop();
             bulletTimer.Stop();
             countdownTimer.Stop();
-            
         }
 
         public Boolean PauseSpiller()
@@ -271,12 +270,12 @@ namespace CSharpProsjekt
                 {
                     Bullet bullet = listOfBullets[i];
 
-                    bullet.Draw(g);
-
                     GraphicsPath bulletPath = new GraphicsPath();
                     bulletPath.StartFigure();
                     bulletPath.AddEllipse(bullet.x, bullet.y, bullet.diameter, bullet.diameter);
                     bulletPath.CloseFigure();
+
+                    bullet.Draw(g);
 
                     if (CheckCollision(bulletPath, Spiller.GetPath(), e))
                     {
