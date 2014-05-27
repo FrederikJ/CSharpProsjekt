@@ -27,9 +27,9 @@ namespace CSharpProsjekt.SpillKlasser
         private float dy = 0.7f;
         //retningsendring(piltaster)
         private float Adx = 1.0f;
-        private float Ady = 1.0f;
-        private float AdyUP = 2.5f;
-        //private Boolean stopGravity = false;
+        private float AdyDown = 1.0f;
+        private float AdyUp = 2.5f;
+        private Boolean gravityReversed = false;
 
         public bool going { get; set; }
 
@@ -87,6 +87,33 @@ namespace CSharpProsjekt.SpillKlasser
            return playerPath;
         }
 
+        public void ReverseGravity()
+        {
+            float tempAdY;
+
+            if(gravityReversed == false)
+            {
+                dy = -0.7f;
+
+                tempAdY = AdyDown;
+                AdyDown = AdyUp;
+                AdyUp = tempAdY;
+
+                gravityReversed = true;
+            }
+            else
+            {
+                dy = 0.7f;
+
+                tempAdY = AdyUp;
+                AdyUp = AdyDown;
+                AdyDown = tempAdY;
+
+                gravityReversed = false;
+            }
+            
+        }
+
         #region Tyngdekraft
         public void Tyngdekraft()
         {
@@ -130,13 +157,13 @@ namespace CSharpProsjekt.SpillKlasser
 
         public void MoveUp()
         {
-            this.y -= this.AdyUP;
+            this.y -= this.AdyUp;
         }
 
         public void MoveDown()
         {
             if (!(y < 5 && x < 20))
-                this.y += this.Ady;
+                this.y += this.AdyDown;
         }
         #endregion
 

@@ -21,13 +21,17 @@ namespace CSharpProsjekt
 {
     public partial class BallSpill : Form
     {
-        private Boolean keepGoing = false;
+        public Boolean keepGoing { get; set; }
+        private Boolean firstRun = true;
+        private ThreadStart ts;
+        private Thread thread;
 
         public BallSpill()
         {
             InitializeComponent();
             panelDraw.TimeEndret += new TimeEndringEvent(update_label_tid);
             panelDraw.PointsEndret += new PointEndringEvent(update_label_points);
+            keepGoing = false;
         }
 
         public void Run()
@@ -40,21 +44,20 @@ namespace CSharpProsjekt
             }
         }
 
-        //ligger ball til MyPanel
-        private void buttonStart_Click(object sender, EventArgs e)
+        private void panelDraw_Click(object sender, EventArgs e)
         {
             if (keepGoing == false)
             {
-                startPlayer();
                 keepGoing = true;
-                panelDraw.AddSpiller();
+                StartInvalidateThread();
+                panelDraw.StartGame();
                 panelDraw.Invalidate();
             }
         }
 
         private void btn_pause_Click(object sender, EventArgs e)
         {
-            if (panelDraw.PauseSpiller() == true)
+            if (panelDraw.PauseGame() == true)
                 btn_pause.Text = "Pause";
             else
             {
@@ -62,10 +65,10 @@ namespace CSharpProsjekt
             }
         }
 
-        private void startPlayer()
+        private void StartInvalidateThread()
         {
-            ThreadStart ts = new ThreadStart(Run);
-            Thread thread = new Thread(ts);
+            ts = new ThreadStart(Run);
+            thread = new Thread(ts);
             thread.IsBackground = true;
             thread.Start();
         }
@@ -106,5 +109,15 @@ namespace CSharpProsjekt
             AboutBox box = new AboutBox();
             box.Show();
         }
+
+        private void nyttSpillToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            keepGoing = false;
+            panelDraw.NewGame();
+            panelDraw.Invalidate();
+
+        }
+
+        
     }
 }
