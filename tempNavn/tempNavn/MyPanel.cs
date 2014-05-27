@@ -78,10 +78,6 @@ namespace CSharpProsjekt
 
             StartPlatform();
             LoadLevel();
-
-            foreach(Smiley s in listOfSmileys)
-                if (s.value == 50)
-                    smileysRemaining++;
         }
 
         public void StopBalls()
@@ -89,6 +85,12 @@ namespace CSharpProsjekt
             Spiller.going = false;
         }
 
+        /// <summary>
+        /// Metoden blir trigret hvert 10ms av timeren keyboardTimer og sjekker om pil opp, ned, venstre eller høyre er trykt. 
+        /// Klassen KeyboardInfo blir brukt, dette er en ferdig klasse funnet på nettet som tilater oss å trykke flere taster ned samtidig. 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void ReadKeyboard_Tick(object sender, EventArgs e)
         {
             var left = KeyboardInfo.GetKeyState(Keys.Left);
@@ -117,6 +119,9 @@ namespace CSharpProsjekt
             } 
         }
 
+        //Timeren countdownTimer trigrer denne metoden hvert sekund. 
+        //Metoden oppretter så instans av custom EventArgs TimeEventArgs og sender med int verdien timeLeft(som er resterende sekunder) i delegaten TimeEndret.
+        //BallSpill.cs abonnerer på delegaten        
         void Countdown_Tick(object sender, EventArgs e)
         {
             if (timeLeft > 0)
@@ -198,6 +203,7 @@ namespace CSharpProsjekt
         {
             Graphics g = e.Graphics;
 
+            //Denne kodesnutten blir bare kjørt en gang for hver level. Obstacles og canons har ingen behov for å bli tegnet i hver OnPaint ettersom de er statisk.
             if (runnedOnce == false)
             {
                 for (int i = 0; i < listOfObstacles.Count; i++)
@@ -217,6 +223,7 @@ namespace CSharpProsjekt
                 runnedOnce = true;
             }
 
+            //Fyller regions med farge, og tegner omriss. SmoothingMode sørger for et finere og glattere utseende på tegninger
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
 
             g.FillRegion(purpleBrush, obstacleRegion);
@@ -229,15 +236,18 @@ namespace CSharpProsjekt
 
             if (this.Spiller != null)
             {
+                Spiller.draw(g);
+
+                //Sjekker om det er flere gule smileyer igjen og at tiden ikke har gått ut. 
+                //levelFinished sørger for at diverse if setninger bare kjører en gang, samt verdien blir sendt videre via en delegat til BallSpill.cs
                 if (smileysRemaining == 0 && timeLeft > 0 && levelFinished == false)
                 {
                     level++;
                     countdownTimer.Stop();
-                    points = 0;
-                    timeLeft = 60;
                     levelFinished = true;
 
                     points += timeLeft * 2;
+                    timeLeft = 30;
 
                     UpdatePoints();
                     Spiller.ResetPosition();
@@ -246,8 +256,10 @@ namespace CSharpProsjekt
 
                 Spiller.draw(g);
 
+                //Sjekker at spillet fortsatt går
                 if(levelFinished == false)
                 {
+                    //kjører igjennom hvert objekt i listOfBullets og printer disse til skjermen. Sjekker også collision mot obstacles og spiller
                     for (int i = 0; i < listOfBullets.Count; i++)
                     {
                         Bullet bullet = listOfBullets[i];
@@ -269,7 +281,7 @@ namespace CSharpProsjekt
                         }
                     }
                 }
-
+                //Kjører igjennom hvert objekt i listOfSmileys og printer disse til skjermen. Sjekker også collision mot spiller.
                 for (int i = 0; i < listOfSmileys.Count; i++)
                 {
                     Smiley smiley = listOfSmileys[i];
@@ -281,6 +293,7 @@ namespace CSharpProsjekt
                         listOfSmileys.RemoveAt(i);
                         points += smiley.GetValue();
 
+                        //Sjekker om smileyen er gul, for så å fjerne en count fra int variabelen smileysRemaining.
                         if (smiley.GetValue() == 50)
                             smileysRemaining--;
 
@@ -288,6 +301,7 @@ namespace CSharpProsjekt
                     }
                 }
 
+                //Sender spiller tilbake til start om det blir detected collision mot obstacle eller canon.
                 if (CheckCollision(obstaclePath, Spiller.GetPath(), e) || CheckCollision(canonPath, Spiller.GetPath(), e))
                 {
                     Spiller.ResetPosition();
@@ -297,6 +311,13 @@ namespace CSharpProsjekt
                 }
             }   
         }
+        /// <summary>
+        /// Sjekker og region1 og region2 kolliderer. Om region1 ikke er tom etter .Intersect har det vert en kollisjon
+        /// </summary>
+        /// <param name="path1"></param>
+        /// <param name="path2"></param>
+        /// <param name="e"></param>
+        /// <returns></returns>
         private Boolean CheckCollision(GraphicsPath path1, GraphicsPath path2, PaintEventArgs e)
         {
             Region region1 = new Region(path1);
@@ -313,19 +334,34 @@ namespace CSharpProsjekt
                 return false;
             }          
         }
-
+        
+        /// <summary>
+        /// fyller opp loadLevel objektet Level med int level som parameter. 
+        /// En Switch case i Level klassen fyller tabeller med riktig info som blir tilgjengelig via get metoder
+        /// Tiden blir startet og levelFinished blir satt til false, slik at diverse if setninger i onPaint blir true.
+        /// </summary>
         public void LoadLevel()
         {
-            loadLevel = new Level(2);
+            loadLevel = new Level(level);
             
             listOfObstacles = loadLevel.GetObstacles();
             listOfCanons = loadLevel.GetCanons();
             listOfSmileys = loadLevel.GetSmileys();
-            
-            countdownTimer.Start();
+
+            //Teller antall gule smileyer i listOfSmileys, ettersom alle andre smileyer er valgfrie. smileysRemaining brukes senere for å sjekke om alle gule smileyer er tatt.
+            foreach (Smiley s in listOfSmileys)
+                if (s.value == 50)
+                    smileysRemaining++;
+
             keyboardTimer.Enabled = true;
-            bulletTimer.Start();
+            countdownTimer.Start();
+            runnedOnce = false;
+            levelFinished = false;
         }
+
+        /// <summary>
+        /// Alle lister med objekter blir tømt, samt graphicsPath og regions.
+        /// </summary>
         private void ClearLevel()
         {
             listOfObstacles.Clear();
@@ -339,10 +375,14 @@ namespace CSharpProsjekt
             obstacleRegion.MakeEmpty();
             canonRegion.MakeEmpty();
 
-            bulletTimer.Stop();
             keyboardTimer.Enabled = false;
             countdownTimer.Stop();
         }
+
+        /// <summary>
+        /// Egendefinert EventArgs PointEventArgs blir tildelt parametere, og sendt inn i delegatet PointsEndret. 
+        /// Dette blir abonnert på i BallSpill.cs for å oppdatere panelet i bunn.
+        /// </summary>
         private void UpdatePoints()
         {
             try
@@ -355,6 +395,10 @@ namespace CSharpProsjekt
                 MessageBox.Show(string.Format("error: {0}", exp.ToString()));
             }
         }
+       
+        /// <summary>
+        /// Oppretter Obstacle i venstre hjørne hvor spilleren begynner oppå.
+        /// </summary>
         private void StartPlatform()
         {
             Rectangle start = new Rectangle(0, 25, 30, 5);
