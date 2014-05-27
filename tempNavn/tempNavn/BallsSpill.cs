@@ -86,7 +86,7 @@ namespace CSharpProsjekt
                 tb_finish.Visible = true;
                 btn_finish.Visible = true;
             }
-                        }
+        }
 
         private void btn_finish_Click(object sender, EventArgs e)
         {
@@ -95,11 +95,16 @@ namespace CSharpProsjekt
             btn_finish.Visible = false;
         }
 
-        private void reglerToolStripMenuItem_Click(object sender, EventArgs e)
+        private void topScoreToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TopScore box = new TopScore();
+            box.Show();
+        }
+
+        private void hjelpToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AboutBox box = new AboutBox();
             box.Show();
         }
-        
     }
 }

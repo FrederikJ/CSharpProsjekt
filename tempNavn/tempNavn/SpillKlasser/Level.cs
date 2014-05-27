@@ -55,8 +55,25 @@ namespace CSharpProsjekt.SpillKlasser
             return listOfCanons;
         }
 
-        public List<Bullet> GetBullets()
+        public List<Bullet> GetBullets(int i)
         {
+            switch (i)
+            {
+                case 0:
+                    listOfBullets.Add(new Bullet(200, 374, "up"));
+                    break;
+                case 1:
+                    listOfBullets.Add(new Bullet(450, 30, "down"));
+                    break;
+                case 2:
+                    listOfBullets.Add(new Bullet(540, 374, "up"));
+                    break;
+                case 3:
+                    listOfBullets.Add(new Bullet(590, 120, "left"));
+                    break;
+                default:
+                    break;
+            }
             return listOfBullets;
         }
 
@@ -72,8 +89,9 @@ namespace CSharpProsjekt.SpillKlasser
             listOfObstacles.Add(new Obstacle(290, 5, 20, 150));
             listOfObstacles.Add(new Obstacle(5, 110, 220, 20));
 
+
             listOfSmileys.Add(new Smiley(110, 80, 1));
-           /* listOfSmileys.Add(new Smiley(450, 250, 1));
+            /*listOfSmileys.Add(new Smiley(450, 250, 1));
             listOfSmileys.Add(new Smiley(560, 213, 2));
             listOfSmileys.Add(new Smiley(510, 65, 1));
             listOfSmileys.Add(new Smiley(660, 75, 1));
@@ -86,6 +104,8 @@ namespace CSharpProsjekt.SpillKlasser
             listOfCanons.Add(new Canon(440, 0, "down"));
             listOfCanons.Add(new Canon(530, 404, "up"));
             listOfCanons.Add(new Canon(620, 110, "left"));
+
+            listOfBullets.Add(new Bullet(590, 120, "left"));
         }
         private void LevelTwo()
         {

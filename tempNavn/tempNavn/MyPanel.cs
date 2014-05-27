@@ -55,7 +55,7 @@ namespace CSharpProsjekt
         private Boolean runnedOnce = false;
         private Boolean levelFinished = false;
         private int smileysRemaining;
-        private int timeLeft = 30;
+        private int timeLeft = 60;
         private int level = 1;
         private int points;
 
@@ -149,24 +149,8 @@ namespace CSharpProsjekt
         void Interval_Tick(object sender, EventArgs e)
         {
             int i = rnd.Next(0, 4);
-            switch(i)
-            {
-                case 0:
-                    listOfBullets.Add(new Bullet(200, 374, "up"));
-                    break;
-                case 1:
-                    listOfBullets.Add(new Bullet(450, 30, "down"));
-                    break;
-                case 2:
-                    listOfBullets.Add(new Bullet(540, 374, "up"));
-                    break;
-                case 3:
-                    listOfBullets.Add(new Bullet(590, 120, "left"));
-                    break;
-                default:
-                    break;
-            }
-            
+
+            listOfBullets = loadLevel.GetBullets(i);
         }
 
         public void AddSpiller()
@@ -270,6 +254,8 @@ namespace CSharpProsjekt
                     ClearLevel();
                 }
 
+                Spiller.draw(g);
+
                 //Sjekker at spillet fortsatt går
                 if(levelFinished == false)
                 {
@@ -357,17 +343,17 @@ namespace CSharpProsjekt
         public void LoadLevel()
         {
             loadLevel = new Level(level);
-
+            
             listOfObstacles = loadLevel.GetObstacles();
             listOfCanons = loadLevel.GetCanons();
             listOfSmileys = loadLevel.GetSmileys();
-            listOfBullets = loadLevel.GetBullets();
 
             //Teller antall gule smileyer i listOfSmileys, ettersom alle andre smileyer er valgfrie. smileysRemaining brukes senere for å sjekke om alle gule smileyer er tatt.
             foreach (Smiley s in listOfSmileys)
                 if (s.value == 50)
                     smileysRemaining++;
 
+            keyboardTimer.Enabled = true;
             countdownTimer.Start();
             runnedOnce = false;
             levelFinished = false;
@@ -388,6 +374,9 @@ namespace CSharpProsjekt
 
             obstacleRegion.MakeEmpty();
             canonRegion.MakeEmpty();
+
+            keyboardTimer.Enabled = false;
+            countdownTimer.Stop();
         }
 
         /// <summary>

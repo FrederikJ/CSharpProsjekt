@@ -15,7 +15,7 @@ namespace CSharpProsjekt.LoginKlasser
         private string server;
         private string database;
         private string uid;
-        private string password;
+        private string passord;
 
         public DbConnect()
         {
@@ -27,10 +27,10 @@ namespace CSharpProsjekt.LoginKlasser
             server = "kark.hin.no";
             database = "gruppe5";
             uid = "gruppe5";
-            password = "storasveien";
+            passord = "storasveien";
             string connectionString;
             connectionString = "SERVER=" + server + ";" + "DATABASE=" +
-            database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + ";";
+            database + ";" + "UID=" + uid + ";" + "PASSWORD=" + passord + ";";
 
             connection = new MySqlConnection(connectionString);
         }
