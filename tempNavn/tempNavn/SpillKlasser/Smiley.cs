@@ -28,15 +28,26 @@ namespace CSharpProsjekt.SpillKlasser
 
             switch (_value)
             {
-                case 1: 
-                    color = new SolidBrush(Color.Yellow);
+                case 1:
+                    color = new SolidBrush(Color.BlueViolet);
                     value = 50;
                     break;
-                case 2: 
-                    color = new SolidBrush(Color.BlueViolet);
+                case 2:
+                    color = new SolidBrush(Color.Yellow);
                     value = 100;
                     break;
-
+                case 3:
+                    color = new SolidBrush(Color.Pink);
+                    value = 150;
+                    break;
+                case 4:
+                    color = new SolidBrush(Color.Firebrick);
+                    value = 200;
+                    break;
+                case 5:
+                    color = new SolidBrush(Color.GreenYellow);
+                    value = 300;
+                    break;
             }
         }
 

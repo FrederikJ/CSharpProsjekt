@@ -273,7 +273,7 @@ namespace CSharpProsjekt
 
                         if (CheckCollision(bulletPath, Spiller.GetPath(), e))
                         {
-                            MessageBox.Show("Game Over");
+                            //MessageBox.Show("Game Over");
                         }
                         if (CheckCollision(bulletPath, obstaclePath, e) || bullet.x > this.Width || bullet.y > this.Height || bullet.x < 0 || bullet.y < 0)
                         {
@@ -294,7 +294,7 @@ namespace CSharpProsjekt
                         points += smiley.GetValue();
 
                         //Sjekker om smileyen er gul, for så å fjerne en count fra int variabelen smileysRemaining.
-                        if (smiley.GetValue() == 50)
+                        if (smiley.GetValue() == 100)
                             smileysRemaining--;
 
                         UpdatePoints();
@@ -305,7 +305,7 @@ namespace CSharpProsjekt
                 if (CheckCollision(obstaclePath, Spiller.GetPath(), e) || CheckCollision(canonPath, Spiller.GetPath(), e))
                 {
                     Spiller.ResetPosition();
-                    points -= 50;
+                    points -= 75;
 
                     UpdatePoints();
                 }
@@ -314,10 +314,6 @@ namespace CSharpProsjekt
         /// <summary>
         /// Sjekker og region1 og region2 kolliderer. Om region1 ikke er tom etter .Intersect har det vert en kollisjon
         /// </summary>
-        /// <param name="path1"></param>
-        /// <param name="path2"></param>
-        /// <param name="e"></param>
-        /// <returns></returns>
         private Boolean CheckCollision(GraphicsPath path1, GraphicsPath path2, PaintEventArgs e)
         {
             Region region1 = new Region(path1);
@@ -350,7 +346,7 @@ namespace CSharpProsjekt
 
             //Teller antall gule smileyer i listOfSmileys, ettersom alle andre smileyer er valgfrie. smileysRemaining brukes senere for å sjekke om alle gule smileyer er tatt.
             foreach (Smiley s in listOfSmileys)
-                if (s.value == 50)
+                if (s.value == 100)
                     smileysRemaining++;
 
             keyboardTimer.Enabled = true;
