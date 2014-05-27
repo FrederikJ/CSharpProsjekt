@@ -30,11 +30,11 @@ namespace CSharpProsjekt.SpillKlasser
             {
                 case 1: 
                     color = new SolidBrush(Color.Yellow);
-                    value = 100;
+                    value = 50;
                     break;
                 case 2: 
                     color = new SolidBrush(Color.BlueViolet);
-                    value = 50;
+                    value = 100;
                     break;
 
             }
