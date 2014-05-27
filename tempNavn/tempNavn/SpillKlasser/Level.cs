@@ -12,8 +12,10 @@ namespace CSharpProsjekt.SpillKlasser
         private List<Obstacle> listOfObstacles = new List<Obstacle>();
         private List<Smiley> listOfSmileys = new List<Smiley>();
         private List<Canon> listOfCanons = new List<Canon>();
+        private List<Bullet> listOfBullets = new List<Bullet>();
 
         private int level;
+        //private MyPanel parentPanel = new MyPanel();
 
         public Level(int _level)
         {
@@ -46,6 +48,11 @@ namespace CSharpProsjekt.SpillKlasser
             return listOfCanons;
         }
 
+        public List<Bullet> GetBullets()
+        {
+            return listOfBullets;
+        }
+
         private void LevelOne()
         {
             listOfObstacles.Add(new Obstacle(500, 180, 200, 70, 50, 180));
@@ -72,6 +79,23 @@ namespace CSharpProsjekt.SpillKlasser
             listOfCanons.Add(new Canon(440, 0, "down"));
             listOfCanons.Add(new Canon(530, 404, "up"));
             listOfCanons.Add(new Canon(620, 110, "left"));
+
+            listOfBullets.Add(new Bullet(200, 374, "up"));
+            listOfBullets.Add(new Bullet(450, 30, "down"));
+            listOfBullets.Add(new Bullet(540, 374, "up"));
+            listOfBullets.Add(new Bullet(590, 120, "left"));
+            /*listOfBullets.Add(new Bullet(200, 374, "up"));
+            listOfBullets.Add(new Bullet(450, 30, "down"));
+            listOfBullets.Add(new Bullet(540, 374, "up"));
+            listOfBullets.Add(new Bullet(590, 120, "left"));
+            listOfBullets.Add(new Bullet(200, 374, "up"));
+            listOfBullets.Add(new Bullet(450, 30, "down"));
+            listOfBullets.Add(new Bullet(540, 374, "up"));
+            listOfBullets.Add(new Bullet(590, 120, "left"));
+            listOfBullets.Add(new Bullet(200, 374, "up"));
+            listOfBullets.Add(new Bullet(450, 30, "down"));
+            listOfBullets.Add(new Bullet(540, 374, "up"));
+            listOfBullets.Add(new Bullet(590, 120, "left"));*/
         }
         private void LevelTwo()
         {

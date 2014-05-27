@@ -14,6 +14,5 @@ namespace CSharpProsjekt.SpillKlasser
         {
             timeLeft = _timeLeft;
         }
-        
     }
 }

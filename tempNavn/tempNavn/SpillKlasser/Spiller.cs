@@ -144,11 +144,11 @@ namespace CSharpProsjekt.SpillKlasser
         {
             g.FillEllipse(Brush, x, y, diameter, diameter);
         }
+
         public void ResetPosition()
         {
             x = 0;
             y = 2.5f;
         }
-
     }
 }
