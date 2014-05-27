@@ -14,9 +14,14 @@ namespace CSharpProsjekt.SpillKlasser
         public GraphicsPath canonPath = new GraphicsPath();
         private static SolidBrush canonColor = new SolidBrush(Color.Orange);
         private Point[] canonPoints;
+        public int X { get; set; }
+        public int Y { get; set; }
 
         public Canon(int startX, int startY, string direction)
         {
+            this.X = startX;
+            this.Y = startY;
+
             direction.ToLower();
 
             switch(direction)

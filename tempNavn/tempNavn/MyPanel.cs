@@ -55,7 +55,7 @@ namespace CSharpProsjekt
         private Boolean runnedOnce = false;
         private Boolean levelFinished = false;
         private int smileysRemaining;
-        private int timeLeft = 30;
+        private int timeLeft = 60;
         private int level = 1;
         private int points;
 
@@ -99,25 +99,21 @@ namespace CSharpProsjekt
             if (left.IsPressed)
             {
                 Spiller.MoveLeft();
-                this.Invalidate();
             }
 
             if (right.IsPressed)
             {
                 Spiller.MoveRight();
-                this.Invalidate();
             }
 
             if (up.IsPressed)
             {
                 Spiller.MoveUp();
-                this.Invalidate();
             }
 
             if (down.IsPressed)
             {
                 Spiller.MoveDown();
-                this.Invalidate();
             } 
         }
 
@@ -148,24 +144,8 @@ namespace CSharpProsjekt
         void Interval_Tick(object sender, EventArgs e)
         {
             int i = rnd.Next(0, 4);
-            switch(i)
-            {
-                case 0:
-                    listOfBullets.Add(new Bullet(200, 374, "up"));
-                    break;
-                case 1:
-                    listOfBullets.Add(new Bullet(450, 30, "down"));
-                    break;
-                case 2:
-                    listOfBullets.Add(new Bullet(540, 374, "up"));
-                    break;
-                case 3:
-                    listOfBullets.Add(new Bullet(590, 120, "left"));
-                    break;
-                default:
-                    break;
-            }
-            
+
+            listOfBullets = loadLevel.GetBullets(i);
         }
 
         public void AddSpiller()
@@ -266,24 +246,27 @@ namespace CSharpProsjekt
 
                 Spiller.draw(g);
 
-                for (int i = 0; i < listOfBullets.Count; i++)
+                if(levelFinished == false)
                 {
-                    Bullet bullet = listOfBullets[i];
-
-                    GraphicsPath bulletPath = new GraphicsPath();
-                    bulletPath.StartFigure();
-                    bulletPath.AddEllipse(bullet.x, bullet.y, bullet.diameter, bullet.diameter);
-                    bulletPath.CloseFigure();
-
-                    bullet.Draw(g);
-
-                    if (CheckCollision(bulletPath, Spiller.GetPath(), e))
+                    for (int i = 0; i < listOfBullets.Count; i++)
                     {
-                        MessageBox.Show("Game Over");
-                    }
-                    if (CheckCollision(bulletPath, obstaclePath, e) || bullet.x > this.Width || bullet.y > this.Height || bullet.x < 0 || bullet.y < 0)
-                    {
-                        listOfBullets.RemoveAt(i);
+                        Bullet bullet = listOfBullets[i];
+
+                        GraphicsPath bulletPath = new GraphicsPath();
+                        bulletPath.StartFigure();
+                        bulletPath.AddEllipse(bullet.x, bullet.y, bullet.diameter, bullet.diameter);
+                        bulletPath.CloseFigure();
+
+                        bullet.Draw(g);
+
+                        if (CheckCollision(bulletPath, Spiller.GetPath(), e))
+                        {
+                            MessageBox.Show("Game Over");
+                        }
+                        if (CheckCollision(bulletPath, obstaclePath, e) || bullet.x > this.Width || bullet.y > this.Height || bullet.x < 0 || bullet.y < 0)
+                        {
+                            listOfBullets.RemoveAt(i);
+                        }
                     }
                 }
 
@@ -333,14 +316,15 @@ namespace CSharpProsjekt
 
         public void LoadLevel()
         {
-            loadLevel = new Level(level);
-
+            loadLevel = new Level(2);
+            
             listOfObstacles = loadLevel.GetObstacles();
             listOfCanons = loadLevel.GetCanons();
             listOfSmileys = loadLevel.GetSmileys();
-            listOfBullets = loadLevel.GetBullets();
-
+            
             countdownTimer.Start();
+            keyboardTimer.Enabled = true;
+            bulletTimer.Start();
         }
         private void ClearLevel()
         {
@@ -354,6 +338,10 @@ namespace CSharpProsjekt
 
             obstacleRegion.MakeEmpty();
             canonRegion.MakeEmpty();
+
+            bulletTimer.Stop();
+            keyboardTimer.Enabled = false;
+            countdownTimer.Stop();
         }
         private void UpdatePoints()
         {

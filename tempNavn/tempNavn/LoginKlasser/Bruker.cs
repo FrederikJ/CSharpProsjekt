@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CSharpProsjekt.LoginKlasser
 {
-    public static class Bruker
+    public class Bruker
     {
         public static int BrukerID { get; set; }
         public static string Navn { get; set; }
