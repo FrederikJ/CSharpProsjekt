@@ -63,6 +63,7 @@ namespace CSharpProsjekt.SpillKlasser
         {
             return smileyPath;
         }
+
         public void Draw(Graphics g)
         {
             g.FillEllipse(color, x, y, diameter, diameter);

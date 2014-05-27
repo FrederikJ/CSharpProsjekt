@@ -54,6 +54,7 @@ namespace CSharpProsjekt
         private Random rnd = new Random();
         private Boolean runnedOnce = false;
         private Boolean levelFinished = false;
+        private Boolean gameOver = false;
         private int smileysRemaining;
         private int timeLeft = 60;
         private int level = 1;
@@ -76,7 +77,6 @@ namespace CSharpProsjekt
               true);
             this.UpdateStyles();
 
-            StartPlatform();
             LoadLevel();
         }
 
@@ -89,8 +89,6 @@ namespace CSharpProsjekt
         /// Metoden blir trigret hvert 10ms av timeren keyboardTimer og sjekker om pil opp, ned, venstre eller høyre er trykt. 
         /// Klassen KeyboardInfo blir brukt, dette er en ferdig klasse funnet på nettet som tilater oss å trykke flere taster ned samtidig. 
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         void ReadKeyboard_Tick(object sender, EventArgs e)
         {
             var left = KeyboardInfo.GetKeyState(Keys.Left);
@@ -139,10 +137,7 @@ namespace CSharpProsjekt
             }
             else
             {
-                countdownTimer.Stop();
-                ClearLevel();
-                StopSpillet();
-                MessageBox.Show("Game over!");
+                gameOver = true;
             }
         }
 
@@ -153,7 +148,7 @@ namespace CSharpProsjekt
             listOfBullets = loadLevel.GetBullets(i);
         }
 
-        public void AddSpiller()
+        public void StartGame()
         {
             keyboardTimer.Interval = 10;
             keyboardTimer.Tick += new EventHandler(ReadKeyboard_Tick);
@@ -167,18 +162,11 @@ namespace CSharpProsjekt
             bulletTimer.Tick += new EventHandler(Interval_Tick);
             bulletTimer.Start();
 
+            keyboardTimer.Enabled = true;
             Spiller = new Spiller(this);
         }
 
-        public void StopSpillet()
-        {
-            Spiller.going = false;
-            keyboardTimer.Stop();
-            bulletTimer.Stop();
-            countdownTimer.Stop();
-        }
-
-        public Boolean PauseSpiller()
+        public Boolean PauseGame()
         {
             if (keyboardTimer.Enabled == true)
             {
@@ -199,9 +187,39 @@ namespace CSharpProsjekt
             }
         }
 
+        public void StopGame()
+        {
+            keyboardTimer.Stop();
+            bulletTimer.Stop();
+            countdownTimer.Stop();
+            ClearPanel();
+            Spiller = null;
+        }
+
+        public void NewGame()
+        {
+            
+            gameOver = false;
+            level = 1;
+            points = 0;
+
+            ClearPanel();
+            LoadLevel();
+
+        }
+
+      
+
         protected override void OnPaint(PaintEventArgs e)
         {
             Graphics g = e.Graphics;
+
+            if(gameOver)
+            {
+                StopGame();
+                obstaclePath.AddString("Game Over", new FontFamily("Showcard Gothic"), (int)(FontStyle.Bold | FontStyle.Italic), 120, new Point(5, 100), StringFormat.GenericTypographic);
+                obstacleRegion = new Region(obstaclePath);
+            }
 
             //Denne kodesnutten blir bare kjørt en gang for hver level. Obstacles og canons har ingen behov for å bli tegnet i hver OnPaint ettersom de er statisk.
             if (runnedOnce == false)
@@ -244,14 +262,14 @@ namespace CSharpProsjekt
                 {
                     level++;
                     countdownTimer.Stop();
+                    keyboardTimer.Enabled = false;
                     levelFinished = true;
 
                     points += timeLeft * 2;
-                    timeLeft = 30;
 
                     UpdatePoints();
                     Spiller.ResetPosition();
-                    ClearLevel();
+                    ClearPanel();
                 }
 
                 Spiller.draw(g);
@@ -273,7 +291,7 @@ namespace CSharpProsjekt
 
                         if (CheckCollision(bulletPath, Spiller.GetPath(), e))
                         {
-                            //MessageBox.Show("Game Over");
+                            gameOver = true;
                         }
                         if (CheckCollision(bulletPath, obstaclePath, e) || bullet.x > this.Width || bullet.y > this.Height || bullet.x < 0 || bullet.y < 0)
                         {
@@ -296,6 +314,9 @@ namespace CSharpProsjekt
                         //Sjekker om smileyen er gul, for så å fjerne en count fra int variabelen smileysRemaining.
                         if (smiley.GetValue() == 100)
                             smileysRemaining--;
+
+                        if (smiley.GetValue() == 150)
+                            Spiller.ReverseGravity();
 
                         UpdatePoints();
                     }
@@ -338,8 +359,11 @@ namespace CSharpProsjekt
         /// </summary>
         public void LoadLevel()
         {
-            loadLevel = new Level(level);
-            
+            StartPlatform();
+
+            loadLevel = new Level(3);
+
+            timeLeft = loadLevel.GetTimeLeft();
             listOfObstacles = loadLevel.GetObstacles();
             listOfCanons = loadLevel.GetCanons();
             listOfSmileys = loadLevel.GetSmileys();
@@ -356,9 +380,9 @@ namespace CSharpProsjekt
         }
 
         /// <summary>
-        /// Alle lister med objekter blir tømt, samt graphicsPath og regions.
+        /// Alle lister med objekter blir tømt, samt graphicsPath og regions. timer for keyboardinput og countdown stoppes.
         /// </summary>
-        private void ClearLevel()
+        private void ClearPanel()
         {
             listOfObstacles.Clear();
             listOfCanons.Clear();
@@ -366,9 +390,11 @@ namespace CSharpProsjekt
             listOfBullets.Clear();
 
             obstaclePath.Reset();
+            startPlatform.Reset();
             canonPath.Reset();
 
             obstacleRegion.MakeEmpty();
+            platformRegion.MakeEmpty();
             canonRegion.MakeEmpty();
 
             keyboardTimer.Enabled = false;
