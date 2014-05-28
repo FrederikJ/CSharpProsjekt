@@ -361,7 +361,7 @@ namespace CSharpProsjekt
         {
             StartPlatform();
 
-            loadLevel = new Level(3);
+            loadLevel = new Level(level);
 
             timeLeft = loadLevel.GetTimeLeft();
             listOfObstacles = loadLevel.GetObstacles();
