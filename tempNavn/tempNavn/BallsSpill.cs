@@ -22,7 +22,6 @@ namespace CSharpProsjekt
     public partial class BallSpill : Form
     {
         public Boolean keepGoing { get; set; }
-        private Boolean firstRun = true;
         private ThreadStart ts;
         private Thread thread;
 
@@ -93,6 +92,7 @@ namespace CSharpProsjekt
 
         private void btn_finish_Click(object sender, EventArgs e)
         {
+            panelDraw.StartTimers();
             panelDraw.LoadLevel();
             tb_finish.Visible = false;
             btn_finish.Visible = false;

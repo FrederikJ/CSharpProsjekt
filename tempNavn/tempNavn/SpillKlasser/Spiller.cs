@@ -29,7 +29,7 @@ namespace CSharpProsjekt.SpillKlasser
         private float Adx = 1.0f;
         private float AdyDown = 1.0f;
         private float AdyUp = 2.5f;
-        private Boolean gravityReversed = false;
+        public Boolean gravityReversed { get; set; }
 
         public bool going { get; set; }
 
@@ -45,6 +45,7 @@ namespace CSharpProsjekt.SpillKlasser
 
         public Spiller(MyPanel _parentPanel)
         {
+            gravityReversed = false;
             parentPanel = _parentPanel;
 
             //ligger metoden "run" inn i en thread.

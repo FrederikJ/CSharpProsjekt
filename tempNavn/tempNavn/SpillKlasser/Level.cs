@@ -36,12 +36,12 @@ namespace CSharpProsjekt.SpillKlasser
             switch (_level)
             {
                 case 1:
-                    timeLeft = 30;
+                    timeLeft = 50;
                     LevelOne();
                     break;
 
                 case 2:
-                    timeLeft = 40;
+                    timeLeft = 50;
                     LevelTwo();
                     break;
 
