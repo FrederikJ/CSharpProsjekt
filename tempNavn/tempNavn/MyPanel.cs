@@ -340,10 +340,6 @@ namespace CSharpProsjekt
         /// <summary>
         /// Sjekker og region1 og region2 kolliderer. Om region1 ikke er tom etter .Intersect har det vert en kollisjon
         /// </summary>
-        /// <param name="path1"></param>
-        /// <param name="path2"></param>
-        /// <param name="e"></param>
-        /// <returns></returns>
         private Boolean CheckCollision(GraphicsPath path1, GraphicsPath path2, PaintEventArgs e)
         {
             Region region1 = new Region(path1);

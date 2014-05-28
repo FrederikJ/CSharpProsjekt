@@ -34,6 +34,7 @@ namespace CSharpProsjekt.SpillKlasser
         public Obstacle(int _x, int _y, int _Width, int _height)
         {
             Rectangle rectangle = new Rectangle(_x, _y, _Width, _height);
+            obstacle.StartFigure();
             obstacle.AddRectangle(rectangle);
             obstacle.CloseFigure();
         }
