@@ -53,6 +53,7 @@ namespace CSharpProsjekt
 
         private Random rnd = new Random();
         private Boolean runnedOnce = false;
+        private Boolean firstAttempt = true;
         private Boolean levelFinished = false;
         private Boolean gameOver = false;
         private int smileysRemaining;
@@ -150,19 +151,23 @@ namespace CSharpProsjekt
 
         public void StartGame()
         {
-            keyboardTimer.Interval = 10;
-            keyboardTimer.Tick += new EventHandler(ReadKeyboard_Tick);
-            keyboardTimer.Start();
+            if (firstAttempt)
+            {
+                keyboardTimer.Interval = 10;
+                keyboardTimer.Tick += new EventHandler(ReadKeyboard_Tick);
+                keyboardTimer.Start();
 
-            countdownTimer.Interval = 1000;
-            countdownTimer.Tick += new EventHandler(Countdown_Tick);
-            countdownTimer.Start();
+                countdownTimer.Interval = 1000;
+                countdownTimer.Tick += new EventHandler(Countdown_Tick);
+                
+                bulletTimer.Interval = rnd.Next(500, 1000);
+                bulletTimer.Tick += new EventHandler(Interval_Tick);
+                
+                firstAttempt = false;
+            }
 
-            bulletTimer.Interval = rnd.Next(500, 1000);
-            bulletTimer.Tick += new EventHandler(Interval_Tick);
-            bulletTimer.Start();
+            StartTimers();
 
-            keyboardTimer.Enabled = true;
             Spiller = new Spiller(this);
         }
 
@@ -194,6 +199,7 @@ namespace CSharpProsjekt
             countdownTimer.Stop();
             ClearPanel();
             Spiller = null;
+            smileysRemaining = 0;
         }
 
         public void NewGame()
@@ -205,7 +211,6 @@ namespace CSharpProsjekt
 
             ClearPanel();
             LoadLevel();
-
         }
 
       
@@ -364,8 +369,7 @@ namespace CSharpProsjekt
         public void LoadLevel()
         {
             StartPlatform();
-
-            loadLevel = new Level(3);
+            loadLevel = new Level(level);
 
             timeLeft = loadLevel.GetTimeLeft();
             listOfObstacles = loadLevel.GetObstacles();
@@ -377,8 +381,6 @@ namespace CSharpProsjekt
                 if (s.value == 100)
                     smileysRemaining++;
 
-            keyboardTimer.Enabled = true;
-            countdownTimer.Start();
             runnedOnce = false;
             levelFinished = false;
         }
@@ -403,6 +405,13 @@ namespace CSharpProsjekt
 
             keyboardTimer.Enabled = false;
             countdownTimer.Stop();
+        }
+        public void StartTimers()
+        {
+            bulletTimer.Start();
+            countdownTimer.Start();
+
+            keyboardTimer.Enabled = true;
         }
 
         /// <summary>
