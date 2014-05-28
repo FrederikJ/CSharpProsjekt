@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CSharpProsjekt.LoginKlasser;
 
 namespace CSharpProsjekt
 {
@@ -16,7 +17,7 @@ namespace CSharpProsjekt
         public AboutBox()
         {
             InitializeComponent();
-            labelInfo.Text = text;
+            labelInfo.Text = Bruker.Navn;// text;
         }
 
         private void btn_ok_Click(object sender, EventArgs e)

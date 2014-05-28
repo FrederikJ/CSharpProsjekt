@@ -50,6 +50,8 @@ namespace CSharpProsjekt
             }
             else
                 lblFeil.Visible = true;
+
+            this.Close();
         }
     }
 }

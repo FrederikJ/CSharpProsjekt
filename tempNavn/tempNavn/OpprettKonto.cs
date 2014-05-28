@@ -43,7 +43,7 @@ namespace CSharpProsjekt
                 string emne = "Registrert";
 
                 SendEmail.sendEpost(epost, beskjed, emne);*/
-                this.Hide();
+                this.Close();
             }
             else
                 lblFeil.Visible = true;

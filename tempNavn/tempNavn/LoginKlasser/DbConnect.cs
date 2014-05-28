@@ -12,6 +12,7 @@ namespace CSharpProsjekt.LoginKlasser
         private MySqlConnection connection;
         private MySqlDataAdapter adapter;
         private DataTable dataTable;
+        private Bruker bruker;
         private string server;
         private string database;
         private string uid;
