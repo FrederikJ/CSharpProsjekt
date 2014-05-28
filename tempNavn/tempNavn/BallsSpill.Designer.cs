@@ -40,6 +40,9 @@ namespace CSharpProsjekt
             this.loggUtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.topScoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hjelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.opprettBrukerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.glemtPassordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.panelDraw = new CSharpProsjekt.MyPanel();
             this.btn_finish = new System.Windows.Forms.Button();
             this.tb_finish = new System.Windows.Forms.TextBox();
@@ -57,12 +60,13 @@ namespace CSharpProsjekt
             this.tableLayoutPanel1.Controls.Add(this.panelButton, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.panelDraw, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 24);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 28);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 91.99134F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.008658F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(734, 451);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(979, 557);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // panelButton
@@ -72,16 +76,18 @@ namespace CSharpProsjekt
             this.panelButton.Controls.Add(this.label_level);
             this.panelButton.Controls.Add(this.label_poeng);
             this.panelButton.Controls.Add(this.label_tid);
-            this.panelButton.Location = new System.Drawing.Point(3, 418);
+            this.panelButton.Location = new System.Drawing.Point(4, 516);
+            this.panelButton.Margin = new System.Windows.Forms.Padding(4);
             this.panelButton.Name = "panelButton";
-            this.panelButton.Size = new System.Drawing.Size(728, 30);
+            this.panelButton.Size = new System.Drawing.Size(971, 37);
             this.panelButton.TabIndex = 1;
             // 
             // btn_pause
             // 
-            this.btn_pause.Location = new System.Drawing.Point(9, 4);
+            this.btn_pause.Location = new System.Drawing.Point(12, 5);
+            this.btn_pause.Margin = new System.Windows.Forms.Padding(4);
             this.btn_pause.Name = "btn_pause";
-            this.btn_pause.Size = new System.Drawing.Size(75, 23);
+            this.btn_pause.Size = new System.Drawing.Size(100, 28);
             this.btn_pause.TabIndex = 4;
             this.btn_pause.Text = "Pause";
             this.btn_pause.UseVisualStyleBackColor = true;
@@ -90,27 +96,30 @@ namespace CSharpProsjekt
             // label_level
             // 
             this.label_level.AutoSize = true;
-            this.label_level.Location = new System.Drawing.Point(647, 9);
+            this.label_level.Location = new System.Drawing.Point(863, 11);
+            this.label_level.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_level.Name = "label_level";
-            this.label_level.Size = new System.Drawing.Size(45, 13);
+            this.label_level.Size = new System.Drawing.Size(58, 17);
             this.label_level.TabIndex = 3;
             this.label_level.Text = "Level: 1";
             // 
             // label_poeng
             // 
             this.label_poeng.AutoSize = true;
-            this.label_poeng.Location = new System.Drawing.Point(370, 9);
+            this.label_poeng.Location = new System.Drawing.Point(493, 11);
+            this.label_poeng.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_poeng.Name = "label_poeng";
-            this.label_poeng.Size = new System.Drawing.Size(50, 13);
+            this.label_poeng.Size = new System.Drawing.Size(65, 17);
             this.label_poeng.TabIndex = 2;
             this.label_poeng.Text = "Poeng: 0";
             // 
             // label_tid
             // 
             this.label_tid.AutoSize = true;
-            this.label_tid.Location = new System.Drawing.Point(126, 9);
+            this.label_tid.Location = new System.Drawing.Point(168, 11);
+            this.label_tid.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_tid.Name = "label_tid";
-            this.label_tid.Size = new System.Drawing.Size(87, 13);
+            this.label_tid.Size = new System.Drawing.Size(116, 17);
             this.label_tid.TabIndex = 1;
             this.label_tid.Text = "Gjenstående tid: ";
             // 
@@ -122,7 +131,8 @@ namespace CSharpProsjekt
             this.hjelpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(734, 24);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(979, 28);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -130,37 +140,60 @@ namespace CSharpProsjekt
             // 
             this.valgToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.nyttSpillToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.opprettBrukerToolStripMenuItem,
+            this.glemtPassordToolStripMenuItem,
             this.loggUtToolStripMenuItem});
             this.valgToolStripMenuItem.Name = "valgToolStripMenuItem";
-            this.valgToolStripMenuItem.Size = new System.Drawing.Size(42, 20);
+            this.valgToolStripMenuItem.Size = new System.Drawing.Size(51, 24);
             this.valgToolStripMenuItem.Text = "Valg";
             // 
             // nyttSpillToolStripMenuItem
             // 
             this.nyttSpillToolStripMenuItem.Name = "nyttSpillToolStripMenuItem";
-            this.nyttSpillToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.nyttSpillToolStripMenuItem.Size = new System.Drawing.Size(181, 24);
             this.nyttSpillToolStripMenuItem.Text = "Nytt spill";
             this.nyttSpillToolStripMenuItem.Click += new System.EventHandler(this.nyttSpillToolStripMenuItem_Click);
             // 
             // loggUtToolStripMenuItem
             // 
             this.loggUtToolStripMenuItem.Name = "loggUtToolStripMenuItem";
-            this.loggUtToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.loggUtToolStripMenuItem.Size = new System.Drawing.Size(181, 24);
             this.loggUtToolStripMenuItem.Text = "Logg ut";
+            this.loggUtToolStripMenuItem.Click += new System.EventHandler(this.loggUtToolStripMenuItem_Click);
             // 
             // topScoreToolStripMenuItem
             // 
             this.topScoreToolStripMenuItem.Name = "topScoreToolStripMenuItem";
-            this.topScoreToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
+            this.topScoreToolStripMenuItem.Size = new System.Drawing.Size(86, 24);
             this.topScoreToolStripMenuItem.Text = "Top score";
             this.topScoreToolStripMenuItem.Click += new System.EventHandler(this.topScoreToolStripMenuItem_Click);
             // 
             // hjelpToolStripMenuItem
             // 
             this.hjelpToolStripMenuItem.Name = "hjelpToolStripMenuItem";
-            this.hjelpToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
+            this.hjelpToolStripMenuItem.Size = new System.Drawing.Size(57, 24);
             this.hjelpToolStripMenuItem.Text = "Hjelp";
             this.hjelpToolStripMenuItem.Click += new System.EventHandler(this.hjelpToolStripMenuItem_Click);
+            // 
+            // opprettBrukerToolStripMenuItem
+            // 
+            this.opprettBrukerToolStripMenuItem.Name = "opprettBrukerToolStripMenuItem";
+            this.opprettBrukerToolStripMenuItem.Size = new System.Drawing.Size(181, 24);
+            this.opprettBrukerToolStripMenuItem.Text = "Opprett Bruker";
+            this.opprettBrukerToolStripMenuItem.Click += new System.EventHandler(this.opprettBrukerToolStripMenuItem_Click);
+            // 
+            // glemtPassordToolStripMenuItem
+            // 
+            this.glemtPassordToolStripMenuItem.Name = "glemtPassordToolStripMenuItem";
+            this.glemtPassordToolStripMenuItem.Size = new System.Drawing.Size(181, 24);
+            this.glemtPassordToolStripMenuItem.Text = "Glemt passord?";
+            this.glemtPassordToolStripMenuItem.Click += new System.EventHandler(this.glemtPassordToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(178, 6);
             // 
             // panelDraw
             // 
@@ -168,17 +201,19 @@ namespace CSharpProsjekt
             this.panelDraw.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.panelDraw.Controls.Add(this.btn_finish);
             this.panelDraw.Controls.Add(this.tb_finish);
-            this.panelDraw.Location = new System.Drawing.Point(3, 5);
+            this.panelDraw.Location = new System.Drawing.Point(4, 7);
+            this.panelDraw.Margin = new System.Windows.Forms.Padding(4);
             this.panelDraw.Name = "panelDraw";
-            this.panelDraw.Size = new System.Drawing.Size(728, 404);
+            this.panelDraw.Size = new System.Drawing.Size(971, 497);
             this.panelDraw.TabIndex = 2;
             this.panelDraw.Click += new System.EventHandler(this.panelDraw_Click);
             // 
             // btn_finish
             // 
-            this.btn_finish.Location = new System.Drawing.Point(297, 233);
+            this.btn_finish.Location = new System.Drawing.Point(396, 287);
+            this.btn_finish.Margin = new System.Windows.Forms.Padding(4);
             this.btn_finish.Name = "btn_finish";
-            this.btn_finish.Size = new System.Drawing.Size(75, 23);
+            this.btn_finish.Size = new System.Drawing.Size(100, 28);
             this.btn_finish.TabIndex = 1;
             this.btn_finish.Text = "Neste level";
             this.btn_finish.UseVisualStyleBackColor = true;
@@ -187,23 +222,25 @@ namespace CSharpProsjekt
             // 
             // tb_finish
             // 
-            this.tb_finish.Location = new System.Drawing.Point(229, 146);
+            this.tb_finish.Location = new System.Drawing.Point(305, 180);
+            this.tb_finish.Margin = new System.Windows.Forms.Padding(4);
             this.tb_finish.Multiline = true;
             this.tb_finish.Name = "tb_finish";
             this.tb_finish.ReadOnly = true;
-            this.tb_finish.Size = new System.Drawing.Size(216, 81);
+            this.tb_finish.Size = new System.Drawing.Size(287, 99);
             this.tb_finish.TabIndex = 0;
             this.tb_finish.Visible = false;
             // 
             // BallSpill
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(734, 475);
+            this.ClientSize = new System.Drawing.Size(979, 585);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "BallSpill";
             this.Text = "Figurer . . .";
@@ -236,5 +273,8 @@ namespace CSharpProsjekt
         private System.Windows.Forms.ToolStripMenuItem nyttSpillToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loggUtToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem topScoreToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem opprettBrukerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem glemtPassordToolStripMenuItem;
     }
 }

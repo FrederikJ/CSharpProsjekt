@@ -42,13 +42,14 @@ namespace CSharpProsjekt
                     int brukerID = Convert.ToInt32(dt.Rows[0]["Id"]);
                     string brukerNavn = Convert.ToString(dt.Rows[0]["Navn"]);
                     string epost = Convert.ToString(dt.Rows[0]["Epost"]);
+                    int topScore = Convert.ToInt32(dt.Rows[0]["TopScore"]);
+                    int level = Convert.ToInt32(dt.Rows[0]["Level"]);
 
-                    Bruker.AddBruker(brukerID, brukerNavn, epost);
+                    Bruker.AddBruker(brukerID, brukerNavn, topScore, level, epost);
 
-                    BallSpill ballspill = new BallSpill();
-
-                    ballspill.Show();
-                    this.Hide();
+                    BallSpill box = new BallSpill();
+                    this.Hide();// this.Close();
+                    box.Show();
                 }
             }
             else

@@ -8,15 +8,16 @@ using System.Windows.Forms;
 using System.Threading;
 using System.Diagnostics;
 using CSharpProsjekt.SpillKlasser;
+using CSharpProsjekt.LoginKlasser;
 using System.Drawing.Drawing2D;
 
 /*
  * HiN - Vårsemester 2014
  * Programmering 3
- * Obligatorisk Innlevering 4
+ * Karaktergivende prosjekt
  * 
  * Skrevet av:
- * Tommy Langhelle
+ * Tommy Langhelle og Frederik Johnse
  */
 
 namespace CSharpProsjekt
@@ -32,7 +33,6 @@ namespace CSharpProsjekt
         private Object mySync = new Object();
         private Level loadLevel;
         private Spiller Spiller;
-
 
         private List<Obstacle> listOfObstacles = new List<Obstacle>();
         private List<Smiley> listOfSmileys = new List<Smiley>();
@@ -51,6 +51,7 @@ namespace CSharpProsjekt
         private SolidBrush purpleBrush = new SolidBrush(Color.Purple);
         private SolidBrush bulletBrush = new SolidBrush(Color.Black);
 
+        private DbConnect db = new DbConnect();
         private Random rnd = new Random();
         private Boolean runnedOnce = false;
         private Boolean firstAttempt = true;
@@ -199,12 +200,12 @@ namespace CSharpProsjekt
             countdownTimer.Stop();
             ClearPanel();
             Spiller = null;
-            smileysRemaining = 0;
+            if (points > Bruker.TopScore)
+                this.UpdateDatabase();
         }
 
         public void NewGame()
         {
-            
             gameOver = false;
             level = 1;
             points = 0;
@@ -212,8 +213,6 @@ namespace CSharpProsjekt
             ClearPanel();
             LoadLevel();
         }
-
-      
 
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -435,6 +434,13 @@ namespace CSharpProsjekt
             Rectangle start = new Rectangle(0, 25, 30, 5);
             startPlatform.AddRectangle(start);
             startPlatform.CloseFigure();
+        }
+        
+        private void UpdateDatabase()
+        {
+            string query = String.Format("UPDATE Konto SET TopScore = '{0}', Level = '{1}' WHERE Navn = '{2}'", points, level, Bruker.Navn);
+            db.InsertAll(query);
+            Bruker.AddTopScoreLevelToBruker(points, level);
         }
     } 
 }

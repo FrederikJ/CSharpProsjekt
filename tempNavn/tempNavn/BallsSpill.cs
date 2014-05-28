@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Threading;
 using CSharpProsjekt.SpillKlasser;
+using CSharpProsjekt.LoginKlasser;
 
 /*
  * HiN - VÃ¥rsemester 2014
@@ -75,7 +76,6 @@ namespace CSharpProsjekt
         public void update_label_tid(object sender, TimeEventArgs e)
         {
             label_tid.Text = Convert.ToString("Gjenstående tid: " + e.timeLeft + " sekunder");
-            
         }
         public void update_label_points(object sender, PointEventArgs e)
         {
@@ -102,6 +102,7 @@ namespace CSharpProsjekt
         {
             TopScore box = new TopScore();
             box.Show();
+            
         }
 
         private void hjelpToolStripMenuItem_Click(object sender, EventArgs e)
@@ -118,6 +119,24 @@ namespace CSharpProsjekt
 
         }
 
-        
+        private void loggUtToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Login box = new Login();
+            this.Close();
+            panelDraw.StopGame();
+            box.Show();
+        }
+
+        private void glemtPassordToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MistetPassord box = new MistetPassord();
+            box.Show();
+        }
+
+        private void opprettBrukerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpprettKonto box = new OpprettKonto();
+            box.Show();
+        }
     }
 }
