@@ -19,10 +19,10 @@ namespace CSharpProsjekt.SpillKlasser
     class Spiller
     {
         //Størrelse:
-        private float diameter = 20.0f;
+        public float diameter { get; set; }
         //Posisjon:
-        private float x = 0.0f;
-        private float y = 2.5f;
+        public float x { get; set; }
+        public float y { get; set; }
         //Gravitasjon ( y-retning):
         private float dy = 0.7f;
         //retningsendring(piltaster)
@@ -35,7 +35,7 @@ namespace CSharpProsjekt.SpillKlasser
 
         private Object mySync = new Object();
 
-        private Brush Brush = new SolidBrush(Color.Red);
+        private Brush Brush = new SolidBrush(Color.Wheat);
         Random rnd = new Random();
 
         private MyPanel parentPanel;
@@ -45,6 +45,10 @@ namespace CSharpProsjekt.SpillKlasser
 
         public Spiller(MyPanel _parentPanel)
         {
+            x = 0.0f;
+            y = 2.5f;
+            diameter = 20.0f;
+
             gravityReversed = false;
             parentPanel = _parentPanel;
 

@@ -8,7 +8,9 @@ using System.Windows.Forms;
 using System.Threading;
 using System.Diagnostics;
 using CSharpProsjekt.SpillKlasser;
+using CSharpProsjekt.LoginKlasser;
 using System.Drawing.Drawing2D;
+using System.Media;
 
 /*
  * HiN - Vårsemester 2014
@@ -47,17 +49,23 @@ namespace CSharpProsjekt
         static Region obstacleRegion;
         static Region canonRegion;
 
-        private Pen redPen = new Pen(Color.Red, 1);
+        private Pen redPen = new Pen(Color.WhiteSmoke, 1);
         private SolidBrush purpleBrush = new SolidBrush(Color.Purple);
         private SolidBrush bulletBrush = new SolidBrush(Color.Black);
 
+        private SoundPlayer gunFireSound = new SoundPlayer(Resource.GunFire);
+        private SoundPlayer introSound = new SoundPlayer(Resource.IntroMusic);
+        private SoundPlayer gameOverSound = new SoundPlayer(Resource.GameOver);
+        private SoundPlayer gameWonSound = new SoundPlayer(Resource.GameWon);
+
+        private DbConnect db = new DbConnect();
         private Random rnd = new Random();
         private Boolean runnedOnce = false;
         private Boolean firstAttempt = true;
         private Boolean levelFinished = false;
         private Boolean gameOver = false;
         private int smileysRemaining;
-        private int timeLeft = 60;
+        public int timeLeft { get; set; }
         private int level = 1;
         private int points;
 
@@ -68,6 +76,8 @@ namespace CSharpProsjekt
 
         public MyPanel()
         {
+            introSound.Play();
+            
             //Må sittes her for at .heigth og .width skal returnere riktig verdi.
             this.Size = new System.Drawing.Size(728, 404);
 
@@ -77,8 +87,7 @@ namespace CSharpProsjekt
               ControlStyles.AllPaintingInWmPaint,
               true);
             this.UpdateStyles();
-
-            LoadLevel();
+            
         }
 
         public void StopBalls()
@@ -139,6 +148,7 @@ namespace CSharpProsjekt
             else
             {
                 gameOver = true;
+                StopGame();
             }
         }
 
@@ -199,14 +209,19 @@ namespace CSharpProsjekt
             countdownTimer.Stop();
             ClearPanel();
             Spiller = null;
+
+            if (points > Bruker.TopScore)
+                this.UpdateDatabase();
+            points = 0;
         }
 
         public void NewGame()
         {
-            
+            if(Spiller != null)
+                Spiller.ResetPosition();
+
             gameOver = false;
             level = 1;
-
             ClearPanel();
             LoadLevel();
         }
@@ -217,15 +232,17 @@ namespace CSharpProsjekt
         {
             Graphics g = e.Graphics;
 
-            if(gameOver)
+            if(gameOver && runnedOnce)
             {
+                gameOverSound.Play();
                 StopGame();
                 obstaclePath.AddString("Game Over", new FontFamily("Showcard Gothic"), (int)(FontStyle.Bold | FontStyle.Italic), 120, new Point(5, 100), StringFormat.GenericTypographic);
                 obstacleRegion = new Region(obstaclePath);
+                runnedOnce = false;
             }
 
             //Denne kodesnutten blir bare kjørt en gang for hver level. Obstacles og canons har ingen behov for å bli tegnet i hver OnPaint ettersom de er statisk.
-            if (runnedOnce == false)
+            if (runnedOnce == false && gameOver == false)
             {
                 for (int i = 0; i < listOfObstacles.Count; i++)
                 {
@@ -254,15 +271,21 @@ namespace CSharpProsjekt
             g.DrawPath(redPen, startPlatform);
 
             g.FillRegion(Canon.GetColor(), canonRegion);
+            g.DrawPath(redPen, canonPath);
+
 
             if (this.Spiller != null)
             {
                 Spiller.draw(g);
 
+                if (Spiller.y + Spiller.diameter >= this.Height)
+                    gameOver = true;
+
                 //Sjekker om det er flere gule smileyer igjen og at tiden ikke har gått ut. 
                 //levelFinished sørger for at diverse if setninger bare kjører en gang, samt verdien blir sendt videre via en delegat til BallSpill.cs
                 if (smileysRemaining == 0 && timeLeft > 0 && levelFinished == false)
                 {
+                    gameWonSound.Play();
                     level++;
                     countdownTimer.Stop();
                     keyboardTimer.Enabled = false;
@@ -274,8 +297,6 @@ namespace CSharpProsjekt
                     Spiller.ResetPosition();
                     ClearPanel();
                 }
-
-                Spiller.draw(g);
 
                 //Sjekker at spillet fortsatt går
                 if(levelFinished == false)
@@ -311,6 +332,7 @@ namespace CSharpProsjekt
 
                     if (CheckCollision(smiley.GetPath(), Spiller.GetPath(), e))
                     {
+                        gunFireSound.Play();
                         listOfSmileys.RemoveAt(i);
                         points += smiley.GetValue();
 
@@ -362,8 +384,13 @@ namespace CSharpProsjekt
         /// </summary>
         public void LoadLevel()
         {
+            if (Spiller != null && Spiller.gravityReversed)
+                Spiller.ReverseGravity();
+
+            UpdatePoints();
+
             StartPlatform();
-            loadLevel = new Level(level);
+            loadLevel = new Level(2);
 
             timeLeft = loadLevel.GetTimeLeft();
             listOfObstacles = loadLevel.GetObstacles();
@@ -378,6 +405,7 @@ namespace CSharpProsjekt
 
             runnedOnce = false;
             levelFinished = false;
+            gameOver = false;
         }
 
         /// <summary>
@@ -434,6 +462,12 @@ namespace CSharpProsjekt
             Rectangle start = new Rectangle(0, 25, 30, 5);
             startPlatform.AddRectangle(start);
             startPlatform.CloseFigure();
+        }
+        private void UpdateDatabase()
+        {
+            string query = String.Format("UPDATE Konto SET TopScore = '{0}', Level = '{1}' WHERE Navn = '{2}'", points, level, Bruker.Navn);
+            db.InsertAll(query);
+            Bruker.AddTopScoreLevelToBruker(points, level);
         }
     } 
 }

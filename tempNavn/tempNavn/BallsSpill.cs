@@ -40,6 +40,15 @@ namespace CSharpProsjekt
             panelDraw.TimeEndret += new TimeEndringEvent(update_label_tid);
             panelDraw.PointsEndret += new PointEndringEvent(update_label_points);
             keepGoing = false;
+
+            var loginPic = new Bitmap(LoginPanel.BackgroundImage, new Size(728, 404));
+            LoginPanel.BackgroundImage = loginPic;
+
+            var panelDrawPic = new Bitmap(panelDraw.BackgroundImage, new Size(728, 404));
+            panelDraw.BackgroundImage = panelDrawPic; 
+
+            nyttSpillToolStripMenuItem.Enabled = false;
+            loggUtToolStripMenuItem.Enabled = false;
         }
 
         private void StartInvalidateThread()
@@ -81,17 +90,35 @@ namespace CSharpProsjekt
             string query = String.Format("SELECT * FROM Konto WHERE Navn = '{0}'", navn);
             dt = db.GetAll(query);
 
+
             if (dt != null && dt.Rows.Count > 0)
             {
                 string queryPassord = Convert.ToString(dt.Rows[0]["Passord"]);
-                if (passord == queryPassord)
+                if (Encryption.Decrypt(passord, queryPassord))
                 {
                     int brukerID = Convert.ToInt32(dt.Rows[0]["Id"]);
                     string brukerNavn = Convert.ToString(dt.Rows[0]["Navn"]);
+
+                    if(dt.Rows[0]["TopScore"] == null)
+                    {
+                        int topScore = Convert.ToInt32(dt.Rows[0]["TopScore"]);
+                        int level = Convert.ToInt32(dt.Rows[0]["Level"]);
+                        Bruker.AddTopScoreLevelToBruker(topScore, level);
+                    }
                     string epost = Convert.ToString(dt.Rows[0]["Epost"]);
 
                     Bruker.AddBruker(brukerID, brukerNavn, epost);
+
+                    nyttSpillToolStripMenuItem.Enabled = true;
+                    
+                    loggUtToolStripMenuItem.Enabled = true;
+                    glemtPassordToolStripMenuItem.Enabled = false;
+                    opprettBrukerToolStripMenuItem.Enabled = false;
+
+                    tbPassord.Text = null;
+                    tbNavn.Text = null;
                     LoginPanel.Hide();
+                    panelDraw.LoadLevel();
                 }
             }
             else
@@ -125,7 +152,7 @@ namespace CSharpProsjekt
             box.Show();
         }
 
-        private void hjelpToolStripMenuItem_Click(object sender, EventArgs e)
+        private void reglerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AboutBox box = new AboutBox();
             box.Show();
@@ -137,6 +164,33 @@ namespace CSharpProsjekt
             panelDraw.NewGame();
             panelDraw.Invalidate();
 
+        }
+
+        private void loggUtToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            keepGoing = false;
+            LoginPanel.Show();
+            panelDraw.StopGame();
+            nyttSpillToolStripMenuItem.Enabled = false;
+            loggUtToolStripMenuItem.Enabled = false;
+            glemtPassordToolStripMenuItem.Enabled = true;
+            opprettBrukerToolStripMenuItem.Enabled = true;
+            label_tid.Text = "Gjenstående tid: ";
+            label_level.Text = "Level:";
+            label_poeng.Text = "Poeng:";
+
+        }
+
+        private void glemtPassordToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MistetPassord box = new MistetPassord();
+            box.Show();
+        }
+
+        private void opprettBrukerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpprettKonto box = new OpprettKonto();
+            box.Show();
         }
         #endregion
 
@@ -159,5 +213,7 @@ namespace CSharpProsjekt
             }
         }
         #endregion
+
+
     }
 }

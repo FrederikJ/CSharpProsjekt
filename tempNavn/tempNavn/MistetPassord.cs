@@ -41,17 +41,10 @@ namespace CSharpProsjekt
                     navn = Convert.ToString(dt.Rows[0]["Navn"]);
 
                     tbPassord.Text = passord;
-
-                    /*string beskjed = string.Format("Hei {0}, ditt passord er {1}. Håpe du like spille, å ha en hyggelig dag videre", navn, passord);
-                    string emne = "Mistet passord";
-
-                    SendEmail.sendEpost(email, beskjed, emne);*/
                 }
             }
             else
                 lblFeil.Visible = true;
-
-            this.Close();
         }
     }
 }

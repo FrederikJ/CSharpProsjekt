@@ -18,23 +18,35 @@ namespace CSharpProsjekt
         private string bekreftPassord;
         private string epost;
         private string bekreftelsesKode;
+        private Boolean userExists = false;
+        private DataTable dt;
 
         DbConnect db = new DbConnect();
         
         public OpprettKonto()
         {
+            dt = new DataTable();
             InitializeComponent();
+            string query = "SELECT * FROM Konto";
+            dt = db.GetAll(query);
+
         }
 
         private void btnOpprett_Click(object sender, EventArgs e)
         {
             navn = tbNavn.Text;
-            passord = tbPassord.Text;
-            bekreftPassord = tbBekreftPassord.Text;
+            passord = Encryption.Encrypt(tbPassord.Text);
+            bekreftPassord = Encryption.Encrypt(tbBekreftPassord.Text);
             epost = tbEpost.Text;
             bekreftelsesKode = LageTilfeldigString.TilfeldigString(10);
 
-            if (passord == bekreftPassord)
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                if (navn == dt.Rows[i]["Navn"].ToString())
+                    userExists = true;
+            }
+
+            if (passord == bekreftPassord && userExists == false)
             {
                 string query = string.Format("Insert into Konto(Navn, Passord, Epost) values('{0}', '{1}', '{2}')", navn, passord, epost);
                 db.InsertAll(query);
@@ -45,8 +57,19 @@ namespace CSharpProsjekt
                 SendEmail.sendEpost(epost, beskjed, emne);*/
                 this.Close();
             }
-            else
+            else if (userExists)
+            {
+                lblFeil.Text = "Brukernavn er allerede brukt";
                 lblFeil.Visible = true;
-        }
+                userExists = false;
+            }
+                
+            else
+            {
+                lblFeil.Text = "Passordene er ikke like";
+                lblFeil.Visible = true;
+            }
+                
+            }
     }
 }

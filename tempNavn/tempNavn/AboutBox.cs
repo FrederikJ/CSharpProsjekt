@@ -13,7 +13,7 @@ namespace CSharpProsjekt
 {
     public partial class AboutBox : Form
     {
-        private string text = "Her skal det komme beskrivelse av regler og annen nyttig informasjon vedrørende spillet";
+        //private string text = "Her skal det komme beskrivelse av regler og annen nyttig informasjon vedrørende spillet";
         public AboutBox()
         {
             InitializeComponent();

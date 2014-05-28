@@ -14,12 +14,10 @@ namespace CSharpProsjekt.LoginKlasser
         public static int Level { get; set; }
         public static string Epost { get; set; }
 
-        public static void AddBruker(int brukerID, string navn, int topScore, int level, string epost)
+        public static void AddBruker(int brukerID, string navn, string epost)
         {
             BrukerID = brukerID;
             Navn = navn;
-            TopScore = topScore;
-            Level = level;
             Epost = epost;
         }
         public static void AddTopScoreLevelToBruker(int topScore, int level)

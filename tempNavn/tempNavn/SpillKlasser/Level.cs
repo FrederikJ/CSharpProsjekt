@@ -119,15 +119,15 @@ namespace CSharpProsjekt.SpillKlasser
             listOfObstacles.Add(new Obstacle(100, 305, 500, 30));
             listOfObstacles.Add(new Obstacle(220, 165, 30, 60));
             listOfObstacles.Add(new Obstacle(480, 165, 30, 60));
-            listOfObstacles.Add(new Obstacle(350, 5, 30, 50));
+            listOfObstacles.Add(new Obstacle(350, 5, 30, 55));
 
-            listOfSmileys.Add(new Smiley(275, 160, 2));
-            listOfSmileys.Add(new Smiley(275, 200, 3));
-            listOfSmileys.Add(new Smiley(425, 160, 3));
-            listOfSmileys.Add(new Smiley(425, 200, 2));
+            listOfSmileys.Add(new Smiley(275, 160, 1));
+            listOfSmileys.Add(new Smiley(275, 200, 2));
+            listOfSmileys.Add(new Smiley(425, 160, 2));
+            listOfSmileys.Add(new Smiley(425, 200, 1));
             listOfSmileys.Add(new Smiley(350, 350, 1));
             listOfSmileys.Add(new Smiley(300, 20, 1));
-            listOfSmileys.Add(new Smiley(400, 20, 2));
+            listOfSmileys.Add(new Smiley(400, 20, 1));
 
             listOfCanons.Add(new Canon(canonRightX, canonRightY, "right"));
             listOfCanons.Add(new Canon(canonDownX, canonDownY, "down"));
@@ -158,14 +158,14 @@ namespace CSharpProsjekt.SpillKlasser
             listOfObstacles.Add(new Obstacle(400, 340, 618, 240, "polygon"));
             listOfObstacles.Add(new Obstacle(275, 250, 160, 30));
 
-            listOfSmileys.Add(new Smiley(100, 15, 2));
-            listOfSmileys.Add(new Smiley(355, 60, 3));
-            listOfSmileys.Add(new Smiley(680, 15, 2));
-            listOfSmileys.Add(new Smiley(350, 200, 4));
+            listOfSmileys.Add(new Smiley(100, 15, 1));
+            listOfSmileys.Add(new Smiley(355, 60, 2));
+            listOfSmileys.Add(new Smiley(680, 15, 1));
+            listOfSmileys.Add(new Smiley(350, 200, 3));
             listOfSmileys.Add(new Smiley(30, 275, 1));
-            listOfSmileys.Add(new Smiley(677, 275, 4));
-            listOfSmileys.Add(new Smiley(265, 355, 2));
-            listOfSmileys.Add(new Smiley(435, 355, 2));
+            listOfSmileys.Add(new Smiley(677, 275, 1));
+            listOfSmileys.Add(new Smiley(265, 355, 1));
+            listOfSmileys.Add(new Smiley(435, 355, 1));
 
             listOfCanons.Add(new Canon(canonRightX, canonRightY, "right"));
             listOfCanons.Add(new Canon(canonDownX, canonDownY, "down"));
@@ -197,13 +197,13 @@ namespace CSharpProsjekt.SpillKlasser
             listOfObstacles.Add(new Obstacle(290, 5, 20, 150));
             listOfObstacles.Add(new Obstacle(5, 110, 220, 20));
 
-            listOfSmileys.Add(new Smiley(450, 250, 3));
-            listOfSmileys.Add(new Smiley(560, 213, 2));
+            listOfSmileys.Add(new Smiley(450, 250, 2));
+            listOfSmileys.Add(new Smiley(560, 213, 3));
             listOfSmileys.Add(new Smiley(510, 65, 2));
-            listOfSmileys.Add(new Smiley(660, 75, 2));
+            listOfSmileys.Add(new Smiley(660, 75, 1));
             listOfSmileys.Add(new Smiley(660, 145, 1));
             listOfSmileys.Add(new Smiley(360, 65, 1));
-            listOfSmileys.Add(new Smiley(130, 140, 2));
+            listOfSmileys.Add(new Smiley(130, 140, 1));
             listOfSmileys.Add(new Smiley(5, 40, 1));
 
             listOfCanons.Add(new Canon(canonRightX, canonRightY, "right"));
@@ -239,16 +239,16 @@ namespace CSharpProsjekt.SpillKlasser
             listOfObstacles.Add(new Obstacle(50, 220, 15, 130));
             listOfObstacles.Add(new Obstacle(40, 120, 15, 20));
 
-            listOfSmileys.Add(new Smiley(330, 30, 4));
+            listOfSmileys.Add(new Smiley(330, 30, 3));
             listOfSmileys.Add(new Smiley(610, 30, 4));
-            listOfSmileys.Add(new Smiley(250, 30, 2));
-            listOfSmileys.Add(new Smiley(205, 165, 2));
-            listOfSmileys.Add(new Smiley(360, 165, 2));
+            listOfSmileys.Add(new Smiley(250, 30, 1));
+            listOfSmileys.Add(new Smiley(205, 165, 1));
+            listOfSmileys.Add(new Smiley(360, 165, 1));
             listOfSmileys.Add(new Smiley(630, 90, 1));
-            listOfSmileys.Add(new Smiley(680, 360, 2));
-            listOfSmileys.Add(new Smiley(450, 310, 4));
-            listOfSmileys.Add(new Smiley(310, 253, 4));
-            listOfSmileys.Add(new Smiley(215, 280, 3));
+            listOfSmileys.Add(new Smiley(680, 360, 1));
+            listOfSmileys.Add(new Smiley(450, 310, 2));
+            listOfSmileys.Add(new Smiley(310, 253, 3));
+            listOfSmileys.Add(new Smiley(215, 280, 2));
             listOfSmileys.Add(new Smiley(10, 290, 1));
 
             listOfCanons.Add(new Canon(canonRightX, canonRightY, "right"));
@@ -272,7 +272,7 @@ namespace CSharpProsjekt.SpillKlasser
 
             listOfObstacles.Add(new Obstacle(65, 5, 20, 326));
             listOfObstacles.Add(new Obstacle(65, 336, 20, 20));
-            listOfObstacles.Add(new Obstacle(130, 5, 20, 140));
+            listOfObstacles.Add(new Obstacle(130, 5, 20, 130));
             listOfObstacles.Add(new Obstacle(130, 190, 20, 140));
             listOfObstacles.Add(new Obstacle(130, 335, 20, 64));
             listOfObstacles.Add(new Obstacle(380, 5, 20, 64));
@@ -307,22 +307,20 @@ namespace CSharpProsjekt.SpillKlasser
 
             listOfObstacles.Add(new Obstacle(640, 50, 20, 347));
 
-            listOfSmileys.Add(new Smiley(160, 360, 2));
-            listOfSmileys.Add(new Smiley(225, 360, 2));
-            listOfSmileys.Add(new Smiley(285, 360, 2));
-            listOfSmileys.Add(new Smiley(345, 360, 3));
-            listOfSmileys.Add(new Smiley(405, 360, 2));
-            listOfSmileys.Add(new Smiley(465, 360, 2));
-            listOfSmileys.Add(new Smiley(590, 340, 3));
-            listOfSmileys.Add(new Smiley(160, 15, 1));
+            listOfSmileys.Add(new Smiley(160, 360, 1));
+            listOfSmileys.Add(new Smiley(225, 360, 1));
+            listOfSmileys.Add(new Smiley(285, 360, 1));
+            listOfSmileys.Add(new Smiley(345, 360, 2));
+            listOfSmileys.Add(new Smiley(405, 360, 1));
+            listOfSmileys.Add(new Smiley(465, 360, 1));
+            listOfSmileys.Add(new Smiley(590, 340, 2));
+            listOfSmileys.Add(new Smiley(160, 15, 3));
             listOfSmileys.Add(new Smiley(690, 150, 1));
-            listOfSmileys.Add(new Smiley(670, 260, 1));
+            listOfSmileys.Add(new Smiley(670, 260, 3));
             listOfSmileys.Add(new Smiley(690, 370, 4));
-
-            listOfSmileys.Add(new Smiley(405, 15, 2));
-            listOfSmileys.Add(new Smiley(465, 15, 2));
-            listOfSmileys.Add(new Smiley(525, 15, 2));
-
+            listOfSmileys.Add(new Smiley(405, 15, 1));
+            listOfSmileys.Add(new Smiley(465, 15, 1));
+            listOfSmileys.Add(new Smiley(525, 15, 1));
             listOfSmileys.Add(new Smiley(330, 15, 4));
 
 
