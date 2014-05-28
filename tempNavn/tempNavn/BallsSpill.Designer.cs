@@ -41,12 +41,20 @@ namespace CSharpProsjekt
             this.topScoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hjelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelDraw = new CSharpProsjekt.MyPanel();
-            this.btn_finish = new System.Windows.Forms.Button();
-            this.tb_finish = new System.Windows.Forms.TextBox();
+            this.LoginPanel = new System.Windows.Forms.Panel();
+            this.lblFeil = new System.Windows.Forms.Label();
+            this.btnLogin = new System.Windows.Forms.Button();
+            this.tbPassord = new System.Windows.Forms.TextBox();
+            this.tbNavn = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tb_LevelFinished = new System.Windows.Forms.TextBox();
+            this.btn_NextLevel = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.panelButton.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.panelDraw.SuspendLayout();
+            this.LoginPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -54,8 +62,8 @@ namespace CSharpProsjekt
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.panelButton, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.panelDraw, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.panelButton, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 24);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -138,14 +146,14 @@ namespace CSharpProsjekt
             // nyttSpillToolStripMenuItem
             // 
             this.nyttSpillToolStripMenuItem.Name = "nyttSpillToolStripMenuItem";
-            this.nyttSpillToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.nyttSpillToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
             this.nyttSpillToolStripMenuItem.Text = "Nytt spill";
             this.nyttSpillToolStripMenuItem.Click += new System.EventHandler(this.nyttSpillToolStripMenuItem_Click);
             // 
             // loggUtToolStripMenuItem
             // 
             this.loggUtToolStripMenuItem.Name = "loggUtToolStripMenuItem";
-            this.loggUtToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.loggUtToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
             this.loggUtToolStripMenuItem.Text = "Logg ut";
             // 
             // topScoreToolStripMenuItem
@@ -166,34 +174,109 @@ namespace CSharpProsjekt
             // 
             this.panelDraw.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.panelDraw.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.panelDraw.Controls.Add(this.btn_finish);
-            this.panelDraw.Controls.Add(this.tb_finish);
+            this.panelDraw.Controls.Add(this.LoginPanel);
+            this.panelDraw.Controls.Add(this.tb_LevelFinished);
+            this.panelDraw.Controls.Add(this.btn_NextLevel);
             this.panelDraw.Location = new System.Drawing.Point(3, 5);
             this.panelDraw.Name = "panelDraw";
             this.panelDraw.Size = new System.Drawing.Size(728, 404);
             this.panelDraw.TabIndex = 2;
             this.panelDraw.Click += new System.EventHandler(this.panelDraw_Click);
             // 
-            // btn_finish
+            // LoginPanel
             // 
-            this.btn_finish.Location = new System.Drawing.Point(297, 233);
-            this.btn_finish.Name = "btn_finish";
-            this.btn_finish.Size = new System.Drawing.Size(75, 23);
-            this.btn_finish.TabIndex = 1;
-            this.btn_finish.Text = "Neste level";
-            this.btn_finish.UseVisualStyleBackColor = true;
-            this.btn_finish.Visible = false;
-            this.btn_finish.Click += new System.EventHandler(this.btn_finish_Click);
+            this.LoginPanel.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.LoginPanel.Controls.Add(this.lblFeil);
+            this.LoginPanel.Controls.Add(this.btnLogin);
+            this.LoginPanel.Controls.Add(this.tbPassord);
+            this.LoginPanel.Controls.Add(this.tbNavn);
+            this.LoginPanel.Controls.Add(this.label2);
+            this.LoginPanel.Controls.Add(this.label1);
+            this.LoginPanel.Location = new System.Drawing.Point(-3, -5);
+            this.LoginPanel.Name = "LoginPanel";
+            this.LoginPanel.Size = new System.Drawing.Size(731, 409);
+            this.LoginPanel.TabIndex = 4;
             // 
-            // tb_finish
+            // lblFeil
             // 
-            this.tb_finish.Location = new System.Drawing.Point(229, 146);
-            this.tb_finish.Multiline = true;
-            this.tb_finish.Name = "tb_finish";
-            this.tb_finish.ReadOnly = true;
-            this.tb_finish.Size = new System.Drawing.Size(216, 81);
-            this.tb_finish.TabIndex = 0;
-            this.tb_finish.Visible = false;
+            this.lblFeil.AutoSize = true;
+            this.lblFeil.ForeColor = System.Drawing.Color.Crimson;
+            this.lblFeil.Location = new System.Drawing.Point(301, 219);
+            this.lblFeil.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblFeil.Name = "lblFeil";
+            this.lblFeil.Size = new System.Drawing.Size(122, 13);
+            this.lblFeil.TabIndex = 16;
+            this.lblFeil.Text = "Feil brukernavn/passord";
+            this.lblFeil.Visible = false;
+            // 
+            // btnLogin
+            // 
+            this.btnLogin.Location = new System.Drawing.Point(297, 192);
+            this.btnLogin.Margin = new System.Windows.Forms.Padding(2);
+            this.btnLogin.Name = "btnLogin";
+            this.btnLogin.Size = new System.Drawing.Size(126, 25);
+            this.btnLogin.TabIndex = 15;
+            this.btnLogin.Text = "Login";
+            this.btnLogin.UseVisualStyleBackColor = true;
+            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
+            // 
+            // tbPassord
+            // 
+            this.tbPassord.Location = new System.Drawing.Point(347, 168);
+            this.tbPassord.Margin = new System.Windows.Forms.Padding(2);
+            this.tbPassord.Name = "tbPassord";
+            this.tbPassord.Size = new System.Drawing.Size(76, 20);
+            this.tbPassord.TabIndex = 14;
+            // 
+            // tbNavn
+            // 
+            this.tbNavn.Location = new System.Drawing.Point(347, 143);
+            this.tbNavn.Margin = new System.Windows.Forms.Padding(2);
+            this.tbNavn.Name = "tbNavn";
+            this.tbNavn.Size = new System.Drawing.Size(76, 20);
+            this.tbNavn.TabIndex = 13;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(294, 172);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(48, 13);
+            this.label2.TabIndex = 12;
+            this.label2.Text = "Passord:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(294, 143);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(36, 13);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "Navn:";
+            // 
+            // tb_LevelFinished
+            // 
+            this.tb_LevelFinished.Location = new System.Drawing.Point(276, 165);
+            this.tb_LevelFinished.Multiline = true;
+            this.tb_LevelFinished.Name = "tb_LevelFinished";
+            this.tb_LevelFinished.ReadOnly = true;
+            this.tb_LevelFinished.Size = new System.Drawing.Size(178, 24);
+            this.tb_LevelFinished.TabIndex = 5;
+            this.tb_LevelFinished.Text = "Gratulerer, du har klart dette nivået! ";
+            this.tb_LevelFinished.Visible = false;
+            // 
+            // btn_NextLevel
+            // 
+            this.btn_NextLevel.Location = new System.Drawing.Point(330, 195);
+            this.btn_NextLevel.Name = "btn_NextLevel";
+            this.btn_NextLevel.Size = new System.Drawing.Size(75, 23);
+            this.btn_NextLevel.TabIndex = 6;
+            this.btn_NextLevel.Text = "Neste level";
+            this.btn_NextLevel.UseVisualStyleBackColor = true;
+            this.btn_NextLevel.Visible = false;
+            this.btn_NextLevel.Click += new System.EventHandler(this.btn_NextLevel_Click);
             // 
             // BallSpill
             // 
@@ -214,6 +297,8 @@ namespace CSharpProsjekt
             this.menuStrip1.PerformLayout();
             this.panelDraw.ResumeLayout(false);
             this.panelDraw.PerformLayout();
+            this.LoginPanel.ResumeLayout(false);
+            this.LoginPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -228,13 +313,20 @@ namespace CSharpProsjekt
         private System.Windows.Forms.Label label_poeng;
         private System.Windows.Forms.Label label_tid;
         private System.Windows.Forms.Button btn_pause;
-        private System.Windows.Forms.Button btn_finish;
-        private System.Windows.Forms.TextBox tb_finish;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem valgToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hjelpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem nyttSpillToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loggUtToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem topScoreToolStripMenuItem;
+        private System.Windows.Forms.Panel LoginPanel;
+        private System.Windows.Forms.Label lblFeil;
+        private System.Windows.Forms.Button btnLogin;
+        private System.Windows.Forms.TextBox tbPassord;
+        private System.Windows.Forms.TextBox tbNavn;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btn_NextLevel;
+        private System.Windows.Forms.TextBox tb_LevelFinished;
     }
 }

@@ -83,12 +83,6 @@
     <Compile Include="LoginKlasser\DbConnect.cs" />
     <Compile Include="LoginKlasser\LageTilfeldigString.cs" />
     <Compile Include="LoginKlasser\SendEmail.cs" />
-    <Compile Include="Login.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Login.Designer.cs">
-      <DependentUpon>Login.cs</DependentUpon>
-    </Compile>
     <Compile Include="MistetPassord.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -112,9 +106,6 @@
     </Compile>
     <EmbeddedResource Include="BallsSpill.resx">
       <DependentUpon>BallsSpill.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Login.resx">
-      <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MistetPassord.resx">
       <DependentUpon>MistetPassord.cs</DependentUpon>

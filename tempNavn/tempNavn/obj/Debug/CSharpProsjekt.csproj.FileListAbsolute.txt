@@ -17,7 +17,6 @@ C:\Users\Tommy\Source\Repos\CSharpProsjekt\tempNavn\tempNavn\bin\Debug\tempNavn.
 C:\Users\Tommy\Source\Repos\CSharpProsjekt\tempNavn\tempNavn\bin\Debug\tempNavn.pdb
 C:\Users\Tommy\Source\Repos\CSharpProsjekt\tempNavn\tempNavn\bin\Debug\MySql.Data.dll
 C:\Users\Tommy\Source\Repos\CSharpProsjekt\tempNavn\tempNavn\obj\Debug\CSharpProsjekt.BallSpill.resources
-C:\Users\Tommy\Source\Repos\CSharpProsjekt\tempNavn\tempNavn\obj\Debug\CSharpProsjekt.Login.resources
 C:\Users\Tommy\Source\Repos\CSharpProsjekt\tempNavn\tempNavn\obj\Debug\CSharpProsjekt.MistetPassord.resources
 C:\Users\Tommy\Source\Repos\CSharpProsjekt\tempNavn\tempNavn\obj\Debug\CSharpProsjekt.OpprettKonto.resources
 C:\Users\Tommy\Source\Repos\CSharpProsjekt\tempNavn\tempNavn\obj\Debug\tempNavn.Properties.Resources.resources

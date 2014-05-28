@@ -117,8 +117,8 @@ namespace CSharpProsjekt.SpillKlasser
             listOfObstacles.Add(new Obstacle(350, 100, 30, 200));
             listOfObstacles.Add(new Obstacle(100, 65, 500, 30));
             listOfObstacles.Add(new Obstacle(100, 305, 500, 30));
-            listOfObstacles.Add(new Obstacle(200, 135, 30, 125));
-            listOfObstacles.Add(new Obstacle(500, 135, 30, 125));
+            listOfObstacles.Add(new Obstacle(220, 165, 30, 60));
+            listOfObstacles.Add(new Obstacle(480, 165, 30, 60));
             listOfObstacles.Add(new Obstacle(350, 5, 30, 50));
 
             listOfSmileys.Add(new Smiley(275, 160, 2));

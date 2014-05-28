@@ -167,7 +167,7 @@ namespace CSharpProsjekt
             }
 
             StartTimers();
-
+            points = 0;
             Spiller = new Spiller(this);
         }
 
@@ -199,7 +199,6 @@ namespace CSharpProsjekt
             countdownTimer.Stop();
             ClearPanel();
             Spiller = null;
-            smileysRemaining = 0;
         }
 
         public void NewGame()
@@ -207,7 +206,6 @@ namespace CSharpProsjekt
             
             gameOver = false;
             level = 1;
-            points = 0;
 
             ClearPanel();
             LoadLevel();
@@ -373,6 +371,7 @@ namespace CSharpProsjekt
             listOfSmileys = loadLevel.GetSmileys();
 
             //Teller antall gule smileyer i listOfSmileys, ettersom alle andre smileyer er valgfrie. smileysRemaining brukes senere for å sjekke om alle gule smileyer er tatt.
+            smileysRemaining = 0;
             foreach (Smiley s in listOfSmileys)
                 if (s.value == 100)
                     smileysRemaining++;
