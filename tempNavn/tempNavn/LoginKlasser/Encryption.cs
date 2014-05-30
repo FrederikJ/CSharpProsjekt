@@ -9,10 +9,9 @@ using System.Web;
 namespace CSharpProsjekt.LoginKlasser
 {
     /// <summary>
-    /// Encryption.cs av Tommy Langhelle
+    /// Klassen er skrevet i forbindelse med et annet fag(systemutvikling)
     /// Programmering 3 - C# Prosjekt
-    /// 
-    /// Krypterer brukerpassord.
+    /// Krypterer brukerpassord. 
     /// </summary>
     public static class Encryption
     {
@@ -20,8 +19,12 @@ namespace CSharpProsjekt.LoginKlasser
         private static readonly string saltKey = "$@LT&K3Y";
         private static readonly string viKey = "@1B2c3D4e5F6g7H8";
 
-        //Retunere true eller false om passordene er lik etter han har decryptert passordet som er
-        //skrivet inn.
+        /// <summary>
+        /// Retunere true eller false om passordene er lik etter han har decryptert passordet som er skrivet inn.
+        /// </summary>
+        /// <param name="userPass"></param>
+        /// <param name="databasePass"></param>
+        /// <returns></returns>
         public static bool Decrypt(string userPass, string databasePass)
         {
             string decryption = Encrypt(userPass);
@@ -33,7 +36,11 @@ namespace CSharpProsjekt.LoginKlasser
                 return false;
         }
 
-        //Får in plain text, for så å salte og hashe passordet forså å retunere stringen
+        /// <summary>
+        /// Får in plain text, for så å salte og hashe passordet forså å retunere stringen
+        /// </summary>
+        /// <param name="plainText"></param>
+        /// <returns></returns>
         public static string Encrypt(string plainText)
         {
             byte[] plainTextBytes = Encoding.UTF8.GetBytes(plainText);

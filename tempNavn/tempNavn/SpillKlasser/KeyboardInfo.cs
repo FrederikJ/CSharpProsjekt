@@ -29,33 +29,29 @@ namespace CSharpProsjekt.SpillKlasser
 
     public struct KeyStateInfo
     {
-        Keys _key;
-        bool _isPressed,
-            _isToggled;
-        public KeyStateInfo(Keys key, bool ispressed, bool istoggled)
+        Keys key;
+        bool isPressed,
+            isToggled;
+        public KeyStateInfo(Keys _key, bool _ispressed, bool _istoggled)
         {
-            _key = key;
-            _isPressed = ispressed;
-            _isToggled = istoggled;
+            key = _key;
+            isPressed = _ispressed;
+            isToggled = _istoggled;
         }
-        /*public static KeyStateInfo Default
-        {
-            get
-            {
-                return new KeyStateInfo(Keys.None, false, false);
-            }
-        }*/
+
         public Keys Key
         {
-            get { return _key; }
+            get { return key; }
         }
+
         public bool IsPressed
         {
-            get { return _isPressed; }
+            get { return isPressed; }
         }
+
         public bool IsToggled
         {
-            get { return _isToggled; }
+            get { return isToggled; }
         }
     }
 }

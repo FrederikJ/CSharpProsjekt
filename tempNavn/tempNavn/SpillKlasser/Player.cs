@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Windows.Forms;
-using System.Threading;
 using System.Drawing.Drawing2D;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace CSharpProsjekt.SpillKlasser
 {
@@ -109,7 +109,39 @@ namespace CSharpProsjekt.SpillKlasser
             
         }
 
-        #region Tyngdekraft
+        //Tegner spilleren
+        public void Draw(Graphics g)
+        {
+            g.FillEllipse(brush, X, Y, Diameter, Diameter);
+        }
+
+        //Setter spilleren sin posisjon tilbake til start
+        public void ResetPosition()
+        {
+            X = 0;
+            Y = 2.5f;
+        }
+
+#region Thread metods
+        /// <summary>
+        /// Vi opprettet disse for puse knappen. Prøvde først med å bare sette going er false, men da kjørte threaden Run metoden ferdig, så selv om 
+        /// vi satt going til true, så var metoden allerede ferdig å den kjørte ikke igjen, så vi fan løsningen med å terminere og starte tråden igjen
+        /// </summary>
+        public void ThreadStop()
+        {
+            thread.Abort();
+        }
+
+        public void ThreadStart()
+        {
+            ts = new ThreadStart(Run);
+            thread = new Thread(ts);
+            thread.IsBackground = true;
+            thread.Start();
+        }
+#endregion
+
+#region Tyngdekraft
         public void Gravity()
         {
             lock (mySync)
@@ -134,11 +166,11 @@ namespace CSharpProsjekt.SpillKlasser
                         Y = panelSize.Height - Diameter;
                     }
                 }
-            } 
+            }
         }
-        #endregion
+#endregion
 
-        #region Navigasjons metoder
+#region Navigasjons metoder
         public void MoveRight()
         {
             this.X += aDx;
@@ -146,7 +178,7 @@ namespace CSharpProsjekt.SpillKlasser
 
         public void MoveLeft()
         {
-            if(!(Y < 5 && X < 2))
+            if (!(Y < 5 && X < 2))
                 this.X -= this.aDx;
         }
 
@@ -160,38 +192,6 @@ namespace CSharpProsjekt.SpillKlasser
             if (!(Y < 5 && X < 20))
                 this.Y += this.aDyDown;
         }
-        #endregion
-
-        //Tegner spilleren
-        public void Draw(Graphics g)
-        {
-            g.FillEllipse(brush, X, Y, Diameter, Diameter);
-        }
-
-        //Setter spilleren sin posisjon tilbake til start
-        public void ResetPosition()
-        {
-            X = 0;
-            Y = 2.5f;
-        }
-
-        #region Thread metods
-        /// <summary>
-        /// Vi opprettet disse for puse knappen. Prøvde først med å bare sette going er false, men da kjørte threaden Run metoden ferdig, så selv om 
-        /// vi satt going til true, så var metoden allerede ferdig å den kjørte ikke igjen, så vi fan løsningen med å terminere og starte tråden igjen
-        /// </summary>
-        public void ThreadStop()
-        {
-            thread.Abort();
-        }
-
-        public void ThreadStart()
-        {
-            ts = new ThreadStart(Run);
-            thread = new Thread(ts);
-            thread.IsBackground = true;
-            thread.Start();
-        }
-        #endregion
+#endregion
     }
 }

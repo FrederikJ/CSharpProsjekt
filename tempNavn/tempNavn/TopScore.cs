@@ -15,7 +15,7 @@ namespace CSharpProsjekt
     /// TopScore.cs av Frederik Johnsen
     /// Programmering 3 - C# Prosjekt
     /// 
-    /// Topscore vinduet vår. Henter ut de ti brukere med størt topscore som har en topscore, 
+    /// Topscore vinduet vårt. Henter ut de ti brukere med størt topscore som har en topscore, 
     /// en buker kan ikke ha flere plasser i topscore listen
     /// </summary>
     public partial class TopScore : Form

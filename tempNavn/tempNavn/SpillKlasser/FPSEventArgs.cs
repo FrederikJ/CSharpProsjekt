@@ -7,19 +7,19 @@ using System.Threading.Tasks;
 namespace CSharpProsjekt.SpillKlasser
 {
     /// <summary>
-    /// TimeEventArgs.cs av Tommy Langhelle
+    /// FPSEventArgs.cs av Tommy Langhelle
     /// Programmering 3 - C# Prosjekt
     /// 
-    /// Laget et nytt event for tid slik at vi enkelt kunne ha den på en annen panel enn myPanel
+    /// Laget et nytt event for FPS slik at vi enkelt kunne ha den på en annen panel enn mypanel
     /// Spillet ser litt bedre ut når alt ikke er i samme panel
     /// </summary>
-    public class TimeEventArgs : EventArgs
+    public class FPSEventArgs
     {
-        public int timeLeft { get; set; }
+        public double FPS { get; set; }
 
-        public TimeEventArgs(int _timeLeft)
+        public FPSEventArgs(double _fps)
         {
-            timeLeft = _timeLeft;
+            FPS = _fps;
         }
     }
 }

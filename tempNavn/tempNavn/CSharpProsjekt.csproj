@@ -54,11 +54,11 @@
     <Compile Include="AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="PlayBall.cs">
+    <Compile Include="Playball.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PlayBall.Designer.cs">
-      <DependentUpon>PlayBall.cs</DependentUpon>
+    <Compile Include="Playball.Designer.cs">
+      <DependentUpon>Playball.cs</DependentUpon>
     </Compile>
     <Compile Include="LoginKlasser\Encryption.cs" />
     <Compile Include="MyPanel.cs">
@@ -74,6 +74,7 @@
     </Compile>
     <Compile Include="SpillKlasser\Bullet.cs" />
     <Compile Include="SpillKlasser\Canon.cs" />
+    <Compile Include="SpillKlasser\FPSEventArgs.cs" />
     <Compile Include="SpillKlasser\Level.cs" />
     <Compile Include="SpillKlasser\Obstacle.cs" />
     <Compile Include="SpillKlasser\PointEventArgs.cs" />
@@ -100,8 +101,8 @@
     <EmbeddedResource Include="AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PlayBall.resx">
-      <DependentUpon>PlayBall.cs</DependentUpon>
+    <EmbeddedResource Include="Playball.resx">
+      <DependentUpon>Playball.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CreateAccount.resx">
       <DependentUpon>CreateAccount.cs</DependentUpon>

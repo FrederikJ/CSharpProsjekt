@@ -56,12 +56,13 @@ namespace CSharpProsjekt.SpillKlasser
             }
         }
 
+
+#region Tegner kanonene i riktig retning
         /// <summary>
         /// Tegne kanon og adder den til graphicspath i riktig retning
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
-        #region Tegner kanonene i riktig retning
         public void PointLeft(int x, int y)
         {
             canonPoints = new Point[3];
@@ -113,7 +114,7 @@ namespace CSharpProsjekt.SpillKlasser
             canonPath.AddLines(canonPoints);
             canonPath.CloseFigure();
         }
-        #endregion
+#endregion
 
         /// <summary>
         /// Get metode for fargen til kanonene. Slik at det er tilgjengelig globalt

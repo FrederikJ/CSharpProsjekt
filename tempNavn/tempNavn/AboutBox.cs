@@ -21,11 +21,17 @@ namespace CSharpProsjekt
     /// </summary>
     public partial class AboutBox : Form
     {
-        //private string text = "Her skal det komme beskrivelse av regler og annen nyttig informasjon vedrørende spillet";
         public AboutBox()
         {
             InitializeComponent();
-            labelInfo.Text = User.Name;// text;
+            rtb_Info.Text = "Innlogget som: " + User.Name;
+            rtb_Info.Text += "\n\nDette spillet går ut på å samle dottene rundtom på kartet innen tiden er gått ut. Spillet består av 5 levler hvor den siste er heller vrien. Hvis man treffer bakken blir man game over.";
+            rtb_Info.Text += "\n\nGul ball (100 poeng): \nDette er de eneste obligatoriske dottene, du går videre til neste level så snart alle gule dotter er samlet inn.";
+            rtb_Info.Text += "\n\nRød ball (150 poeng): \nDette er valgfrie dotter. Tyngdekraften blir reversert for hver dott.";
+            rtb_Info.Text += "\n\nBlå ball (200 poeng): \nDette er valgfrie dotter.";
+            rtb_Info.Text += "\n\nGrønn ball (300 poeng): \nDette er valgfrie dotter.";
+            rtb_Info.Text += "\n\nSkytere: \nBlir du truffet av en av de fire skytterne plassert på kartet er det game over.";
+            rtb_Info.Text += "\n\nHinder:\nTreffer du et av hindrene blir du returnert til startposisjonen, du blir også fratrekt 75 poeng.";
         }
 
         private void btn_Ok_Click(object sender, EventArgs e)

@@ -42,21 +42,31 @@ namespace CSharpProsjekt.LoginKlasser
             connection = new MySqlConnection(connectionString);
         }
 
-        //Retunere true viss koblingen mot db enda er åpen
+        /// <summary>
+        /// Retunere true viss koblingen mot db enda er åpen
+        /// </summary>
+        /// <returns></returns>
         private bool OpenConnection()
         {
             connection.Open();
             return true;
         }
 
-        //Retunere true viss koblingen mot db er stengt
+        /// <summary>
+        /// Retunere true viss koblingen mot db er stengt
+        /// </summary>
+        /// <returns></returns>
         private bool CloseConnection()
         {
             connection.Close();
             return true;
         }
 
-        //En generel spørring som kan hente ut hva som helst fra databasen
+        /// <summary>
+        /// En generel spørring som kan hente ut hva som helst fra databasen
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         public DataTable GetAll(string query)
         {
             if (OpenConnection() == true)
@@ -69,7 +79,10 @@ namespace CSharpProsjekt.LoginKlasser
             return dataTable;
         }
 
-        //En generel spørring som kan legge hva som helst til databasen.
+        /// <summary>
+        /// En generel spørring som kan legge hva som helst til databasen.
+        /// </summary>
+        /// <param name="query"></param>
         public void InsertAll(string query)
         {
             if(OpenConnection() == true)

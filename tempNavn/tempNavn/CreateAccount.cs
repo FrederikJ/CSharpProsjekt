@@ -27,7 +27,9 @@ namespace CSharpProsjekt
 
         DbConnect db = new DbConnect();
         
-        //Henter ut alle brukerene fra databasen
+        /// <summary>
+        /// Henter ut alle brukerene fra databasen
+        /// </summary>
         public CreateAccount()
         {
             dt = new DataTable();
@@ -37,9 +39,13 @@ namespace CSharpProsjekt
 
         }
 
-        //Henter ut all informasjonene i tekstboksen forså å kryptere passordet og sjekker at 
-        //begge passordene er like og at navnet ikke eksistere fra før i databasen, viss sjekkene blir
-        //blir godkjent, så legges det inn en ny bruker i databasen
+        /// <summary>
+        /// Henter ut all informasjonene i tekstboksen forså å kryptere passordet og sjekker at 
+        /// begge passordene er like og at navnet ikke eksistere fra før i databasen, viss sjekkene blir
+        /// blir godkjent, så legges det inn en ny bruker i databasen
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCreate_Click(object sender, EventArgs e)
         {
             name = tbName.Text;

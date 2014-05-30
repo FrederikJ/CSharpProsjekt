@@ -15,7 +15,9 @@ namespace CSharpProsjekt.LoginKlasser
     /// </summary>
     public class User
     {
-        //Get/Set metoder for de forskjellige medlemsvariablene.
+        /// <summary>
+        /// Get/Set metoder for de forskjellige medlemsvariablene.
+        /// </summary>
         public static int UserID { get; set; }
         public static string Name { get; set; }
         public static int TopScore { get; set; }

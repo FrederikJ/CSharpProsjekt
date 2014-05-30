@@ -1,6 +1,6 @@
 namespace CSharpProsjekt
 {
-    partial class PlayBall
+    partial class Playball
     {
         /// <summary>
         /// Required designer variable.
@@ -29,17 +29,8 @@ namespace CSharpProsjekt
         private void InitializeComponent()
         {
             this.PanelHolder = new System.Windows.Forms.TableLayoutPanel();
-            this.panelDraw = new CSharpProsjekt.MyPanel();
-            this.LoginPanel = new System.Windows.Forms.Panel();
-            this.lblFeil = new System.Windows.Forms.Label();
-            this.btnLogin = new System.Windows.Forms.Button();
-            this.tbPassword = new System.Windows.Forms.TextBox();
-            this.tbName = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.tb_LevelFinished = new System.Windows.Forms.TextBox();
-            this.btn_NextLevel = new System.Windows.Forms.Button();
             this.panelButton = new System.Windows.Forms.Panel();
+            this.label_FPS = new System.Windows.Forms.Label();
             this.btn_pause = new System.Windows.Forms.Button();
             this.label_level = new System.Windows.Forms.Label();
             this.label_poeng = new System.Windows.Forms.Label();
@@ -53,11 +44,21 @@ namespace CSharpProsjekt
             this.loggUtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.topScoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reglerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.panelDraw = new CSharpProsjekt.MyPanel();
+            this.LoginPanel = new System.Windows.Forms.Panel();
+            this.lblError = new System.Windows.Forms.Label();
+            this.btnLogin = new System.Windows.Forms.Button();
+            this.tbPassword = new System.Windows.Forms.TextBox();
+            this.tbName = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tb_LevelFinished = new System.Windows.Forms.TextBox();
+            this.btn_NextLevel = new System.Windows.Forms.Button();
             this.PanelHolder.SuspendLayout();
-            this.panelDraw.SuspendLayout();
-            this.LoginPanel.SuspendLayout();
             this.panelButton.SuspendLayout();
             this.menuStrip.SuspendLayout();
+            this.panelDraw.SuspendLayout();
+            this.LoginPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // PanelHolder
@@ -77,124 +78,10 @@ namespace CSharpProsjekt
             this.PanelHolder.Size = new System.Drawing.Size(979, 557);
             this.PanelHolder.TabIndex = 0;
             // 
-            // panelDraw
-            // 
-            this.panelDraw.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.panelDraw.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.panelDraw.BackgroundImage = global::CSharpProsjekt.Resource.WallBackground;
-            this.panelDraw.Controls.Add(this.LoginPanel);
-            this.panelDraw.Controls.Add(this.tb_LevelFinished);
-            this.panelDraw.Controls.Add(this.btn_NextLevel);
-            this.panelDraw.Location = new System.Drawing.Point(4, 7);
-            this.panelDraw.Margin = new System.Windows.Forms.Padding(4);
-            this.panelDraw.Name = "panelDraw";
-            this.panelDraw.Size = new System.Drawing.Size(971, 497);
-            this.panelDraw.TabIndex = 2;
-            this.panelDraw.Click += new System.EventHandler(this.panelDraw_Click);
-            // 
-            // LoginPanel
-            // 
-            this.LoginPanel.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.LoginPanel.BackgroundImage = global::CSharpProsjekt.Resource.DotWars;
-            this.LoginPanel.Controls.Add(this.lblFeil);
-            this.LoginPanel.Controls.Add(this.btnLogin);
-            this.LoginPanel.Controls.Add(this.tbPassword);
-            this.LoginPanel.Controls.Add(this.tbName);
-            this.LoginPanel.Controls.Add(this.label2);
-            this.LoginPanel.Controls.Add(this.label1);
-            this.LoginPanel.Location = new System.Drawing.Point(0, 0);
-            this.LoginPanel.Margin = new System.Windows.Forms.Padding(4);
-            this.LoginPanel.Name = "LoginPanel";
-            this.LoginPanel.Size = new System.Drawing.Size(971, 497);
-            this.LoginPanel.TabIndex = 4;
-            // 
-            // lblFeil
-            // 
-            this.lblFeil.AutoSize = true;
-            this.lblFeil.BackColor = System.Drawing.Color.Transparent;
-            this.lblFeil.ForeColor = System.Drawing.Color.Crimson;
-            this.lblFeil.Location = new System.Drawing.Point(412, 121);
-            this.lblFeil.Name = "lblFeil";
-            this.lblFeil.Size = new System.Drawing.Size(161, 17);
-            this.lblFeil.TabIndex = 16;
-            this.lblFeil.Text = "Feil brukernavn/passord";
-            this.lblFeil.Visible = false;
-            // 
-            // btnLogin
-            // 
-            this.btnLogin.Location = new System.Drawing.Point(407, 87);
-            this.btnLogin.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(168, 31);
-            this.btnLogin.TabIndex = 2;
-            this.btnLogin.Text = "Login";
-            this.btnLogin.UseVisualStyleBackColor = true;
-            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
-            // 
-            // tbPassword
-            // 
-            this.tbPassword.Location = new System.Drawing.Point(473, 58);
-            this.tbPassword.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tbPassword.Name = "tbPassword";
-            this.tbPassword.PasswordChar = '*';
-            this.tbPassword.Size = new System.Drawing.Size(100, 22);
-            this.tbPassword.TabIndex = 1;
-            // 
-            // tbName
-            // 
-            this.tbName.Location = new System.Drawing.Point(473, 27);
-            this.tbName.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tbName.Name = "tbName";
-            this.tbName.Size = new System.Drawing.Size(100, 22);
-            this.tbName.TabIndex = 0;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Location = new System.Drawing.Point(403, 63);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(64, 17);
-            this.label2.TabIndex = 12;
-            this.label2.Text = "Passord:";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Location = new System.Drawing.Point(403, 27);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(45, 17);
-            this.label1.TabIndex = 11;
-            this.label1.Text = "Navn:";
-            // 
-            // tb_LevelFinished
-            // 
-            this.tb_LevelFinished.Location = new System.Drawing.Point(368, 203);
-            this.tb_LevelFinished.Margin = new System.Windows.Forms.Padding(4);
-            this.tb_LevelFinished.Multiline = true;
-            this.tb_LevelFinished.Name = "tb_LevelFinished";
-            this.tb_LevelFinished.ReadOnly = true;
-            this.tb_LevelFinished.Size = new System.Drawing.Size(236, 29);
-            this.tb_LevelFinished.TabIndex = 5;
-            this.tb_LevelFinished.Text = "Gratulerer, du har klart dette nivået! ";
-            this.tb_LevelFinished.Visible = false;
-            // 
-            // btn_NextLevel
-            // 
-            this.btn_NextLevel.Location = new System.Drawing.Point(440, 240);
-            this.btn_NextLevel.Margin = new System.Windows.Forms.Padding(4);
-            this.btn_NextLevel.Name = "btn_NextLevel";
-            this.btn_NextLevel.Size = new System.Drawing.Size(100, 28);
-            this.btn_NextLevel.TabIndex = 6;
-            this.btn_NextLevel.Text = "Neste level";
-            this.btn_NextLevel.UseVisualStyleBackColor = true;
-            this.btn_NextLevel.Visible = false;
-            this.btn_NextLevel.Click += new System.EventHandler(this.btn_NextLevel_Click);
-            // 
             // panelButton
             // 
             this.panelButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.panelButton.Controls.Add(this.label_FPS);
             this.panelButton.Controls.Add(this.btn_pause);
             this.panelButton.Controls.Add(this.label_level);
             this.panelButton.Controls.Add(this.label_poeng);
@@ -204,6 +91,15 @@ namespace CSharpProsjekt
             this.panelButton.Name = "panelButton";
             this.panelButton.Size = new System.Drawing.Size(971, 37);
             this.panelButton.TabIndex = 1;
+            // 
+            // label_FPS
+            // 
+            this.label_FPS.AutoSize = true;
+            this.label_FPS.Location = new System.Drawing.Point(650, 11);
+            this.label_FPS.Name = "label_FPS";
+            this.label_FPS.Size = new System.Drawing.Size(38, 17);
+            this.label_FPS.TabIndex = 5;
+            this.label_FPS.Text = "FPS:";
             // 
             // btn_pause
             // 
@@ -316,7 +212,122 @@ namespace CSharpProsjekt
             this.reglerToolStripMenuItem.Text = "Regler";
             this.reglerToolStripMenuItem.Click += new System.EventHandler(this.reglerToolStripMenuItem_Click);
             // 
-            // PlayBall
+            // panelDraw
+            // 
+            this.panelDraw.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.panelDraw.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.panelDraw.BackgroundImage = global::CSharpProsjekt.Resource.WallBackground;
+            this.panelDraw.Controls.Add(this.LoginPanel);
+            this.panelDraw.Controls.Add(this.tb_LevelFinished);
+            this.panelDraw.Controls.Add(this.btn_NextLevel);
+            this.panelDraw.Location = new System.Drawing.Point(4, 7);
+            this.panelDraw.Margin = new System.Windows.Forms.Padding(4);
+            this.panelDraw.Name = "panelDraw";
+            this.panelDraw.Size = new System.Drawing.Size(971, 497);
+            this.panelDraw.TabIndex = 2;
+            this.panelDraw.Click += new System.EventHandler(this.panelDraw_Click);
+            // 
+            // LoginPanel
+            // 
+            this.LoginPanel.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.LoginPanel.BackgroundImage = global::CSharpProsjekt.Resource.DotWars;
+            this.LoginPanel.Controls.Add(this.lblError);
+            this.LoginPanel.Controls.Add(this.btnLogin);
+            this.LoginPanel.Controls.Add(this.tbPassword);
+            this.LoginPanel.Controls.Add(this.tbName);
+            this.LoginPanel.Controls.Add(this.label2);
+            this.LoginPanel.Controls.Add(this.label1);
+            this.LoginPanel.Location = new System.Drawing.Point(0, 0);
+            this.LoginPanel.Margin = new System.Windows.Forms.Padding(4);
+            this.LoginPanel.Name = "LoginPanel";
+            this.LoginPanel.Size = new System.Drawing.Size(971, 497);
+            this.LoginPanel.TabIndex = 4;
+            // 
+            // lblError
+            // 
+            this.lblError.AutoSize = true;
+            this.lblError.BackColor = System.Drawing.Color.Transparent;
+            this.lblError.ForeColor = System.Drawing.Color.Black;
+            this.lblError.Location = new System.Drawing.Point(412, 121);
+            this.lblError.Name = "lblError";
+            this.lblError.Size = new System.Drawing.Size(161, 17);
+            this.lblError.TabIndex = 16;
+            this.lblError.Text = "Feil brukernavn/passord";
+            this.lblError.Visible = false;
+            // 
+            // btnLogin
+            // 
+            this.btnLogin.Location = new System.Drawing.Point(407, 87);
+            this.btnLogin.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnLogin.Name = "btnLogin";
+            this.btnLogin.Size = new System.Drawing.Size(168, 31);
+            this.btnLogin.TabIndex = 2;
+            this.btnLogin.Text = "Login";
+            this.btnLogin.UseVisualStyleBackColor = true;
+            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
+            // 
+            // tbPassword
+            // 
+            this.tbPassword.Location = new System.Drawing.Point(473, 58);
+            this.tbPassword.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tbPassword.Name = "tbPassword";
+            this.tbPassword.PasswordChar = '*';
+            this.tbPassword.Size = new System.Drawing.Size(100, 22);
+            this.tbPassword.TabIndex = 1;
+            // 
+            // tbName
+            // 
+            this.tbName.Location = new System.Drawing.Point(473, 27);
+            this.tbName.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tbName.Name = "tbName";
+            this.tbName.Size = new System.Drawing.Size(100, 22);
+            this.tbName.TabIndex = 0;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Location = new System.Drawing.Point(403, 63);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(64, 17);
+            this.label2.TabIndex = 12;
+            this.label2.Text = "Passord:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Location = new System.Drawing.Point(403, 27);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(45, 17);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "Navn:";
+            // 
+            // tb_LevelFinished
+            // 
+            this.tb_LevelFinished.Location = new System.Drawing.Point(368, 203);
+            this.tb_LevelFinished.Margin = new System.Windows.Forms.Padding(4);
+            this.tb_LevelFinished.Multiline = true;
+            this.tb_LevelFinished.Name = "tb_LevelFinished";
+            this.tb_LevelFinished.ReadOnly = true;
+            this.tb_LevelFinished.Size = new System.Drawing.Size(236, 29);
+            this.tb_LevelFinished.TabIndex = 5;
+            this.tb_LevelFinished.Text = "Gratulerer, du har klart dette nivået! ";
+            this.tb_LevelFinished.Visible = false;
+            // 
+            // btn_NextLevel
+            // 
+            this.btn_NextLevel.Location = new System.Drawing.Point(440, 240);
+            this.btn_NextLevel.Margin = new System.Windows.Forms.Padding(4);
+            this.btn_NextLevel.Name = "btn_NextLevel";
+            this.btn_NextLevel.Size = new System.Drawing.Size(100, 28);
+            this.btn_NextLevel.TabIndex = 6;
+            this.btn_NextLevel.Text = "Neste level";
+            this.btn_NextLevel.UseVisualStyleBackColor = true;
+            this.btn_NextLevel.Visible = false;
+            this.btn_NextLevel.Click += new System.EventHandler(this.btn_NextLevel_Click);
+            // 
+            // Playball
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -327,17 +338,17 @@ namespace CSharpProsjekt
             this.MainMenuStrip = this.menuStrip;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
-            this.Name = "PlayBall";
+            this.Name = "Playball";
             this.Text = "DotWars";
             this.PanelHolder.ResumeLayout(false);
-            this.panelDraw.ResumeLayout(false);
-            this.panelDraw.PerformLayout();
-            this.LoginPanel.ResumeLayout(false);
-            this.LoginPanel.PerformLayout();
             this.panelButton.ResumeLayout(false);
             this.panelButton.PerformLayout();
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
+            this.panelDraw.ResumeLayout(false);
+            this.panelDraw.PerformLayout();
+            this.LoginPanel.ResumeLayout(false);
+            this.LoginPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -348,10 +359,11 @@ namespace CSharpProsjekt
         private System.Windows.Forms.TableLayoutPanel PanelHolder;
         private System.Windows.Forms.Panel panelButton;
         private MyPanel panelDraw;
+        private System.Windows.Forms.Label label_FPS;
         private System.Windows.Forms.Label label_level;
         private System.Windows.Forms.Label label_poeng;
         private System.Windows.Forms.Label label_tid;
-        private System.Windows.Forms.Label lblFeil;
+        private System.Windows.Forms.Label lblError;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.MenuStrip menuStrip;

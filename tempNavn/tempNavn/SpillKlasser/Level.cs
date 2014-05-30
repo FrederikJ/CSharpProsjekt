@@ -70,28 +70,42 @@ namespace CSharpProsjekt.SpillKlasser
                     timeLeft = 120;
                     LevelFive();
                     break;
+                default:
+                    break;
             }
         }
 
-        //Henter tiden som er igjen
+        /// <summary>
+        /// Henter tiden som er igjen
+        /// </summary>
+        /// <returns></returns>
         public int GetTimeLeft()
         {
             return timeLeft;
         }
 
-        //Henter litsten til hindere
+        /// <summary>
+        /// Henter litsten til hindere
+        /// </summary>
+        /// <returns></returns>
         public List<Obstacle> GetObstacles()
         {
             return listOfObstacles;
         }
 
-        //Henter listen til smileyene
+        /// <summary>
+        /// Henter listen til smileyene
+        /// </summary>
+        /// <returns></returns>
         public List<Smiley> GetSmileys()
         {
             return listOfSmileys;
         }
 
-        //Henter listen til kanonene
+        /// <summary>
+        /// Henter listen til kanonene
+        /// </summary>
+        /// <returns></returns>
         public List<Canon> GetCanons()
         {
             return listOfCanons;
@@ -123,11 +137,11 @@ namespace CSharpProsjekt.SpillKlasser
             }
             return listOfBullets;
         }
-
+     
+#region level
         /// <summary>
         /// Henter ut all kordinatene til tingene som trengs for å  tegne hvert level
         /// </summary>
-        #region level
         private void LevelOne()
         {
             canonDownX = 565;
@@ -359,6 +373,6 @@ namespace CSharpProsjekt.SpillKlasser
             listOfCanons.Add(new Canon(canonUpX, canonUpY, "up"));
             listOfCanons.Add(new Canon(canonLeftX, canonLeftY, "left"));
         }
-        #endregion
+#endregion
     }
 }

@@ -24,7 +24,12 @@ namespace CSharpProsjekt.SpillKlasser
         public int diameter = 30;
         public int Value { get; set; }
 
-        //Kontruktor, setter også verdien på dem og farge
+        /// <summary>
+        /// Kontruktor, setter også verdien på dem og farge
+        /// </summary>
+        /// <param name="_x"></param>
+        /// <param name="_y"></param>
+        /// <param name="_value"></param>
         public Smiley(int _x, int _y, int _value)
         {
             x = _x;
@@ -54,13 +59,19 @@ namespace CSharpProsjekt.SpillKlasser
             }
         }
 
-        //Henter graphicspathen
+        /// <summary>
+        /// Henter graphicspathen
+        /// </summary>
+        /// <returns></returns>
         public GraphicsPath GetPath()
         {
             return smileyPath;
         }
 
-        //Tegner smileyen
+        /// <summary>
+        /// Tegner smileyen
+        /// </summary>
+        /// <param name="g"></param>
         public void Draw(Graphics g)
         {
             g.FillEllipse(color, x, y, diameter, diameter);

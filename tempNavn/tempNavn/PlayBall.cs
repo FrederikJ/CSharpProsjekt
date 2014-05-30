@@ -18,9 +18,8 @@ namespace CSharpProsjekt
     /// Hoved vinduet/Klassen. Her begynner hele spillet, alle komponentene på programmet starter
     /// her i fra
     /// </summary>
-    public partial class PlayBall : Form
+    public partial class Playball : Form
     {
-        #region Variabler
         public Boolean KeepGoing { get; set; }
         private ThreadStart ts;
         private Thread thread;
@@ -29,18 +28,18 @@ namespace CSharpProsjekt
         private string name;
         private DataTable dt;
         private DbConnect db;
-        #endregion
 
         /// <summary>
         /// Instansiere ting og setter bakgrunnsbildene til riktig størrelse
         /// </summary>
-        public PlayBall()
+        public Playball()
         {
             InitializeComponent();
             dt = new DataTable();
             db = new DbConnect();
             panelDraw.TimeEndret += new TimeEndringEvent(update_label_tid);
             panelDraw.PointsEndret += new PointEndringEvent(update_label_points);
+            panelDraw.FPSEndret += new FPSEndringsEvent(update_label_FPS);
             KeepGoing = false;
 
             var loginPic = new Bitmap(LoginPanel.BackgroundImage, new Size(728, 404));
@@ -53,7 +52,9 @@ namespace CSharpProsjekt
             loggUtToolStripMenuItem.Enabled = false;
         }
 
-        //Starter tråden som kjøre spillet
+        /// <summary>
+        /// Starter tråden som kjøre spillet
+        /// </summary>
         private void StartInvalidateThread()
         {
             ts = new ThreadStart(Run);
@@ -68,11 +69,14 @@ namespace CSharpProsjekt
             {
                 panelDraw.Invalidate();
                 Thread.Sleep(17);
-                
             }
         }
 
-        //Starter gamet våres med å klikke på panelet
+        /// <summary>
+        /// Starter gamet våres med å klikke på panelet
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void panelDraw_Click(object sender, EventArgs e)
         {
             if (KeepGoing == false)
@@ -80,11 +84,10 @@ namespace CSharpProsjekt
                 KeepGoing = true;
                 StartInvalidateThread();
                 panelDraw.StartGame();
-                panelDraw.Invalidate();
             }
         }
 
-        #region Knapper
+#region Knapper
 
         /// <summary>
         /// Henter ut all informasjon om brukeren fra databasen. Så sjekker den passordet
@@ -129,9 +132,9 @@ namespace CSharpProsjekt
                     LoginPanel.Hide();
                     panelDraw.LoadLevel();
                 }
+                else
+                    lblError.Visible = true;
             }
-            else
-                lblFeil.Visible = true;
         }
 
         /// <summary>
@@ -141,6 +144,7 @@ namespace CSharpProsjekt
         private void btn_NextLevel_Click(object sender, EventArgs e)
         {
             panelDraw.StartTimers();
+            panelDraw.StartMovementThread();
             panelDraw.LoadLevel();
 
             tb_LevelFinished.Hide();
@@ -159,9 +163,9 @@ namespace CSharpProsjekt
                 btn_pause.Text = "Fortsett";
             }
         }
-        #endregion
+#endregion
 
-        #region Toolstrip menu item metoder
+#region Toolstrip menu item metoder
         private void topScoreToolStripMenuItem_Click(object sender, EventArgs e)
         {
             TopScore box = new TopScore();
@@ -180,7 +184,6 @@ namespace CSharpProsjekt
             panelDraw.ClearPanel();
             panelDraw.NewGame();
             panelDraw.Invalidate();
-
         }
 
         private void loggUtToolStripMenuItem_Click(object sender, EventArgs e)
@@ -201,9 +204,9 @@ namespace CSharpProsjekt
             CreateAccount box = new CreateAccount();
             box.Show();
         }
-        #endregion
+#endregion
 
-        #region Delegat metoder
+#region Delegat metoder
         public void update_label_tid(object sender, TimeEventArgs e)
         {
             label_tid.Text = Convert.ToString("Gjenstående tid: " + e.timeLeft + " sekunder");
@@ -215,12 +218,17 @@ namespace CSharpProsjekt
             label_poeng.Text = Convert.ToString("Poeng: " + e.Points);
             label_level.Text = Convert.ToString("Level: " + e.Level);
 
-            if (e.LevelComplete == true)
+            if (e.LevelComplete == true && e.GameComplete == false)
             {
                 tb_LevelFinished.Show();
                 btn_NextLevel.Show();
             }
         }
-        #endregion
+
+        public void update_label_FPS(object sender, FPSEventArgs e)
+        {
+            label_FPS.Text = "FPS: " + e.FPS.ToString("#.##");
+        }
+#endregion
     }
 }
