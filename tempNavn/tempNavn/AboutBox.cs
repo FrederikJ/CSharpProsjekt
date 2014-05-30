@@ -25,10 +25,10 @@ namespace CSharpProsjekt
         public AboutBox()
         {
             InitializeComponent();
-            labelInfo.Text = Bruker.Navn;// text;
+            labelInfo.Text = User.Name;// text;
         }
 
-        private void btn_ok_Click(object sender, EventArgs e)
+        private void btn_Ok_Click(object sender, EventArgs e)
         {
             this.Close();
         }

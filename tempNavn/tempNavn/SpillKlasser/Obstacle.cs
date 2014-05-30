@@ -19,28 +19,28 @@ namespace CSharpProsjekt.SpillKlasser
         public GraphicsPath obstacle = new GraphicsPath();
 
         #region Konstruktorer
-        public Obstacle(int _x, int _y, int _Width, int _height, int _startAngle, int _sweepAngle)
+        public Obstacle(int x, int y, int width, int height, int startAngle, int sweepAngle)
         {
             obstacle.StartFigure();
-            obstacle.AddArc(_x, _y, _Width, _height, _startAngle, _sweepAngle);
-            obstacle.AddLine(_x + 50, _y+ 66, _x + 100, _y + 150);
+            obstacle.AddArc(x, y, width, height, startAngle, sweepAngle);
+            obstacle.AddLine(x + 50, y+ 66, x + 100, y + 150);
             obstacle.CloseFigure();
         }
-        public Obstacle(int _x, int _y, int _curve)
+        public Obstacle(int x, int y, int curve)
         {
             Point[] shape = {
-            new Point (_x, _y),
-            new Point (_x, _y + 70),
-            new Point (_x + 100, _y + 70),
-            new Point (_x + 100, _y),
+            new Point (x, y),
+            new Point (x, y + 70),
+            new Point (x + 100, y + 70),
+            new Point (x + 100, y),
             };
             obstacle.StartFigure();
-            obstacle.AddCurve(shape, _curve);
+            obstacle.AddCurve(shape, curve);
             obstacle.CloseFigure();
         }
-        public Obstacle(int _x, int _y, int _Width, int _height)
+        public Obstacle(int x, int y, int width, int height)
         {
-            Rectangle rectangle = new Rectangle(_x, _y, _Width, _height);
+            Rectangle rectangle = new Rectangle(x, y, width, height);
             obstacle.StartFigure();
             obstacle.AddRectangle(rectangle);
             obstacle.CloseFigure();

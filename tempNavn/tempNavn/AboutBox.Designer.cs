@@ -29,38 +29,41 @@
         private void InitializeComponent()
         {
             this.labelInfo = new System.Windows.Forms.TextBox();
-            this.btn_ok = new System.Windows.Forms.Button();
+            this.btn_Ok = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // labelInfo
             // 
             this.labelInfo.AcceptsReturn = true;
-            this.labelInfo.Location = new System.Drawing.Point(12, 12);
+            this.labelInfo.Location = new System.Drawing.Point(16, 15);
+            this.labelInfo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.labelInfo.Multiline = true;
             this.labelInfo.Name = "labelInfo";
             this.labelInfo.ReadOnly = true;
-            this.labelInfo.Size = new System.Drawing.Size(262, 113);
+            this.labelInfo.Size = new System.Drawing.Size(348, 138);
             this.labelInfo.TabIndex = 0;
             // 
-            // btn_ok
+            // btn_Ok
             // 
-            this.btn_ok.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btn_ok.Location = new System.Drawing.Point(104, 131);
-            this.btn_ok.Name = "btn_ok";
-            this.btn_ok.Size = new System.Drawing.Size(75, 23);
-            this.btn_ok.TabIndex = 1;
-            this.btn_ok.Text = "OK";
-            this.btn_ok.UseVisualStyleBackColor = true;
-            this.btn_ok.Click += new System.EventHandler(this.btn_ok_Click);
+            this.btn_Ok.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.btn_Ok.Location = new System.Drawing.Point(139, 161);
+            this.btn_Ok.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btn_Ok.Name = "btn_Ok";
+            this.btn_Ok.Size = new System.Drawing.Size(100, 28);
+            this.btn_Ok.TabIndex = 1;
+            this.btn_Ok.Text = "OK";
+            this.btn_Ok.UseVisualStyleBackColor = true;
+            this.btn_Ok.Click += new System.EventHandler(this.btn_Ok_Click);
             // 
             // AboutBox
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(286, 158);
-            this.Controls.Add(this.btn_ok);
+            this.ClientSize = new System.Drawing.Size(381, 194);
+            this.Controls.Add(this.btn_Ok);
             this.Controls.Add(this.labelInfo);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "AboutBox";
             this.Text = "AboutBox";
             this.ResumeLayout(false);
@@ -71,6 +74,6 @@
         #endregion
 
         private System.Windows.Forms.TextBox labelInfo;
-        private System.Windows.Forms.Button btn_ok;
+        private System.Windows.Forms.Button btn_Ok;
     }
 }

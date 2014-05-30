@@ -13,11 +13,11 @@ namespace CSharpProsjekt.LoginKlasser
     /// Brukker oppgjekt klasse. Her lagre vi all informasjon fra database ved innlogginen
     /// lokalt på programmet, slik at det er lett tilgjengelig i koden
     /// </summary>
-    public class Bruker
+    public class User
     {
         //Get/Set metoder for de forskjellige medlemsvariablene.
-        public static int BrukerID { get; set; }
-        public static string Navn { get; set; }
+        public static int UserID { get; set; }
+        public static string Name { get; set; }
         public static int TopScore { get; set; }
         public static int Level { get; set; }
  
@@ -30,12 +30,12 @@ namespace CSharpProsjekt.LoginKlasser
         /// <param name="navn"></param>
         /// <param name="topScore"></param>
         /// <param name="level"></param>
-        public static void AddBruker(int brukerID, string navn)
+        public static void AddUser(int brukerID, string navn)
         {
-            BrukerID = brukerID;
-            Navn = navn;
+            UserID = brukerID;
+            Name = navn;
         }
-        public static void AddTopScoreLevelToBruker(int topScore, int level)
+        public static void AddTopScoreLevelToUser(int topScore, int level)
         {
             TopScore = topScore;
             Level = level;

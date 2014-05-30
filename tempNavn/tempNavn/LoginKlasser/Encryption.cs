@@ -16,16 +16,16 @@ namespace CSharpProsjekt.LoginKlasser
     /// </summary>
     public static class Encryption
     {
-        static readonly string PasswordHash = "P@@Sw0rdH@$h1ng";
-        static readonly string SaltKey = "$@LT&K3Y";
-        static readonly string VIKey = "@1B2c3D4e5F6g7H8";
+        private static readonly string passwordHash = "P@@Sw0rdH@$h1ng";
+        private static readonly string saltKey = "$@LT&K3Y";
+        private static readonly string viKey = "@1B2c3D4e5F6g7H8";
 
         //Retunere true eller false om passordene er lik etter han har decryptert passordet som er
         //skrivet inn.
-        public static bool Decrypt(string userpass, string databasepass)
+        public static bool Decrypt(string userPass, string databasePass)
         {
-            string decryption = Encrypt(userpass);
-            if (decryption == databasepass)
+            string decryption = Encrypt(userPass);
+            if (decryption == databasePass)
             {
                 return true;
             }
@@ -38,9 +38,9 @@ namespace CSharpProsjekt.LoginKlasser
         {
             byte[] plainTextBytes = Encoding.UTF8.GetBytes(plainText);
 
-            byte[] keyBytes = new Rfc2898DeriveBytes(PasswordHash, Encoding.ASCII.GetBytes(SaltKey)).GetBytes(256 / 8);
+            byte[] keyBytes = new Rfc2898DeriveBytes(passwordHash, Encoding.ASCII.GetBytes(saltKey)).GetBytes(256 / 8);
             var symmetricKey = new RijndaelManaged() { Mode = CipherMode.CBC, Padding = PaddingMode.Zeros };
-            var encryptor = symmetricKey.CreateEncryptor(keyBytes, Encoding.ASCII.GetBytes(VIKey));
+            var encryptor = symmetricKey.CreateEncryptor(keyBytes, Encoding.ASCII.GetBytes(viKey));
 
             byte[] cipherTextBytes;
 

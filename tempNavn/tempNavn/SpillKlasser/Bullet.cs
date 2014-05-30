@@ -17,17 +17,17 @@ namespace CSharpProsjekt.SpillKlasser
     class Bullet
      {
         //Størrelse:
-        public float diameter { get; set; }
+        public float Diameter { get; set; }
         //Startpunkt
-        public int x { get; set; }
-        public int y { get; set; }
+        public int X { get; set; }
+        public int Y { get; set; }
         //Fart
         private int dx;
         private int dy;
         //Rettning
         private string direction;
 
-        public bool keepGoing { get; set; }
+        public bool KeepGoing { get; set; }
         private static SolidBrush bulletColor = new SolidBrush(Color.Black);
 
         /// <summary>
@@ -38,12 +38,12 @@ namespace CSharpProsjekt.SpillKlasser
         /// <param name="direction"></param>
         public Bullet(int x, int y, string direction)
         {
-            diameter = 5;
-            this.x = x;
-            this.y = y;
+            Diameter = 5;
+            this.X = x;
+            this.Y = y;
             dx = 1;
             dy = 1;
-            keepGoing = true;
+            KeepGoing = true;
             this.direction = direction;
             direction.ToLower();
         }
@@ -57,22 +57,22 @@ namespace CSharpProsjekt.SpillKlasser
             switch (direction)
             {
                 case "up":
-                    y += -dy;
+                    Y += -dy;
                     break;
                 case "down":
-                    y += dy;
+                    Y += dy;
                     break;
                 case "left":
-                    x += -dx;
+                    X += -dx;
                     break;
                 case "right":
-                    x += dx;
+                    X += dx;
                     break;
                 default:
                     break;
             }
 
-            g.FillEllipse(bulletColor, x, y, diameter, diameter);
+            g.FillEllipse(bulletColor, X, Y, Diameter, Diameter);
         }
     }
 }

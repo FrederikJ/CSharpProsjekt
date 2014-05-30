@@ -14,7 +14,7 @@ namespace CSharpProsjekt
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new BallSpill());
+            Application.Run(new PlayBall());
         }
     }
 }

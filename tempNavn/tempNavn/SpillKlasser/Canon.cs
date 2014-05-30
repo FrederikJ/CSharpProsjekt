@@ -61,7 +61,7 @@ namespace CSharpProsjekt.SpillKlasser
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
-        #region
+        #region Tegner kanonene i riktig retning
         public void PointLeft(int x, int y)
         {
             canonPoints = new Point[3];

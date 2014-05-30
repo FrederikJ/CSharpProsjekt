@@ -27,13 +27,14 @@ namespace CSharpProsjekt
 
     public partial class MyPanel : Panel
     {
-        #region Variabler
+        
         public event TimeEndringEvent TimeEndret;
         public event PointEndringEvent PointsEndret;
-
+        
+        #region Variabler
         private Object mySync = new Object();
         private Level loadLevel;
-        private Spiller spiller;
+        private Player player;
 
 
         private List<Obstacle> listOfObstacles = new List<Obstacle>();
@@ -103,22 +104,22 @@ namespace CSharpProsjekt
 
             if (left.IsPressed)
             {
-                spiller.MoveLeft();
+                player.MoveLeft();
             }
 
             if (right.IsPressed)
             {
-                spiller.MoveRight();
+                player.MoveRight();
             }
 
             if (up.IsPressed)
             {
-                spiller.MoveUp();
+                player.MoveUp();
             }
 
             if (down.IsPressed)
             {
-                spiller.MoveDown();
+                player.MoveDown();
             } 
         }
 
@@ -190,7 +191,7 @@ namespace CSharpProsjekt
 
             StartTimers();
             points = 0;
-            spiller = new Spiller(this);
+            player = new Player(this);
         }
 
         /// <summary>
@@ -201,13 +202,13 @@ namespace CSharpProsjekt
             if (keyboardTimer.Enabled == true)
             {
                 StopTimers(true);
-                spiller.Going = false;
+                player.ThreadStop();
                 return false;
             }
             else
             {
                 StartTimers();
-                spiller.Going = true;
+                player.ThreadStart();
                 return true;
             }
         }
@@ -220,9 +221,9 @@ namespace CSharpProsjekt
         {
             StopTimers(false);
             ClearPanel();
-            spiller = null;
+            player = null;
 
-            if (points > Bruker.TopScore)
+            if (points > User.TopScore)
                 this.UpdateDatabase();
             points = 0;
         }
@@ -233,8 +234,8 @@ namespace CSharpProsjekt
         /// </summary>
         public void NewGame()
         {
-            if(spiller != null)
-                spiller.ResetPosition();
+            if(player != null)
+                player.ResetPosition();
 
             gameOver = false;
             level = 1;
@@ -302,14 +303,14 @@ namespace CSharpProsjekt
             g.FillRegion(Canon.GetColor(), canonRegion);
             g.DrawPath(colorPen, canonPath);
 
-            #region Spillet er startet
+            #region Spillet er starter
             //Hvis spillet er i gang, skjer dette
-            if (this.spiller != null)
+            if (this.player != null)
             {
-                spiller.draw(g);
+                player.Draw(g);
 
                 //Sjekker om spilleren kommer ned på bunnen, viss det skjer er det game over
-                if (spiller.y + spiller.diameter >= this.Height)
+                if (player.Y + player.Diameter >= this.Height)
                     gameOver = true;
 
                 //Sjekker om det er flere gule smileyer igjen og at tiden ikke har gått ut. 
@@ -326,7 +327,7 @@ namespace CSharpProsjekt
                     points += timeLeft * 2;
 
                     UpdatePoints();
-                    spiller.ResetPosition();
+                    player.ResetPosition();
 
                     //Rydder brettet slik at neste brett og forrige brett ikke blir tegnet oppå hverandre
                     ClearPanel();
@@ -348,18 +349,18 @@ namespace CSharpProsjekt
 
                         GraphicsPath bulletPath = new GraphicsPath();
                         bulletPath.StartFigure();
-                        bulletPath.AddEllipse(bullet.x, bullet.y, bullet.diameter, bullet.diameter);
+                        bulletPath.AddEllipse(bullet.X, bullet.Y, bullet.Diameter, bullet.Diameter);
                         bulletPath.CloseFigure();
 
                         bullet.Draw(g);
 
                         //Sjekker kollisjon opp i mot spilleren
-                        if (CheckCollision(bulletPath, spiller.GetPath(), e))
+                        if (CheckCollision(bulletPath, player.GetPath(), e))
                         {
                             gameOver = true;
                         }
                         //Sjekker kollisjon opp i mot hindrene og brett kanten og fjerner den fra listen
-                        if (CheckCollision(bulletPath, obstaclePath, e) || bullet.x > this.Width || bullet.y > this.Height || bullet.x < 0 || bullet.y < 0)
+                        if (CheckCollision(bulletPath, obstaclePath, e) || bullet.X > this.Width || bullet.Y > this.Height || bullet.X < 0 || bullet.Y < 0)
                         {
                             listOfBullets.RemoveAt(i);
                         }
@@ -377,7 +378,7 @@ namespace CSharpProsjekt
                     //verdien for smiley som må tas(om smileyen er gule). 
                     //er smileyen rød, vil man bytte gravitasjonen
                     //også fjerne smileyen fra listen så den ikke blir tegnet igjen
-                    if (CheckCollision(smiley.GetPath(), spiller.GetPath(), e))
+                    if (CheckCollision(smiley.GetPath(), player.GetPath(), e))
                     {
                         gunFireSound.Play();
                         listOfSmileys.RemoveAt(i);
@@ -388,7 +389,7 @@ namespace CSharpProsjekt
                             smileysRemaining--;
 
                         if (smiley.Value == 150)
-                            spiller.ReverseGravity();
+                            player.ReverseGravity();
 
                         UpdatePoints();
                     }
@@ -397,9 +398,9 @@ namespace CSharpProsjekt
                 //Sender spiller tilbake til start om det blir detected collision mot obstacle 
                 //eller canon.
                 //Viss det skjer en kollisjon vil poengene trekkes med 75
-                if (CheckCollision(obstaclePath, spiller.GetPath(), e) || CheckCollision(canonPath, spiller.GetPath(), e))
+                if (CheckCollision(obstaclePath, player.GetPath(), e) || CheckCollision(canonPath, player.GetPath(), e))
                 {
-                    spiller.ResetPosition();
+                    player.ResetPosition();
                     points -= 75;
 
                     UpdatePoints();
@@ -438,8 +439,8 @@ namespace CSharpProsjekt
         public void LoadLevel()
         {
             //Hvis gravitasjonen er reversert fra utgangspunkt, vil den bli snudd til normal gravitasjon
-            if (spiller != null && spiller.GravityReversed)
-                spiller.ReverseGravity();
+            if (player != null && player.GravityReversed)
+                player.ReverseGravity();
 
             UpdatePoints();
 
@@ -519,9 +520,9 @@ namespace CSharpProsjekt
         /// </summary>
         private void UpdateDatabase()
         {
-            string query = String.Format("UPDATE Konto SET TopScore = '{0}', Level = '{1}' WHERE Navn = '{2}'", points, level, Bruker.Navn);
+            string query = String.Format("UPDATE Konto SET TopScore = '{0}', Level = '{1}' WHERE Navn = '{2}'", points, level, User.Name);
             db.InsertAll(query);
-            Bruker.AddTopScoreLevelToBruker(points, level);
+            User.AddTopScoreLevelToUser(points, level);
         }
 
         #region Start/stop timers
