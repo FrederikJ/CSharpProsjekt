@@ -24,12 +24,14 @@ namespace CSharpProsjekt
     //Oppretter delegatene vi har
     public delegate void TimeEndringEvent(Object sender, TimeEventArgs e);
     public delegate void PointEndringEvent(Object sender, PointEventArgs e);
+    public delegate void FPSEndringsEvent(Object sender, FPSEventArgs e);
 
     public partial class MyPanel : Panel
     {
         #region Variabler
         public event TimeEndringEvent TimeEndret;
         public event PointEndringEvent PointsEndret;
+        public event FPSEndringsEvent FPSEndret;
 
         private Object mySync = new Object();
         private Level loadLevel;
@@ -69,14 +71,22 @@ namespace CSharpProsjekt
         private int level = 1;
         private int points;
 
-        private System.Windows.Forms.Timer keyboardTimer = new System.Windows.Forms.Timer();
+        private ThreadStart ts;
+        private Thread thread;
         private System.Windows.Forms.Timer countdownTimer = new System.Windows.Forms.Timer();
         private System.Windows.Forms.Timer bulletTimer = new System.Windows.Forms.Timer();
+        
+        //FPS:
+        private int frameCount = 0;
+        private double timeSinceLastUpdate = 0;
+        private double fps = 0;
+        private DateTime lastTime = DateTime.Now;
         #endregion
 
         public MyPanel()
         {
             introSound.Play();
+            
             
             //Må sittes her for at .heigth og .width skal returnere riktig verdi.
             this.Size = new System.Drawing.Size(728, 404);
@@ -89,37 +99,51 @@ namespace CSharpProsjekt
             this.UpdateStyles();
         }
 
-        #region Timer metoder
+
+
+        #region Timer & Thread metoder
         /// <summary>
         /// Metoden blir trigret hvert 10ms av timeren keyboardTimer og sjekker om pil opp, ned, venstre eller høyre er trykt. 
-        /// Klassen KeyboardInfo blir brukt, dette er en ferdig klasse funnet på nettet som tilater oss å trykke flere taster ned samtidig. 
+        /// Klassen KeyboardInfo blir brukt, dette er en ferdig klasse funnet på nettet som tillater oss å trykke flere taster ned samtidig. 
         /// </summary>
-        void ReadKeyboard_Tick(object sender, EventArgs e)
+        public void Run()
         {
-            var left = KeyboardInfo.GetKeyState(Keys.Left);
-            var right = KeyboardInfo.GetKeyState(Keys.Right);
-            var up = KeyboardInfo.GetKeyState(Keys.Up);
-            var down = KeyboardInfo.GetKeyState(Keys.Down);
-
-            if (left.IsPressed)
+            while (thread.IsAlive)
             {
-                spiller.MoveLeft();
+                Movement();
+                Thread.Sleep(15);
             }
+        }
 
-            if (right.IsPressed)
+        public void Movement()
+        {
+            lock (mySync)
             {
-                spiller.MoveRight();
+                var left = KeyboardInfo.GetKeyState(Keys.Left);
+                var right = KeyboardInfo.GetKeyState(Keys.Right);
+                var up = KeyboardInfo.GetKeyState(Keys.Up);
+                var down = KeyboardInfo.GetKeyState(Keys.Down);
+
+                if (left.IsPressed)
+                {
+                    spiller.MoveLeft();
+                }
+
+                if (right.IsPressed)
+                {
+                    spiller.MoveRight();
+                }
+
+                if (up.IsPressed)
+                {
+                    spiller.MoveUp();
+                }
+
+                if (down.IsPressed)
+                {
+                    spiller.MoveDown();
+                }
             }
-
-            if (up.IsPressed)
-            {
-                spiller.MoveUp();
-            }
-
-            if (down.IsPressed)
-            {
-                spiller.MoveDown();
-            } 
         }
 
         /// <summary>
@@ -154,7 +178,7 @@ namespace CSharpProsjekt
         /// Timeren bulletTimer trigrer denne metoden med en random verdi mellom 0.5 - 1 sekund
         /// Medoden lager så en random verdi fra 0 - 3 som han sender inn til Level klassen
         /// for så å lage en ny kule. Random verdien er til for lage en kule fra en kanon
-        /// om gangen, slik at kulene ikke blir så sykrone fra skyterene.
+        /// om gangen, slik at kulene ikke blir så synkrone fra skyterene.
         /// </summary>
         void Interval_Tick(object sender, EventArgs e)
         {
@@ -175,10 +199,6 @@ namespace CSharpProsjekt
         {
             if (firstAttempt)
             {
-                keyboardTimer.Interval = 10;
-                keyboardTimer.Tick += new EventHandler(ReadKeyboard_Tick);
-                keyboardTimer.Start();
-
                 countdownTimer.Interval = 1000;
                 countdownTimer.Tick += new EventHandler(Countdown_Tick);
                 
@@ -189,6 +209,7 @@ namespace CSharpProsjekt
             }
 
             StartTimers();
+            StartMovementThread();
             points = 0;
             spiller = new Spiller(this);
         }
@@ -198,15 +219,17 @@ namespace CSharpProsjekt
         /// </summary>
         public Boolean PauseGame()
         {
-            if (keyboardTimer.Enabled == true)
+            if (thread.IsAlive)
             {
-                StopTimers(true);
+                StopTimers();
+                StopMovementThread();
                 spiller.Going = false;
                 return false;
             }
             else
             {
                 StartTimers();
+                StartMovementThread();
                 spiller.Going = true;
                 return true;
             }
@@ -218,7 +241,8 @@ namespace CSharpProsjekt
         /// </summary>
         public void StopGame()
         {
-            StopTimers(false);
+            StopTimers();
+            StopMovementThread();
             ClearPanel();
             spiller = null;
 
@@ -250,6 +274,17 @@ namespace CSharpProsjekt
         /// </summary>
         protected override void OnPaint(PaintEventArgs e)
         {
+            //Finner antall ticks siden sist (10000 ticks per millisekund):
+            long elapsedTicks = DateTime.Now.Ticks - lastTime.Ticks;        //lastTime sette nederst i calculateFPS metoden.
+            //Finner differansen som et timespan-objekt:
+            TimeSpan elapsedSpan = new TimeSpan(elapsedTicks);
+            //Finner forløpt tid siden siste kall på OnPaint- i antall sekunder:
+            double elapsed = (elapsedSpan.Milliseconds) / 1000.0; //NB! .0
+            //Beregner og trigrer delegat:
+            CalculateFPS(elapsed);
+            //Setter lastTime:
+            lastTime = DateTime.Now;
+
             Graphics g = e.Graphics;
 
             //Om det er game over, så skal man stoppe gamet, også tegne en ny tegning hvor det står 
@@ -264,7 +299,7 @@ namespace CSharpProsjekt
             }
 
             //Denne kodesnutten blir bare kjørt en gang for hver level. 
-            //Obstacles og canons har ingen behov for å bli tegnet i hver OnPaint 
+            //Obstacles og canons har ingen behov for å bli lagt til graphicsPath i hver onpaint
             //ettersom de er statisk og at det ville tatt opp mye ressurser hvis dem skulle
             //blitt tegnet ved hver onpaint.
             if (runnedOnce == false && gameOver == false)
@@ -306,7 +341,11 @@ namespace CSharpProsjekt
             //Hvis spillet er i gang, skjer dette
             if (this.spiller != null)
             {
-                spiller.draw(g);
+                lock(mySync)
+                {
+                    spiller.draw(g);
+
+                }
 
                 //Sjekker om spilleren kommer ned på bunnen, viss det skjer er det game over
                 if (spiller.y + spiller.diameter >= this.Height)
@@ -319,7 +358,8 @@ namespace CSharpProsjekt
                 {
                     gameWonSound.Play();
                     level++;
-                    StopTimers(true);
+                    StopTimers();
+                    StopMovementThread();
                     levelFinished = true;
 
                     //Gir 2 poeng for hvert sekund som er igjen, liten bonus
@@ -338,8 +378,8 @@ namespace CSharpProsjekt
                     //kjører igjennom hvert objekt i listOfBullets og printer disse til skjermen. 
                     //Sjekker også collision mot obstacles og spiller
                     //Måtte tegne ballene her i graphicspath fordi at viss man gjorde dette i 
-                    //objekt klassen, så ville x og y verdien være konstante og kolisjon med noen ting
-                    //ville aldri har skjedd siden x og y verdien forsatt være på start punktet til ballen
+                    //objekt klassen, så ville x og y verdien være konstante og kollisjon med noen ting
+                    //ville aldri har skjedd siden x og y verdien forsatt være på start punktet til ballen.
                     //Med å tegne graphicspathen her vil x og y verdien hele tiden følge ballen og 
                     //kollisjon vil oppstå om det skjer
                     for (int i = 0; i < listOfBullets.Count; i++)
@@ -483,7 +523,8 @@ namespace CSharpProsjekt
             platformRegion.MakeEmpty();
             canonRegion.MakeEmpty();
 
-            StopTimers(true);
+            StopTimers();
+            StopMovementThread();
         }
 
         /// <summary>
@@ -524,7 +565,7 @@ namespace CSharpProsjekt
             Bruker.AddTopScoreLevelToBruker(points, level);
         }
 
-        #region Start/stop timers
+        #region Start/stop metoder for timers
         /// <summary>
         /// Starter alle timere og sette enable = true på den ene. 
         /// </summary>
@@ -532,8 +573,6 @@ namespace CSharpProsjekt
         {
             bulletTimer.Start();
             countdownTimer.Start();
-
-            keyboardTimer.Enabled = true;
         }
 
         /// <summary>
@@ -541,14 +580,52 @@ namespace CSharpProsjekt
         /// keybordtimern. Var en plass i koden hvor vi stoppet den i steden for å bare sette enable = false;
         /// </summary>
         /// <param name="verdi"></param>
-        public void StopTimers(bool verdi)
+        public void StopTimers()
         {
             bulletTimer.Stop();
             countdownTimer.Stop();
-            if (verdi == true)
-                keyboardTimer.Enabled = false;
-            else
-                keyboardTimer.Stop();
+        }
+        #endregion
+
+        private void CalculateFPS(double elapsed)
+        {
+            //Teller antall frames:
+            frameCount++;
+            //Inkrementerer timeSinceLastUpdate med forløpt tid:
+            timeSinceLastUpdate += elapsed;
+            //Når det er gått mer enn 1 sekund (timeSinceLastUpdate > 1) beregnes fps:
+            if (timeSinceLastUpdate > 1.0)
+            {
+                fps = frameCount / timeSinceLastUpdate;
+                
+                try
+                {
+                    FPSEventArgs ea = new FPSEventArgs(fps);
+                    FPSEndret(this, ea);
+
+                }
+                catch (System.NullReferenceException exp)
+                {
+                    MessageBox.Show(string.Format("error: {0}", exp.ToString()));
+                }
+
+                //collisonLabel.Text = "FPS: " + Convert.ToString(fps);
+                frameCount = 0;
+                timeSinceLastUpdate -= 1.0; //Reduserer med 1 sekund, timeSinceLastUpdate blir (ca.) 0.
+            }
+        }
+
+        #region Movement thread
+        private void StopMovementThread()
+        {
+            thread.Abort();
+        }
+        public void StartMovementThread()
+        {
+            ts = new ThreadStart(Run);
+            thread = new Thread(ts);
+            thread.IsBackground = true;
+            thread.Start();
         }
         #endregion
     } 

@@ -64,7 +64,7 @@ namespace CSharpProsjekt.SpillKlasser
             while(Going)
             {
                 Tyngdekraft();
-                Thread.Sleep(10);
+                Thread.Sleep(17);
             }
         }
 
@@ -111,8 +111,8 @@ namespace CSharpProsjekt.SpillKlasser
         #region Tyngdekraft
         public void Tyngdekraft()
         {
-            lock (mySync)
-            {
+            //lock (mySync)
+            //{
 
                 if (!(y < 6 && y > 4 && x < 20 && x >= 0))
                 {
@@ -132,7 +132,7 @@ namespace CSharpProsjekt.SpillKlasser
                     {
                         y = panelSize.Height - diameter;
                     }
-                }
+               // }
             } 
         }
         #endregion
@@ -144,7 +144,7 @@ namespace CSharpProsjekt.SpillKlasser
         }
 
         public void MoveLeft()
-        {
+        {   
             if(!(y < 5 && x < 2))
                 this.x -= this.Adx;
         }

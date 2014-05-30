@@ -5,7 +5,6 @@ C:\Users\Frederik\Documents\GitHub\CSharpProsjekt\tempNavn\tempNavn\obj\Debug\CS
 C:\Users\Frederik\Documents\GitHub\CSharpProsjekt\tempNavn\tempNavn\obj\Debug\CSharpProsjekt.csprojResolveAssemblyReference.cache
 C:\Users\Tommy\Source\Repos\CSharpProsjekt\tempNavn\tempNavn\bin\Debug\MySql.Data.dll
 C:\Users\Tommy\Source\Repos\CSharpProsjekt\tempNavn\tempNavn\obj\Debug\CSharpProsjekt.BallSpill.resources
-C:\Users\Tommy\Source\Repos\CSharpProsjekt\tempNavn\tempNavn\obj\Debug\CSharpProsjekt.MistetPassord.resources
 C:\Users\Tommy\Source\Repos\CSharpProsjekt\tempNavn\tempNavn\obj\Debug\CSharpProsjekt.OpprettKonto.resources
 C:\Users\Tommy\Source\Repos\CSharpProsjekt\tempNavn\tempNavn\obj\Debug\CSharpProsjekt.csproj.GenerateResource.Cache
 C:\Users\Frederik\Documents\GitHub\CSharpProsjekt\tempNavn\tempNavn\obj\Debug\CSharpProsjekt.TopScore.resources
@@ -17,7 +16,6 @@ C:\Users\Tommy\Source\Repos\CSharpProsjekt\tempNavn\tempNavn\obj\Debug\CSharpPro
 C:\Users\Tommy\Source\Repos\CSharpProsjekt\tempNavn\tempNavn\obj\Debug\CSharpProsjekt.Resource.resources
 C:\Users\Tommy\Source\Repos\CSharpProsjekt\tempNavn\tempNavn\obj\Debug\DotWars.exe
 C:\Users\Tommy\Source\Repos\CSharpProsjekt\tempNavn\tempNavn\obj\Debug\DotWars.pdb
-C:\Users\Tommy\Source\Repos\CSharpProsjekt\tempNavn\tempNavn\obj\Debug\CSharpProsjekt.csprojResolveAssemblyReference.cache
 C:\Users\Frederik\Documents\GitHub\CSharpProsjekt\tempNavn\tempNavn\bin\Debug\DotWars.exe.config
 C:\Users\Frederik\Documents\GitHub\CSharpProsjekt\tempNavn\tempNavn\obj\Debug\DotWars.pdb
 C:\Users\Frederik\Documents\GitHub\CSharpProsjekt\tempNavn\tempNavn\obj\Debug\CSharpProsjekt.Properties.Resources.resources

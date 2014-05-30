@@ -74,6 +74,7 @@
     </Compile>
     <Compile Include="SpillKlasser\Bullet.cs" />
     <Compile Include="SpillKlasser\Canon.cs" />
+    <Compile Include="SpillKlasser\FPSEventArgs.cs" />
     <Compile Include="SpillKlasser\Level.cs" />
     <Compile Include="SpillKlasser\Obstacle.cs" />
     <Compile Include="SpillKlasser\PointEventArgs.cs" />

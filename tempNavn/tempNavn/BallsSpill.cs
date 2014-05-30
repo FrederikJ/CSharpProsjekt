@@ -41,6 +41,7 @@ namespace CSharpProsjekt
             db = new DbConnect();
             panelDraw.TimeEndret += new TimeEndringEvent(update_label_tid);
             panelDraw.PointsEndret += new PointEndringEvent(update_label_points);
+            panelDraw.FPSEndret += new FPSEndringsEvent(update_label_FPS);
             keepGoing = false;
 
             var loginPic = new Bitmap(LoginPanel.BackgroundImage, new Size(728, 404));
@@ -80,7 +81,6 @@ namespace CSharpProsjekt
                 keepGoing = true;
                 StartInvalidateThread();
                 panelDraw.StartGame();
-                panelDraw.Invalidate();
             }
         }
 
@@ -220,6 +220,10 @@ namespace CSharpProsjekt
                 tb_LevelFinished.Show();
                 btn_NextLevel.Show();
             }
+        }
+        public void update_label_FPS(object sender, FPSEventArgs e)
+        {
+            label_FPS.Text = "FPS: " + e.FPS.ToString("#.##");
         }
         #endregion
     }
