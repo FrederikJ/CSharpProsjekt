@@ -1,6 +1,5 @@
 C:\Users\Frederik\Documents\GitHub\CSharpProsjekt\tempNavn\tempNavn\bin\Debug\MySql.Data.dll
 C:\Users\Frederik\Documents\GitHub\CSharpProsjekt\tempNavn\tempNavn\obj\Debug\CSharpProsjekt.csproj.GenerateResource.Cache
-C:\Users\Frederik\Documents\GitHub\CSharpProsjekt\tempNavn\tempNavn\obj\Debug\CSharpProsjekt.csprojResolveAssemblyReference.cache
 C:\Users\Tommy\Source\Repos\CSharpProsjekt\tempNavn\tempNavn\bin\Debug\MySql.Data.dll
 C:\Users\Tommy\Source\Repos\CSharpProsjekt\tempNavn\tempNavn\obj\Debug\CSharpProsjekt.BallSpill.resources
 C:\Users\Tommy\Source\Repos\CSharpProsjekt\tempNavn\tempNavn\obj\Debug\CSharpProsjekt.OpprettKonto.resources

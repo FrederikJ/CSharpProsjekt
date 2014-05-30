@@ -25,7 +25,7 @@ namespace CSharpProsjekt
         {
             InitializeComponent();
             rtb_Info.Text = "Innlogget som: " + User.Name;
-            rtb_Info.Text += "\n\nDette spillet går ut på å samle dottene rundtom på kartet innen tiden er gått ut. Spillet består av 5 levler hvor den siste er heller vrien. Hvis man treffer bakken blir man game over.";
+            rtb_Info.Text += "\n\nDette spillet går ut på å samle dottene rundtom på kartet innen tiden er gått ut. Spillet består av 5 levler hvor den siste er heller vrien. Hvis man treffer bakken blir man game over. Spillet startes ved å trykke på brettet";
             rtb_Info.Text += "\n\nGul ball (100 poeng): \nDette er de eneste obligatoriske dottene, du går videre til neste level så snart alle gule dotter er samlet inn.";
             rtb_Info.Text += "\n\nRød ball (150 poeng): \nDette er valgfrie dotter. Tyngdekraften blir reversert for hver dott.";
             rtb_Info.Text += "\n\nBlå ball (200 poeng): \nDette er valgfrie dotter.";

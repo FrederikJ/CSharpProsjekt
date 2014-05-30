@@ -19,13 +19,15 @@ namespace CSharpProsjekt.SpillKlasser
         public int Level { get; set; }
         public Boolean LevelComplete { get; set; }
         public Boolean GameComplete { get; set; }
+        public Boolean GameOver { get; set; }
 
-        public PointEventArgs(int _points, int _level, Boolean _levelComplete, Boolean _gameComplete)
+        public PointEventArgs(int _points, int _level, Boolean _levelComplete, Boolean _gameComplete, Boolean _gameOver)
         {
             Points = _points;
             Level = _level;
             LevelComplete = _levelComplete;
             GameComplete = _gameComplete;
+            GameOver = _gameOver;
         }
     }
 }

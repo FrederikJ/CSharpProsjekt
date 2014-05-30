@@ -67,7 +67,7 @@ namespace CSharpProsjekt
 
         private DbConnect db = new DbConnect();
         private Random rnd = new Random();
-        private Boolean gameFinieshed = false; //Om alle baner er spilt igjennom
+        private Boolean gameFinished = false; //Om alle baner er spilt igjennom
         private Boolean runnedOnce = false; //For å hindre at region blir satt ved hver onpaint
         private Boolean firstAttempt = true; //Så timerene ikke blir satt ved hver level
         private Boolean levelFinished = false; 
@@ -216,6 +216,7 @@ namespace CSharpProsjekt
             StartTimers();
             StartMovementThread();
             points = 0;
+            UpdatePoints();
             player = new Player(this);
         }
 
@@ -250,10 +251,10 @@ namespace CSharpProsjekt
             StopMovementThread();
             ClearPanel();
             player = null;
+            UpdatePoints();
 
             if (points > User.TopScore)
                 this.UpdateDatabase();
-            points = 0;
         }
 
         /// <summary>
@@ -342,7 +343,7 @@ namespace CSharpProsjekt
             //Hvis gravitasjonen er reversert fra utgangspunkt, vil den bli snudd til normal gravitasjon
             if (player != null && player.GravityReversed)
                 player.ReverseGravity();
-
+            
             UpdatePoints();
 
             StartPlatform();
@@ -364,6 +365,7 @@ namespace CSharpProsjekt
             runnedOnce = false;
             levelFinished = false;
             gameOver = false;
+            gameFinished = false;
         }
 
         /// <summary>
@@ -397,7 +399,7 @@ namespace CSharpProsjekt
         {
             try
             {
-                PointEventArgs te = new PointEventArgs(points, level, levelFinished, gameFinieshed);
+                PointEventArgs te = new PointEventArgs(points, level, levelFinished, gameFinished, gameOver);
                 PointsEndret(this, te);
             }
             catch (System.NullReferenceException exp)
@@ -494,10 +496,10 @@ namespace CSharpProsjekt
                 runnedOnce = false;
             }
             //Om siste bane er fullført blir dette if setningen kjørt
-            if (gameFinieshed)
+            if (gameFinished)
             {
                 StopGame();
-
+                gameWonSound.Play();
                 obstaclePath.AddString("Game Finished \nCongratz!", new FontFamily("Showcard Gothic"), (int)(FontStyle.Bold | FontStyle.Italic), 90, new Point(5, 100), StringFormat.GenericTypographic);
                 obstacleRegion = new Region(obstaclePath);
             }
@@ -552,7 +554,7 @@ namespace CSharpProsjekt
                 //Sjekker om det er flere gule smileyer igjen og at tiden ikke har gått ut. 
                 //levelFinished sørger for at diverse if setninger bare kjører en gang, samt 
                 //verdien blir sendt videre via en delegat til BallSpill.cs
-                if (smileysRemaining == 0 && timeLeft > 0 && levelFinished == false)
+                if (smileysRemaining == 0 && levelFinished == false)
                 {
                     gameWonSound.Play();
                     player.ResetPosition();
@@ -565,7 +567,7 @@ namespace CSharpProsjekt
 
                     level++;
                     if (level > 5)
-                        gameFinieshed = true;
+                        gameFinished = true;
 
                     UpdatePoints();
                     //Rydder brettet slik at neste brett og forrige brett ikke blir tegnet oppå hverandre

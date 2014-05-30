@@ -50,6 +50,7 @@ namespace CSharpProsjekt
 
             nyttSpillToolStripMenuItem.Enabled = false;
             loggUtToolStripMenuItem.Enabled = false;
+            btn_pause.Enabled = false;
         }
 
         /// <summary>
@@ -84,6 +85,8 @@ namespace CSharpProsjekt
                 KeepGoing = true;
                 StartInvalidateThread();
                 panelDraw.StartGame();
+                btn_pause.Enabled = true;
+                nyttSpillToolStripMenuItem.Enabled = true;
             }
         }
 
@@ -113,7 +116,7 @@ namespace CSharpProsjekt
                     int brukerID = Convert.ToInt32(dt.Rows[0]["Id"]);
                     string brukerNavn = Convert.ToString(dt.Rows[0]["Navn"]);
 
-                    if(dt.Rows[0]["TopScore"] == null)
+                    if(dt.Rows[0]["TopScore"] != null)
                     {
                         int topScore = Convert.ToInt32(dt.Rows[0]["TopScore"]);
                         int level = Convert.ToInt32(dt.Rows[0]["Level"]);
@@ -122,8 +125,6 @@ namespace CSharpProsjekt
 
                     User.AddUser(brukerID, brukerNavn);
 
-                    nyttSpillToolStripMenuItem.Enabled = true;
-                    
                     loggUtToolStripMenuItem.Enabled = true;
                     opprettBrukerToolStripMenuItem.Enabled = false;
 
@@ -197,6 +198,8 @@ namespace CSharpProsjekt
             label_tid.Text = "Gjenstående tid: ";
             label_level.Text = "Level:";
             label_poeng.Text = "Poeng:";
+            lblError.Visible = false;
+            btn_pause.Enabled = false;
         }
 
         private void opprettBrukerToolStripMenuItem_Click(object sender, EventArgs e)
@@ -211,6 +214,8 @@ namespace CSharpProsjekt
         {
             label_tid.Text = Convert.ToString("Gjenstående tid: " + e.timeLeft + " sekunder");
 
+            if (e.timeLeft == 0)
+                btn_pause.Enabled = false;
         }
 
         public void update_label_points(object sender, PointEventArgs e)
@@ -223,6 +228,8 @@ namespace CSharpProsjekt
                 tb_LevelFinished.Show();
                 btn_NextLevel.Show();
             }
+            if (e.GameOver)
+                btn_pause.Enabled = false;
         }
 
         public void update_label_FPS(object sender, FPSEventArgs e)

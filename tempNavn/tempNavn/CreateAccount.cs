@@ -60,7 +60,7 @@ namespace CSharpProsjekt
 
             if (password == confirmPassword && userExists == false)
             {
-                string query = string.Format("Insert into Konto(Navn, Passord) values('{0}', '{1}', '{2}')", name, password);
+                string query = string.Format("Insert into Konto(Navn, Passord) values('{0}', '{1}')", name, password);
                 db.InsertAll(query);
 
                 this.Close();

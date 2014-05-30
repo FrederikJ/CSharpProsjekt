@@ -1,0 +1,14 @@
+C:\Users\Frederik\Documents\GitHub\CSharpProsjekt\tempNavn\tempNavn\bin\Release\DotWars.exe.config
+C:\Users\Frederik\Documents\GitHub\CSharpProsjekt\tempNavn\tempNavn\bin\Release\DotWars.exe
+C:\Users\Frederik\Documents\GitHub\CSharpProsjekt\tempNavn\tempNavn\bin\Release\DotWars.pdb
+C:\Users\Frederik\Documents\GitHub\CSharpProsjekt\tempNavn\tempNavn\bin\Release\MySql.Data.dll
+C:\Users\Frederik\Documents\GitHub\CSharpProsjekt\tempNavn\tempNavn\obj\Release\CSharpProsjekt.AboutBox.resources
+C:\Users\Frederik\Documents\GitHub\CSharpProsjekt\tempNavn\tempNavn\obj\Release\CSharpProsjekt.Playball.resources
+C:\Users\Frederik\Documents\GitHub\CSharpProsjekt\tempNavn\tempNavn\obj\Release\CSharpProsjekt.CreateAccount.resources
+C:\Users\Frederik\Documents\GitHub\CSharpProsjekt\tempNavn\tempNavn\obj\Release\CSharpProsjekt.Properties.Resources.resources
+C:\Users\Frederik\Documents\GitHub\CSharpProsjekt\tempNavn\tempNavn\obj\Release\CSharpProsjekt.Resource.resources
+C:\Users\Frederik\Documents\GitHub\CSharpProsjekt\tempNavn\tempNavn\obj\Release\CSharpProsjekt.TopScore.resources
+C:\Users\Frederik\Documents\GitHub\CSharpProsjekt\tempNavn\tempNavn\obj\Release\CSharpProsjekt.csproj.GenerateResource.Cache
+C:\Users\Frederik\Documents\GitHub\CSharpProsjekt\tempNavn\tempNavn\obj\Release\DotWars.exe
+C:\Users\Frederik\Documents\GitHub\CSharpProsjekt\tempNavn\tempNavn\obj\Release\DotWars.pdb
+C:\Users\Frederik\Documents\GitHub\CSharpProsjekt\tempNavn\tempNavn\obj\Release\CSharpProsjekt.csprojResolveAssemblyReference.cache
