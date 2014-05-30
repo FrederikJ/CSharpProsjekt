@@ -8,10 +8,17 @@ using System.Threading.Tasks;
 
 namespace CSharpProsjekt.SpillKlasser
 {
+    /// <summary>
+    /// Obstacle.cs av Frederik Johnsen & Tommy Langhelle
+    /// Programmering 3 - C# Prosjekt
+    /// 
+    /// Her lager vi nye hindere og adder dem til graphicspathen som bare er til og hente ut
+    /// </summary>
     class Obstacle
     {
         public GraphicsPath obstacle = new GraphicsPath();
 
+        #region Konstruktorer
         public Obstacle(int _x, int _y, int _Width, int _height, int _startAngle, int _sweepAngle)
         {
             obstacle.StartFigure();
@@ -77,5 +84,6 @@ namespace CSharpProsjekt.SpillKlasser
             obstacle.AddPolygon(shape);
             obstacle.CloseFigure();
         }
+        #endregion
     }  
 }

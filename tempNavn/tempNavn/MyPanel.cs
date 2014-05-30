@@ -12,28 +12,28 @@ using CSharpProsjekt.LoginKlasser;
 using System.Drawing.Drawing2D;
 using System.Media;
 
-/*
- * HiN - Vårsemester 2014
- * Programmering 3
- * Obligatorisk Innlevering 4
- * 
- * Skrevet av:
- * Tommy Langhelle
- */
-
 namespace CSharpProsjekt
 {
+    /// <summary>
+    /// MyPanel.cs av Tommy Langhelle & Frederik Johnsen
+    /// Programmering 3 - C# Prosjekt
+    /// 
+    /// Her blir absolutt alt tegnet fra. Alle funksjonene med spillet begynner her i fra.
+    /// </summary>
+    
+    //Oppretter delegatene vi har
     public delegate void TimeEndringEvent(Object sender, TimeEventArgs e);
     public delegate void PointEndringEvent(Object sender, PointEventArgs e);
 
     public partial class MyPanel : Panel
     {
+        #region Variabler
         public event TimeEndringEvent TimeEndret;
         public event PointEndringEvent PointsEndret;
 
         private Object mySync = new Object();
         private Level loadLevel;
-        private Spiller Spiller;
+        private Spiller spiller;
 
 
         private List<Obstacle> listOfObstacles = new List<Obstacle>();
@@ -41,7 +41,7 @@ namespace CSharpProsjekt
         private List<Canon> listOfCanons = new List<Canon>();
         private List<Bullet> listOfBullets = new List<Bullet>();
 
-        static GraphicsPath startPlatform = new GraphicsPath();
+        static GraphicsPath startPlatformPath = new GraphicsPath();
         static GraphicsPath obstaclePath = new GraphicsPath();
         static GraphicsPath canonPath = new GraphicsPath();
 
@@ -49,7 +49,7 @@ namespace CSharpProsjekt
         static Region obstacleRegion;
         static Region canonRegion;
 
-        private Pen redPen = new Pen(Color.WhiteSmoke, 1);
+        private Pen colorPen = new Pen(Color.WhiteSmoke, 1);
         private SolidBrush purpleBrush = new SolidBrush(Color.Purple);
         private SolidBrush bulletBrush = new SolidBrush(Color.Black);
 
@@ -65,14 +65,14 @@ namespace CSharpProsjekt
         private Boolean levelFinished = false;
         private Boolean gameOver = false;
         private int smileysRemaining;
-        public int timeLeft { get; set; }
+        public int timeLeft;
         private int level = 1;
         private int points;
 
         private System.Windows.Forms.Timer keyboardTimer = new System.Windows.Forms.Timer();
         private System.Windows.Forms.Timer countdownTimer = new System.Windows.Forms.Timer();
         private System.Windows.Forms.Timer bulletTimer = new System.Windows.Forms.Timer();
-        
+        #endregion
 
         public MyPanel()
         {
@@ -87,14 +87,9 @@ namespace CSharpProsjekt
               ControlStyles.AllPaintingInWmPaint,
               true);
             this.UpdateStyles();
-            
         }
 
-        public void StopBalls()
-        {
-            Spiller.going = false;
-        }
-
+        #region Timer metoder
         /// <summary>
         /// Metoden blir trigret hvert 10ms av timeren keyboardTimer og sjekker om pil opp, ned, venstre eller høyre er trykt. 
         /// Klassen KeyboardInfo blir brukt, dette er en ferdig klasse funnet på nettet som tilater oss å trykke flere taster ned samtidig. 
@@ -108,28 +103,31 @@ namespace CSharpProsjekt
 
             if (left.IsPressed)
             {
-                Spiller.MoveLeft();
+                spiller.MoveLeft();
             }
 
             if (right.IsPressed)
             {
-                Spiller.MoveRight();
+                spiller.MoveRight();
             }
 
             if (up.IsPressed)
             {
-                Spiller.MoveUp();
+                spiller.MoveUp();
             }
 
             if (down.IsPressed)
             {
-                Spiller.MoveDown();
+                spiller.MoveDown();
             } 
         }
 
-        //Timeren countdownTimer trigrer denne metoden hvert sekund. 
-        //Metoden oppretter så instans av custom EventArgs TimeEventArgs og sender med int verdien timeLeft(som er resterende sekunder) i delegaten TimeEndret.
-        //BallSpill.cs abonnerer på delegaten        
+        /// <summary>
+        /// Timeren countdownTimer trigrer denne metoden hvert sekund. 
+        /// Metoden oppretter så instans av custom EventArgs TimeEventArgs og 
+        /// sender med int verdien timeLeft(som er resterende sekunder) i delegaten TimeEndret.
+        /// BallSpill.cs abonnerer på delegaten
+        /// </summary>
         void Countdown_Tick(object sender, EventArgs e)
         {
             if (timeLeft > 0)
@@ -152,13 +150,27 @@ namespace CSharpProsjekt
             }
         }
 
+        /// <summary>
+        /// Timeren bulletTimer trigrer denne metoden med en random verdi mellom 0.5 - 1 sekund
+        /// Medoden lager så en random verdi fra 0 - 3 som han sender inn til Level klassen
+        /// for så å lage en ny kule. Random verdien er til for lage en kule fra en kanon
+        /// om gangen, slik at kulene ikke blir så sykrone fra skyterene.
+        /// </summary>
         void Interval_Tick(object sender, EventArgs e)
         {
             int i = rnd.Next(0, 4);
 
             listOfBullets = loadLevel.GetBullets(i);
         }
+        #endregion
 
+        #region Ny/Start/Pause/Stop metoder for gamet
+        /// <summary>
+        /// Viss man lager et nytt spill, så legge til event på hver timer og setter intervallet de
+        /// skal gå i.
+        /// Ellers vil den starte gamet med å starte/enable alle timerene, resette poengene og opprette
+        /// ett nytt spill objekt
+        /// </summary>
         public void StartGame()
         {
             if (firstAttempt)
@@ -178,60 +190,70 @@ namespace CSharpProsjekt
 
             StartTimers();
             points = 0;
-            Spiller = new Spiller(this);
+            spiller = new Spiller(this);
         }
 
+        /// <summary>
+        /// stopper/starter timere og gamet ved å trykke på pause/fortsette knappen
+        /// </summary>
         public Boolean PauseGame()
         {
             if (keyboardTimer.Enabled == true)
             {
-                keyboardTimer.Enabled = false;
-                bulletTimer.Stop();
-                countdownTimer.Stop();
-                Spiller.going = false;
+                StopTimers(true);
+                spiller.Going = false;
                 return false;
             }
-
             else
             {
-                keyboardTimer.Enabled = true;
-                bulletTimer.Start();
-                countdownTimer.Start();
-                Spiller.going = true;
+                StartTimers();
+                spiller.Going = true;
                 return true;
             }
         }
 
+        /// <summary>
+        /// Stopper gamet/timerene, rydder hele panelet for objekter slik at man bare ser bakgrunnsbilde.
+        /// Oppdatere databasen og resetter poengsummen
+        /// </summary>
         public void StopGame()
         {
-            keyboardTimer.Stop();
-            bulletTimer.Stop();
-            countdownTimer.Stop();
+            StopTimers(false);
             ClearPanel();
-            Spiller = null;
+            spiller = null;
 
             if (points > Bruker.TopScore)
                 this.UpdateDatabase();
             points = 0;
         }
 
+        /// <summary>
+        /// Starter et nytt game ved å resette spilleren sin posisjon tilbake til start
+        /// setter gameOver til false, resette level verdien og tegner opp levelet igjen
+        /// </summary>
         public void NewGame()
         {
-            if(Spiller != null)
-                Spiller.ResetPosition();
+            if(spiller != null)
+                spiller.ResetPosition();
 
             gameOver = false;
             level = 1;
-            ClearPanel();
             LoadLevel();
         }
+        #endregion
 
-      
-
+        /// <summary>
+        /// Produsert av Tommy & Frederik
+        /// 
+        /// Her skjer alt av tegning til panelet. Bestemmer også om det skal være gameover.
+        /// Bestemmer også hva som skal skje om kollisjon på brettet skjer
+        /// </summary>
         protected override void OnPaint(PaintEventArgs e)
         {
             Graphics g = e.Graphics;
 
+            //Om det er game over, så skal man stoppe gamet, også tegne en ny tegning hvor det står 
+            // game over med store bokstaver. Denne skjøres også bare en gang
             if(gameOver && runnedOnce)
             {
                 gameOverSound.Play();
@@ -241,7 +263,10 @@ namespace CSharpProsjekt
                 runnedOnce = false;
             }
 
-            //Denne kodesnutten blir bare kjørt en gang for hver level. Obstacles og canons har ingen behov for å bli tegnet i hver OnPaint ettersom de er statisk.
+            //Denne kodesnutten blir bare kjørt en gang for hver level. 
+            //Obstacles og canons har ingen behov for å bli tegnet i hver OnPaint 
+            //ettersom de er statisk og at det ville tatt opp mye ressurser hvis dem skulle
+            //blitt tegnet ved hver onpaint.
             if (runnedOnce == false && gameOver == false)
             {
                 for (int i = 0; i < listOfObstacles.Count; i++)
@@ -254,54 +279,69 @@ namespace CSharpProsjekt
                     canonPath.AddPath(listOfCanons[i].canonPath, true);
                 }
 
-                platformRegion = new Region(startPlatform);
+                platformRegion = new Region(startPlatformPath);
                 obstacleRegion = new Region(obstaclePath);
                 canonRegion = new Region(canonPath);
 
                 runnedOnce = true;
             }
 
-            //Fyller regions med farge, og tegner omriss. SmoothingMode sørger for et finere og glattere utseende på tegninger
+            //Fyller regions med farge, og tegner omriss. SmoothingMode sørger for et 
+            //finere og glattere utseende på tegninger
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
 
+            //For hindrene
             g.FillRegion(purpleBrush, obstacleRegion);
-            g.DrawPath(redPen, obstaclePath);
+            g.DrawPath(colorPen, obstaclePath);
 
+            //For start platformen
             g.FillRegion(purpleBrush, platformRegion);
-            g.DrawPath(redPen, startPlatform);
+            g.DrawPath(colorPen, startPlatformPath);
 
+            //For kanonene
             g.FillRegion(Canon.GetColor(), canonRegion);
-            g.DrawPath(redPen, canonPath);
+            g.DrawPath(colorPen, canonPath);
 
-
-            if (this.Spiller != null)
+            #region Spillet er startet
+            //Hvis spillet er i gang, skjer dette
+            if (this.spiller != null)
             {
-                Spiller.draw(g);
+                spiller.draw(g);
 
-                if (Spiller.y + Spiller.diameter >= this.Height)
+                //Sjekker om spilleren kommer ned på bunnen, viss det skjer er det game over
+                if (spiller.y + spiller.diameter >= this.Height)
                     gameOver = true;
 
                 //Sjekker om det er flere gule smileyer igjen og at tiden ikke har gått ut. 
-                //levelFinished sørger for at diverse if setninger bare kjører en gang, samt verdien blir sendt videre via en delegat til BallSpill.cs
+                //levelFinished sørger for at diverse if setninger bare kjører en gang, samt 
+                //verdien blir sendt videre via en delegat til BallSpill.cs
                 if (smileysRemaining == 0 && timeLeft > 0 && levelFinished == false)
                 {
                     gameWonSound.Play();
                     level++;
-                    countdownTimer.Stop();
-                    keyboardTimer.Enabled = false;
+                    StopTimers(true);
                     levelFinished = true;
 
+                    //Gir 2 poeng for hvert sekund som er igjen, liten bonus
                     points += timeLeft * 2;
 
                     UpdatePoints();
-                    Spiller.ResetPosition();
+                    spiller.ResetPosition();
+
+                    //Rydder brettet slik at neste brett og forrige brett ikke blir tegnet oppå hverandre
                     ClearPanel();
                 }
 
                 //Sjekker at spillet fortsatt går
                 if(levelFinished == false)
                 {
-                    //kjører igjennom hvert objekt i listOfBullets og printer disse til skjermen. Sjekker også collision mot obstacles og spiller
+                    //kjører igjennom hvert objekt i listOfBullets og printer disse til skjermen. 
+                    //Sjekker også collision mot obstacles og spiller
+                    //Måtte tegne ballene her i graphicspath fordi at viss man gjorde dette i 
+                    //objekt klassen, så ville x og y verdien være konstante og kolisjon med noen ting
+                    //ville aldri har skjedd siden x og y verdien forsatt være på start punktet til ballen
+                    //Med å tegne graphicspathen her vil x og y verdien hele tiden følge ballen og 
+                    //kollisjon vil oppstå om det skjer
                     for (int i = 0; i < listOfBullets.Count; i++)
                     {
                         Bullet bullet = listOfBullets[i];
@@ -313,52 +353,64 @@ namespace CSharpProsjekt
 
                         bullet.Draw(g);
 
-                        if (CheckCollision(bulletPath, Spiller.GetPath(), e))
+                        //Sjekker kollisjon opp i mot spilleren
+                        if (CheckCollision(bulletPath, spiller.GetPath(), e))
                         {
                             gameOver = true;
                         }
+                        //Sjekker kollisjon opp i mot hindrene og brett kanten og fjerner den fra listen
                         if (CheckCollision(bulletPath, obstaclePath, e) || bullet.x > this.Width || bullet.y > this.Height || bullet.x < 0 || bullet.y < 0)
                         {
                             listOfBullets.RemoveAt(i);
                         }
                     }
                 }
-                //Kjører igjennom hvert objekt i listOfSmileys og printer disse til skjermen. Sjekker også collision mot spiller.
+                //Kjører igjennom hvert objekt i listOfSmileys og printer disse til skjermen. 
+                //Sjekker også collision mot spiller.
                 for (int i = 0; i < listOfSmileys.Count; i++)
                 {
                     Smiley smiley = listOfSmileys[i];
 
                     smiley.Draw(g);
 
-                    if (CheckCollision(smiley.GetPath(), Spiller.GetPath(), e))
+                    //Sjekker kollisjon mot spilleren, skjer det så oppdatere den smileyremaining
+                    //verdien for smiley som må tas(om smileyen er gule). 
+                    //er smileyen rød, vil man bytte gravitasjonen
+                    //også fjerne smileyen fra listen så den ikke blir tegnet igjen
+                    if (CheckCollision(smiley.GetPath(), spiller.GetPath(), e))
                     {
                         gunFireSound.Play();
                         listOfSmileys.RemoveAt(i);
-                        points += smiley.GetValue();
+                        points += smiley.Value;
 
                         //Sjekker om smileyen er gul, for så å fjerne en count fra int variabelen smileysRemaining.
-                        if (smiley.GetValue() == 100)
+                        if (smiley.Value == 100)
                             smileysRemaining--;
 
-                        if (smiley.GetValue() == 150)
-                            Spiller.ReverseGravity();
+                        if (smiley.Value == 150)
+                            spiller.ReverseGravity();
 
                         UpdatePoints();
                     }
                 }
 
-                //Sender spiller tilbake til start om det blir detected collision mot obstacle eller canon.
-                if (CheckCollision(obstaclePath, Spiller.GetPath(), e) || CheckCollision(canonPath, Spiller.GetPath(), e))
+                //Sender spiller tilbake til start om det blir detected collision mot obstacle 
+                //eller canon.
+                //Viss det skjer en kollisjon vil poengene trekkes med 75
+                if (CheckCollision(obstaclePath, spiller.GetPath(), e) || CheckCollision(canonPath, spiller.GetPath(), e))
                 {
-                    Spiller.ResetPosition();
+                    spiller.ResetPosition();
                     points -= 75;
 
                     UpdatePoints();
                 }
+            #endregion
             }   
         }
+        
         /// <summary>
-        /// Sjekker og region1 og region2 kolliderer. Om region1 ikke er tom etter .Intersect har det vert en kollisjon
+        /// Sjekker og region1 og region2 kolliderer. 
+        /// Om region1 ikke er tom etter .Intersect har det vert en kollisjon
         /// </summary>
         private Boolean CheckCollision(GraphicsPath path1, GraphicsPath path2, PaintEventArgs e)
         {
@@ -379,28 +431,32 @@ namespace CSharpProsjekt
         
         /// <summary>
         /// fyller opp loadLevel objektet Level med int level som parameter. 
-        /// En Switch case i Level klassen fyller tabeller med riktig info som blir tilgjengelig via get metoder
-        /// Tiden blir startet og levelFinished blir satt til false, slik at diverse if setninger i onPaint blir true.
+        /// En Switch case i Level klassen fyller tabeller med riktig info som blir tilgjengelig 
+        /// via get metoder. Tiden blir startet og levelFinished blir satt til false, 
+        /// slik at diverse if setninger i onPaint blir true.
         /// </summary>
         public void LoadLevel()
         {
-            if (Spiller != null && Spiller.gravityReversed)
-                Spiller.ReverseGravity();
+            //Hvis gravitasjonen er reversert fra utgangspunkt, vil den bli snudd til normal gravitasjon
+            if (spiller != null && spiller.GravityReversed)
+                spiller.ReverseGravity();
 
             UpdatePoints();
 
             StartPlatform();
-            loadLevel = new Level(2);
+            loadLevel = new Level(level);
 
+            //Oppdatere de forskjellige listene og time left med riktig verdier for level
             timeLeft = loadLevel.GetTimeLeft();
             listOfObstacles = loadLevel.GetObstacles();
             listOfCanons = loadLevel.GetCanons();
             listOfSmileys = loadLevel.GetSmileys();
 
-            //Teller antall gule smileyer i listOfSmileys, ettersom alle andre smileyer er valgfrie. smileysRemaining brukes senere for å sjekke om alle gule smileyer er tatt.
+            //Teller antall gule smileyer i listOfSmileys, ettersom alle andre smileyer er valgfrie. 
+            //SmileysRemaining brukes senere for å sjekke om alle gule smileyer er tatt.
             smileysRemaining = 0;
             foreach (Smiley s in listOfSmileys)
-                if (s.value == 100)
+                if (s.Value == 100)
                     smileysRemaining++;
 
             runnedOnce = false;
@@ -409,9 +465,10 @@ namespace CSharpProsjekt
         }
 
         /// <summary>
-        /// Alle lister med objekter blir tømt, samt graphicsPath og regions. timer for keyboardinput og countdown stoppes.
+        /// Alle lister med objekter blir tømt, samt graphicsPath og regions. 
+        /// Timer for keyboardinput og countdown og kulene stoppes.
         /// </summary>
-        private void ClearPanel()
+        public void ClearPanel()
         {
             listOfObstacles.Clear();
             listOfCanons.Clear();
@@ -419,27 +476,19 @@ namespace CSharpProsjekt
             listOfBullets.Clear();
 
             obstaclePath.Reset();
-            startPlatform.Reset();
+            startPlatformPath.Reset();
             canonPath.Reset();
 
             obstacleRegion.MakeEmpty();
             platformRegion.MakeEmpty();
             canonRegion.MakeEmpty();
 
-            keyboardTimer.Enabled = false;
-            countdownTimer.Stop();
-        }
-        public void StartTimers()
-        {
-            bulletTimer.Start();
-            countdownTimer.Start();
-
-            keyboardTimer.Enabled = true;
+            StopTimers(true);
         }
 
         /// <summary>
-        /// Egendefinert EventArgs PointEventArgs blir tildelt parametere, og sendt inn i delegatet PointsEndret. 
-        /// Dette blir abonnert på i BallSpill.cs for å oppdatere panelet i bunn.
+        /// Egendefinert EventArgs PointEventArgs blir tildelt parametere, og sendt inn i 
+        /// delegatet PointsEndret.Dette blir abonnert på i BallSpill.cs for å oppdatere panelet i bunn.
         /// </summary>
         private void UpdatePoints()
         {
@@ -460,14 +509,47 @@ namespace CSharpProsjekt
         private void StartPlatform()
         {
             Rectangle start = new Rectangle(0, 25, 30, 5);
-            startPlatform.AddRectangle(start);
-            startPlatform.CloseFigure();
+            startPlatformPath.AddRectangle(start);
+            startPlatformPath.CloseFigure();
         }
+
+        /// <summary>
+        /// Opdatere databasen og bruker objekt klassen med brukerens største topscore.
+        /// Level vil også bli oppdatert da.
+        /// </summary>
         private void UpdateDatabase()
         {
             string query = String.Format("UPDATE Konto SET TopScore = '{0}', Level = '{1}' WHERE Navn = '{2}'", points, level, Bruker.Navn);
             db.InsertAll(query);
             Bruker.AddTopScoreLevelToBruker(points, level);
         }
+
+        #region Start/stop timers
+        /// <summary>
+        /// Starter alle timere og sette enable = true på den ene. 
+        /// </summary>
+        public void StartTimers()
+        {
+            bulletTimer.Start();
+            countdownTimer.Start();
+
+            keyboardTimer.Enabled = true;
+        }
+
+        /// <summary>
+        /// Stopper alle timerene som vi bruker. Satt med en bolsk verdi for å enten stoppe eller enable
+        /// keybordtimern. Var en plass i koden hvor vi stoppet den i steden for å bare sette enable = false;
+        /// </summary>
+        /// <param name="verdi"></param>
+        public void StopTimers(bool verdi)
+        {
+            bulletTimer.Stop();
+            countdownTimer.Stop();
+            if (verdi == true)
+                keyboardTimer.Enabled = false;
+            else
+                keyboardTimer.Stop();
+        }
+        #endregion
     } 
 }

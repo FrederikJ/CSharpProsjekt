@@ -5,17 +5,15 @@ using System.Windows.Forms;
 using System.Threading;
 using System.Drawing.Drawing2D;
 
-/*
- * HiN - Vårsemester 2014
- * Programmering 3
- * Obligatorisk Innlevering 4
- * 
- * Skrevet av:
- * Tommy Langhelle
- */
-
 namespace CSharpProsjekt.SpillKlasser
 {
+    /// <summary>
+    /// Spiller.cs av tommy Langhelle
+    /// Programmering 3 - C# Prosjekt
+    /// 
+    /// Her er spiller brikken objekt klasse. Settes gravitasjonen, også lagt inn at gravtasjonen
+    /// kan snu seg på røde smileya, snu seg flere ganger også og starter egen tråd for spilleren
+    /// </summary>
     class Spiller
     {
         //Størrelse:
@@ -29,19 +27,18 @@ namespace CSharpProsjekt.SpillKlasser
         private float Adx = 1.0f;
         private float AdyDown = 1.0f;
         private float AdyUp = 2.5f;
-        public Boolean gravityReversed { get; set; }
-
-        public bool going { get; set; }
-
+        
         private Object mySync = new Object();
+        private MyPanel parentPanel;
 
         private Brush Brush = new SolidBrush(Color.Wheat);
         Random rnd = new Random();
 
-        private MyPanel parentPanel;
-
         private ThreadStart ts;
-        private Thread thread;
+        public Thread thread;
+
+        public Boolean GravityReversed { get; set; }
+        public bool Going { get; set; }
 
         public Spiller(MyPanel _parentPanel)
         {
@@ -49,14 +46,14 @@ namespace CSharpProsjekt.SpillKlasser
             y = 2.5f;
             diameter = 20.0f;
 
-            gravityReversed = false;
+            GravityReversed = false;
             parentPanel = _parentPanel;
 
             //ligger metoden "run" inn i en thread.
             ts = new ThreadStart(Run);
             thread = new Thread(ts);
 
-            going = true;
+            Going = true;
             thread.IsBackground = true;
             thread.Start();
         }
@@ -64,23 +61,14 @@ namespace CSharpProsjekt.SpillKlasser
         //Bestemmer hastigheten ballene beveger seg i.
         public void Run()
         {
-            while (going)
+            while(Going)
             {
                 Tyngdekraft();
                 Thread.Sleep(10);
             }
         }
-        public void Pause()
-        {
-            if (going == true)
-                going = false;
 
-            else
-            {
-                going = true;
-            }
-
-        }
+        //Tegner figuren i graphicspathen også retunere den
         public GraphicsPath GetPath()
         {
            GraphicsPath playerPath = new GraphicsPath();
@@ -92,11 +80,12 @@ namespace CSharpProsjekt.SpillKlasser
            return playerPath;
         }
 
+        //Reversere den nåværende gravitasjonen
         public void ReverseGravity()
         {
             float tempAdY;
 
-            if(gravityReversed == false)
+            if(GravityReversed == false)
             {
                 dy = -0.7f;
 
@@ -104,7 +93,7 @@ namespace CSharpProsjekt.SpillKlasser
                 AdyDown = AdyUp;
                 AdyUp = tempAdY;
 
-                gravityReversed = true;
+                GravityReversed = true;
             }
             else
             {
@@ -114,7 +103,7 @@ namespace CSharpProsjekt.SpillKlasser
                 AdyUp = AdyDown;
                 AdyDown = tempAdY;
 
-                gravityReversed = false;
+                GravityReversed = false;
             }
             
         }
@@ -172,11 +161,13 @@ namespace CSharpProsjekt.SpillKlasser
         }
         #endregion
 
+        //Tegner spilleren
         public void draw(Graphics g)
         {
             g.FillEllipse(Brush, x, y, diameter, diameter);
         }
 
+        //Setter spilleren sin posisjon tilbake til start
         public void ResetPosition()
         {
             x = 0;

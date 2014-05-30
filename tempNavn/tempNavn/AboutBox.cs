@@ -11,6 +11,14 @@ using CSharpProsjekt.LoginKlasser;
 
 namespace CSharpProsjekt
 {
+    /// <summary>
+    /// AboutBox.cs av Tommy Langhelle & Frederik Johnsen
+    /// Programmering 3 - C# Prosjekt
+    /// 
+    /// Denne dukker opp når man trykker oppe i Menu Item listen på toppen av programmet. 
+    /// Får man opp et nytt vindu hvor det står litt om spillet og regler, hvordan spillet fungere
+    /// og beskrivelse av de forskjellige komponentene
+    /// </summary>
     public partial class AboutBox : Form
     {
         //private string text = "Her skal det komme beskrivelse av regler og annen nyttig informasjon vedrørende spillet";

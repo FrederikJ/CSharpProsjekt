@@ -7,6 +7,9 @@ using System.Windows.Forms;
 namespace CSharpProsjekt.SpillKlasser
 {
     /// <summary>
+    /// KeyBordInfo.cs av Tommy Langhelle
+    /// Programmering 3 - C# Projekt
+    /// 
     /// Klasse for når du trykker på piltatastene
     /// http://sanity-free.org/17/obtaining_key_state_info_in_dotnet_csharp_getkeystate_implementation.html
     /// </summary>

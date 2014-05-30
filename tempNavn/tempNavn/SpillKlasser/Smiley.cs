@@ -8,6 +8,12 @@ using System.Threading.Tasks;
 
 namespace CSharpProsjekt.SpillKlasser
 {
+    /// <summary>
+    /// Smiley.cs av Tommy Langhelle
+    /// Programmering 3 - C# Prosjekt
+    /// 
+    /// Smiley objekt klassen som bestemmer verdien på  hver smiley, lager nye smileyer og tegner dem
+    /// </summary>
     class Smiley
     {
        private GraphicsPath smileyPath = new GraphicsPath();
@@ -16,8 +22,9 @@ namespace CSharpProsjekt.SpillKlasser
         public int x;
         public int y;
         public int diameter = 30;
-        public int value;
+        public int Value { get; set; }
 
+        //Kontruktor, setter også verdien på dem og farge
         public Smiley(int _x, int _y, int _value)
         {
             x = _x;
@@ -30,36 +37,30 @@ namespace CSharpProsjekt.SpillKlasser
             {
                 case 1:
                     color = new SolidBrush(Color.Yellow);
-                    value = 100;
+                    Value = 100;
                     break;
                 case 2:
                     color = new SolidBrush(Color.Red);
-                    value = 150;
+                    Value = 150;
                     break;
                 case 3:
                     color = new SolidBrush(Color.Blue);
-                    value = 200;
+                    Value = 200;
                     break;
                 case 4:
                     color = new SolidBrush(Color.Green);
-                    value = 300;
+                    Value = 300;
                     break;
             }
         }
 
-        public SolidBrush GetColor()
-        {
-            return color;
-        }
-        public int GetValue()
-        {
-            return value;
-        }
+        //Henter graphicspathen
         public GraphicsPath GetPath()
         {
             return smileyPath;
         }
 
+        //Tegner smileyen
         public void Draw(Graphics g)
         {
             g.FillEllipse(color, x, y, diameter, diameter);

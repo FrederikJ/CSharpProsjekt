@@ -8,26 +8,37 @@ using System.Windows.Forms;
 
 namespace CSharpProsjekt.SpillKlasser
 {
+    /// <summary>
+    /// Bullet.cs av Frederik Johnsen
+    /// Programmering 3 - C# Prosjekt
+    /// 
+    /// Kule objekt klassen våres. 
+    /// </summary>
     class Bullet
      {
         //Størrelse:
         public float diameter { get; set; }
+        //Startpunkt
         public int x { get; set; }
         public int y { get; set; }
-        private int originalX;
-        private int originalY;
+        //Fart
         private int dx;
         private int dy;
+        //Rettning
         private string direction;
 
         public bool keepGoing { get; set; }
         private static SolidBrush bulletColor = new SolidBrush(Color.Black);
 
+        /// <summary>
+        /// Konstruktoren, opprette en ny kule
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="direction"></param>
         public Bullet(int x, int y, string direction)
         {
             diameter = 5;
-            originalX = x;
-            originalY = y;
             this.x = x;
             this.y = y;
             dx = 1;
@@ -36,12 +47,11 @@ namespace CSharpProsjekt.SpillKlasser
             this.direction = direction;
             direction.ToLower();
         }
-        public void ResetPosition()
-        {
-            x = originalX;
-            y = originalY;
-        }
 
+        /// <summary>
+        /// Velge hvilken retning den går også sette fart på den nårværende posisjonen til ballen
+        /// </summary>
+        /// <param name="g"></param>
         public void Draw(Graphics g)
         {
             switch (direction)

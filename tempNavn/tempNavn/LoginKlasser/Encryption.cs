@@ -1,0 +1,61 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
+using System.Web;
+
+namespace CSharpProsjekt.LoginKlasser
+{
+    /// <summary>
+    /// Encryption.cs av Tommy Langhelle
+    /// Programmering 3 - C# Prosjekt
+    /// 
+    /// Krypterer brukerpassord.
+    /// </summary>
+    public static class Encryption
+    {
+        static readonly string PasswordHash = "P@@Sw0rdH@$h1ng";
+        static readonly string SaltKey = "$@LT&K3Y";
+        static readonly string VIKey = "@1B2c3D4e5F6g7H8";
+
+        //Retunere true eller false om passordene er lik etter han har decryptert passordet som er
+        //skrivet inn.
+        public static bool Decrypt(string userpass, string databasepass)
+        {
+            string decryption = Encrypt(userpass);
+            if (decryption == databasepass)
+            {
+                return true;
+            }
+            else
+                return false;
+        }
+
+        //Får in plain text, for så å salte og hashe passordet forså å retunere stringen
+        public static string Encrypt(string plainText)
+        {
+            byte[] plainTextBytes = Encoding.UTF8.GetBytes(plainText);
+
+            byte[] keyBytes = new Rfc2898DeriveBytes(PasswordHash, Encoding.ASCII.GetBytes(SaltKey)).GetBytes(256 / 8);
+            var symmetricKey = new RijndaelManaged() { Mode = CipherMode.CBC, Padding = PaddingMode.Zeros };
+            var encryptor = symmetricKey.CreateEncryptor(keyBytes, Encoding.ASCII.GetBytes(VIKey));
+
+            byte[] cipherTextBytes;
+
+            using (var memoryStream = new MemoryStream())
+            {
+                using (var cryptoStream = new CryptoStream(memoryStream, encryptor, CryptoStreamMode.Write))
+                {
+                    cryptoStream.Write(plainTextBytes, 0, plainTextBytes.Length);
+                    cryptoStream.FlushFinalBlock();
+                    cipherTextBytes = memoryStream.ToArray();
+                    cryptoStream.Close();
+                }
+                memoryStream.Close();
+            }
+            return Convert.ToBase64String(cipherTextBytes);
+        }
+    }
+}

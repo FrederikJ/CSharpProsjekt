@@ -11,6 +11,13 @@ using CSharpProsjekt.LoginKlasser;
 
 namespace CSharpProsjekt
 {
+    /// <summary>
+    /// TopScore.cs av Frederik Johnsen
+    /// Programmering 3 - C# Prosjekt
+    /// 
+    /// Topscore vinduet vår. Henter ut de ti brukere med størt topscore som har en topscore, 
+    /// en buker kan ikke ha flere plasser i topscore listen
+    /// </summary>
     public partial class TopScore : Form
     {
         private DbConnect db = new DbConnect();
@@ -26,9 +33,9 @@ namespace CSharpProsjekt
             dgvScore.DataSource = bindingSource;
             dgvScore.Columns["Id"].Visible = false;
             dgvScore.Columns["Passord"].Visible = false;
-            dgvScore.Columns["Epost"].Visible = false;
             dgvScore.AllowUserToAddRows = false;
         }
+
         void dgvScore_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
             this.dgvScore.Rows[e.RowIndex].Cells[0].Value = (e.RowIndex + 1).ToString();

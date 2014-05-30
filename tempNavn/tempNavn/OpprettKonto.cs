@@ -11,18 +11,23 @@ using CSharpProsjekt.LoginKlasser;
 
 namespace CSharpProsjekt
 {
+    /// <summary>
+    /// OpprettKonto.cs av Frederik Johnsen
+    /// Programmering 3 - C# Prosjekt
+    /// 
+    /// Opprett bruker klasse
+    /// </summary>
     public partial class OpprettKonto : Form
     {
         private string navn;
         private string passord;
         private string bekreftPassord;
-        private string epost;
-        private string bekreftelsesKode;
         private Boolean userExists = false;
         private DataTable dt;
 
         DbConnect db = new DbConnect();
         
+        //Henter ut alle brukerene fra databasen
         public OpprettKonto()
         {
             dt = new DataTable();
@@ -32,13 +37,14 @@ namespace CSharpProsjekt
 
         }
 
+        //Henter ut all informasjonene i tekstboksen forså å kryptere passordet og sjekker at 
+        //begge passordene er like og at navnet ikke eksistere fra før i databasen, viss sjekkene blir
+        //blir godkjent, så legges det inn en ny bruker i databasen
         private void btnOpprett_Click(object sender, EventArgs e)
         {
             navn = tbNavn.Text;
             passord = Encryption.Encrypt(tbPassord.Text);
             bekreftPassord = Encryption.Encrypt(tbBekreftPassord.Text);
-            epost = tbEpost.Text;
-            bekreftelsesKode = LageTilfeldigString.TilfeldigString(10);
 
             for (int i = 0; i < dt.Rows.Count; i++)
             {
@@ -48,13 +54,9 @@ namespace CSharpProsjekt
 
             if (passord == bekreftPassord && userExists == false)
             {
-                string query = string.Format("Insert into Konto(Navn, Passord, Epost) values('{0}', '{1}', '{2}')", navn, passord, epost);
+                string query = string.Format("Insert into Konto(Navn, Passord) values('{0}', '{1}', '{2}')", navn, passord);
                 db.InsertAll(query);
 
-                /*string beskjed = "Grattis, du har nu blitt registrert her hos oss SimpleGame.com";
-                string emne = "Registrert";
-
-                SendEmail.sendEpost(epost, beskjed, emne);*/
                 this.Close();
             }
             else if (userExists)
@@ -68,8 +70,7 @@ namespace CSharpProsjekt
             {
                 lblFeil.Text = "Passordene er ikke like";
                 lblFeil.Visible = true;
-            }
-                
-            }
+            }  
+        }
     }
 }

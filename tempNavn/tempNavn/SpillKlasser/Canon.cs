@@ -9,6 +9,12 @@ using System.Threading.Tasks;
 
 namespace CSharpProsjekt.SpillKlasser
 {
+    /// <summary>
+    /// Canon.cs av Frederik Johnsen
+    /// Programmering 3 - C# Prosjekt
+    /// 
+    /// Kanon objekt klassen våres
+    /// </summary>
     class Canon
     {
         public GraphicsPath canonPath = new GraphicsPath();
@@ -17,6 +23,13 @@ namespace CSharpProsjekt.SpillKlasser
         public int X { get; set; }
         public int Y { get; set; }
 
+        /// <summary>
+        /// Konstruktoren, opprette en ny kanon, bestemme retningen til kanon og sende deg videre rett
+        /// med start posisjon
+        /// </summary>
+        /// <param name="startX"></param>
+        /// <param name="startY"></param>
+        /// <param name="direction"></param>
         public Canon(int startX, int startY, string direction)
         {
             this.X = startX;
@@ -43,6 +56,12 @@ namespace CSharpProsjekt.SpillKlasser
             }
         }
 
+        /// <summary>
+        /// Tegne kanon og adder den til graphicspath i riktig retning
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        #region
         public void PointLeft(int x, int y)
         {
             canonPoints = new Point[3];
@@ -94,15 +113,15 @@ namespace CSharpProsjekt.SpillKlasser
             canonPath.AddLines(canonPoints);
             canonPath.CloseFigure();
         }
-            
+        #endregion
+
+        /// <summary>
+        /// Get metode for fargen til kanonene. Slik at det er tilgjengelig globalt
+        /// </summary>
+        /// <returns></returns>
         public static SolidBrush GetColor()
         {
             return canonColor;
-        }
-
-        public GraphicsPath GetPath()
-        {
-            return canonPath;
         }
     }
 }

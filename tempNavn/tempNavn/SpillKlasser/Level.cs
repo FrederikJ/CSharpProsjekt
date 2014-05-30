@@ -1,12 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Linq; 
 using System.Text;
 using System.Threading.Tasks;
 
 namespace CSharpProsjekt.SpillKlasser
 {
-
+    /// <summary>
+    /// Level.cs av Frederik Johnsen & Tommy Langhelle
+    /// Programmering 3 - C# Prosjekt
+    /// 
+    /// Her er Level objekt klassen våres. 
+    /// Oppretter vi alle levelene, hvor mye tid vi får på hvert level også lage nye kuler for 
+    /// timeren som styre skytingen av kuler
+    /// </summary>
     class Level
     {
         private List<Obstacle> listOfObstacles = new List<Obstacle>();
@@ -14,6 +21,7 @@ namespace CSharpProsjekt.SpillKlasser
         private List<Canon> listOfCanons = new List<Canon>();
         private List<Bullet> listOfBullets = new List<Bullet>();
 
+        #region start punktet til kanonene med rett retning
         private int canonUpX;
         private int canonUpY;
 
@@ -25,10 +33,15 @@ namespace CSharpProsjekt.SpillKlasser
 
         private int canonRightX;
         private int canonRightY;
+        #endregion
 
         private int level;
         private int timeLeft;
 
+        /// <summary>
+        /// Får inn riktig level, også henter den alt som skal tegnes til levelet
+        /// </summary>
+        /// <param name="_level"></param>
         public Level(int _level)
         {
             level = _level;
@@ -59,26 +72,36 @@ namespace CSharpProsjekt.SpillKlasser
                     break;
             }
         }
+
+        //Henter tiden som er igjen
         public int GetTimeLeft()
         {
             return timeLeft;
         }
 
+        //Henter litsten til hindere
         public List<Obstacle> GetObstacles()
         {
             return listOfObstacles;
         }
 
+        //Henter listen til smileyene
         public List<Smiley> GetSmileys()
         {
             return listOfSmileys;
         }
 
+        //Henter listen til kanonene
         public List<Canon> GetCanons()
         {
             return listOfCanons;
         }
 
+        /// <summary>
+        /// Lager en kule og adder den til listen forså å retunere listen igjen
+        /// </summary>
+        /// <param name="i"></param>
+        /// <returns></returns>
         public List<Bullet> GetBullets(int i)
         {
             switch (i)
@@ -100,6 +123,11 @@ namespace CSharpProsjekt.SpillKlasser
             }
             return listOfBullets;
         }
+
+        /// <summary>
+        /// Henter ut all kordinatene til tingene som trengs for å  tegne hvert level
+        /// </summary>
+        #region level
         private void LevelOne()
         {
             canonDownX = 565;
@@ -172,6 +200,7 @@ namespace CSharpProsjekt.SpillKlasser
             listOfCanons.Add(new Canon(canonUpX, canonUpY, "up"));
             listOfCanons.Add(new Canon(canonLeftX, canonLeftY, "left"));
         }
+
         private void LevelThree()
         {
             canonDownX = 440;
@@ -256,6 +285,7 @@ namespace CSharpProsjekt.SpillKlasser
             listOfCanons.Add(new Canon(canonUpX, canonUpY, "up"));
             listOfCanons.Add(new Canon(canonLeftX, canonLeftY, "left"));
         }
+
         private void LevelFive()
         {
             canonDownX = 700;
@@ -329,5 +359,6 @@ namespace CSharpProsjekt.SpillKlasser
             listOfCanons.Add(new Canon(canonUpX, canonUpY, "up"));
             listOfCanons.Add(new Canon(canonLeftX, canonLeftY, "left"));
         }
+        #endregion
     }
 }
