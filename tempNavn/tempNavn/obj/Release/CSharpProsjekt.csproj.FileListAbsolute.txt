@@ -12,3 +12,17 @@ C:\Users\Frederik\Documents\GitHub\CSharpProsjekt\tempNavn\tempNavn\obj\Release\
 C:\Users\Frederik\Documents\GitHub\CSharpProsjekt\tempNavn\tempNavn\obj\Release\DotWars.exe
 C:\Users\Frederik\Documents\GitHub\CSharpProsjekt\tempNavn\tempNavn\obj\Release\DotWars.pdb
 C:\Users\Frederik\Documents\GitHub\CSharpProsjekt\tempNavn\tempNavn\obj\Release\CSharpProsjekt.csprojResolveAssemblyReference.cache
+C:\Users\Tommy\Documents\Skole\Programmering 3\ObligSpill\CSharpProsjekt\tempNavn\tempNavn\bin\Release\DotWars.exe.config
+C:\Users\Tommy\Documents\Skole\Programmering 3\ObligSpill\CSharpProsjekt\tempNavn\tempNavn\obj\Release\DotWars.exe
+C:\Users\Tommy\Documents\Skole\Programmering 3\ObligSpill\CSharpProsjekt\tempNavn\tempNavn\obj\Release\DotWars.pdb
+C:\Users\Tommy\Documents\Skole\Programmering 3\ObligSpill\CSharpProsjekt\tempNavn\tempNavn\bin\Release\DotWars.exe
+C:\Users\Tommy\Documents\Skole\Programmering 3\ObligSpill\CSharpProsjekt\tempNavn\tempNavn\bin\Release\DotWars.pdb
+C:\Users\Tommy\Documents\Skole\Programmering 3\ObligSpill\CSharpProsjekt\tempNavn\tempNavn\bin\Release\MySql.Data.dll
+C:\Users\Tommy\Documents\Skole\Programmering 3\ObligSpill\CSharpProsjekt\tempNavn\tempNavn\obj\Release\CSharpProsjekt.csprojResolveAssemblyReference.cache
+C:\Users\Tommy\Documents\Skole\Programmering 3\ObligSpill\CSharpProsjekt\tempNavn\tempNavn\obj\Release\CSharpProsjekt.AboutBox.resources
+C:\Users\Tommy\Documents\Skole\Programmering 3\ObligSpill\CSharpProsjekt\tempNavn\tempNavn\obj\Release\CSharpProsjekt.Playball.resources
+C:\Users\Tommy\Documents\Skole\Programmering 3\ObligSpill\CSharpProsjekt\tempNavn\tempNavn\obj\Release\CSharpProsjekt.CreateAccount.resources
+C:\Users\Tommy\Documents\Skole\Programmering 3\ObligSpill\CSharpProsjekt\tempNavn\tempNavn\obj\Release\CSharpProsjekt.Properties.Resources.resources
+C:\Users\Tommy\Documents\Skole\Programmering 3\ObligSpill\CSharpProsjekt\tempNavn\tempNavn\obj\Release\CSharpProsjekt.Resource.resources
+C:\Users\Tommy\Documents\Skole\Programmering 3\ObligSpill\CSharpProsjekt\tempNavn\tempNavn\obj\Release\CSharpProsjekt.TopScore.resources
+C:\Users\Tommy\Documents\Skole\Programmering 3\ObligSpill\CSharpProsjekt\tempNavn\tempNavn\obj\Release\CSharpProsjekt.csproj.GenerateResource.Cache

@@ -74,7 +74,7 @@ namespace CSharpProsjekt
         private Boolean gameOver = false;
         private int smileysRemaining;
         public int timeLeft; //Stoppeklokke, hvor lang tid man har igjen på banen
-        private int level = 1;
+        private int level;
         private int points;
 
         //Thread / Timer
@@ -93,7 +93,6 @@ namespace CSharpProsjekt
         public MyPanel()
         {
             introSound.Play();
-            
             
             //Må sittes her for at .heigth og .width skal returnere riktig verdi.
             this.Size = new System.Drawing.Size(728, 404);
@@ -255,6 +254,7 @@ namespace CSharpProsjekt
 
             if (points > User.TopScore)
                 this.UpdateDatabase();
+            level = 0;
         }
 
         /// <summary>
@@ -267,7 +267,7 @@ namespace CSharpProsjekt
                 player.ResetPosition();
 
             gameOver = false;
-            level = 1;
+            level = 0;
             LoadLevel();
         }
 #endregion
@@ -343,11 +343,11 @@ namespace CSharpProsjekt
             //Hvis gravitasjonen er reversert fra utgangspunkt, vil den bli snudd til normal gravitasjon
             if (player != null && player.GravityReversed)
                 player.ReverseGravity();
-            
-            UpdatePoints();
 
             StartPlatform();
+            level++;
             loadLevel = new Level(level);
+            UpdatePoints();
 
             //Oppdatere de forskjellige listene og time left med riktig verdier for level
             timeLeft = loadLevel.GetTimeLeft();
@@ -472,15 +472,11 @@ namespace CSharpProsjekt
         /// </summary>
         protected override void OnPaint(PaintEventArgs e)
         {
-            //Finner antall ticks siden sist (10000 ticks per millisekund):
-            long elapsedTicks = DateTime.Now.Ticks - lastTime.Ticks;        //lastTime sette nederst i calculateFPS metoden.
-            //Finner differansen som et timespan-objekt:
-            TimeSpan elapsedSpan = new TimeSpan(elapsedTicks);
-            //Finner forløpt tid siden siste kall på OnPaint- i antall sekunder:
-            double elapsed = (elapsedSpan.Milliseconds) / 1000.0; //NB! .0
-            //Beregner og trigrer delegat:
-            CalculateFPS(elapsed);
-            //Setter lastTime:
+            //FPS variabler
+            long elapsedTicks = DateTime.Now.Ticks - lastTime.Ticks; //lastTime sette nederst i calculateFPS metoden.
+            TimeSpan elapsedSpan = new TimeSpan(elapsedTicks); //Finner differansen som et timespan-objekt:
+            double elapsed = (elapsedSpan.Milliseconds) / 1000.0; //Finner forløpt tid siden siste kall på OnPaint- i antall sekunder
+            CalculateFPS(elapsed);//Beregner FPS og trigrer delegat:
             lastTime = DateTime.Now;
 
             Graphics g = e.Graphics;
@@ -565,7 +561,6 @@ namespace CSharpProsjekt
                     //Gir 2 poeng for hvert sekund som er igjen, liten bonus
                     points += timeLeft * 2;
 
-                    level++;
                     if (level > 5)
                         gameFinished = true;
 
